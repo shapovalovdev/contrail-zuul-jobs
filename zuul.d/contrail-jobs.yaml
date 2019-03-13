@@ -239,8 +239,8 @@
       This job generates a HTML report of changes included in the last nightly
       build.
     run: playbooks/generate-build-change-info/run.yaml
-    required-projects:
-      - tungsten-infra/ci-utils
+#    required-projects:
+#      - tungsten-infra/ci-utils
     nodeset: builder-centos-7
 
 - job:

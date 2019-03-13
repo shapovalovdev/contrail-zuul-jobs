@@ -35,14 +35,14 @@
   become_user: root
   when: 'ansible_distribution == "RedHat"'
 
-- name: remove the upstream yum repos
-  yum_repository:
-    name: "{{ item.name }}"
-    file: "{{ item.file }}"
-    state: absent
-  with_items: "{{ repos_remove }}"
-  become: yes
-  become_user: root
+#- name: remove the upstream yum repos
+#  yum_repository:
+#    name: "{{ item.name }}"
+#    file: "{{ item.file }}"
+#    state: absent
+#  with_items: "{{ repos_remove }}"
+#  become: yes
+#  become_user: root
 
 - name: prepare local base yum mirror repo file
   yum_repository:
