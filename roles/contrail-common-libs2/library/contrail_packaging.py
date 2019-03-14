@@ -36,7 +36,7 @@ def main():
     )
 
     zuul = module.params['zuul']
-    print("ZUUL123: %s" % str(project))
+    print("ZUUL123: %s" % str(zuul))
     release_type = module.params['release_type']
     build_number = module.params['build_number']
     openstack_version = module.params['openstack_version']
