@@ -36,8 +36,6 @@ def main():
     )
 
     zuul = module.params['zuul']
-    print("ZUUL123: %s" % str(zuul))
-    print("PROJECTS123: %s" % str(zuul['projects']))
     release_type = module.params['release_type']
     build_number = module.params['build_number']
     openstack_version = module.params['openstack_version']
@@ -76,8 +74,7 @@ def main():
     repo_name = docker_version
 
     debian_dir = None
-    for project in zuul['projects']:
-        print("PROJECT123: %s" % str(project))
+    for _, project in zuul['projects'].items():
         if project['short_name'] == 'contrail-packages':
             debian_dir = project['src_dir']
     if debian_dir:
