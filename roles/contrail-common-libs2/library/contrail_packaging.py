@@ -75,7 +75,7 @@ def main():
 
     debian_dir = None
     for project in zuul['projects']:
-        print "project: %s" % str(project)
+        print("project: %s" % str(project))
         if project['short_name'] == 'contrail-packages':
             debian_dir = project['src_dir']
     if debian_dir:
