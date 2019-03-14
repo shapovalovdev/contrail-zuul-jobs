@@ -10,7 +10,7 @@
 # (gerrit) System.
 #
 [gerrit]
-host=review.opencontrail.org
+host=gerrit-test.ddns.net
 port=29418
 project=Juniper/contrail-zuul-jobs.git
 defaultbranch=master
