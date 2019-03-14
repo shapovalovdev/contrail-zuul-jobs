@@ -35,14 +35,14 @@
   become_user: root
   when: 'ansible_distribution == "RedHat"'
 
-#- name: remove the upstream yum repos
-#  yum_repository:
-#    name: "{{ item.name }}"
-#    file: "{{ item.file }}"
-#    state: absent
-#  with_items: "{{ repos_remove }}"
-#  become: yes
-#  become_user: root
+- name: remove the upstream yum repos
+  yum_repository:
+    name: "{{ item.name }}"
+    file: "{{ item.file }}"
+    state: absent
+  with_items: "{{ repos_remove }}"
+  become: yes
+  become_user: root
 
 - name: prepare local base yum mirror repo file
   yum_repository:
@@ -62,7 +62,8 @@
     name: epel-mirror
     description: CentOS epel mirror
     file: epel
-    baseurl: "http://{{ docker_registry.fqdn }}/pulp/repos/centos74-epel/"
+    #baseurl: "http://{{ docker_registry.fqdn }}/pulp/repos/centos74-epel/"
+    baseurl: "http://nexus-test.ddns.net:8081/repository/epel/"
     enabled: "{{ use_epel }}"
     gpgcheck: no
   become: yes
@@ -73,7 +74,8 @@
     name: tpc-{{ item }}
     description: Contrail third-party dependencies
     file: tpc-{{ item }}
-    baseurl: "http://{{ nexus.fqdn }}/repository/{{ nexus_rpm_repo }}/{{ tpc_branch }}/{{ item }}/"
+    #baseurl: "http://{{ nexus.fqdn }}/repository/{{ nexus_rpm_repo }}/{{ tpc_branch }}/{{ item }}/"
+    baseurl: "http://nexus-test.ddns.net:8081/repository/centos74/"
     enabled: yes
     gpgcheck: no
   with_items:
