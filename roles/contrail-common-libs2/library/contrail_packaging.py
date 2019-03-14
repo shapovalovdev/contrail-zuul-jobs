@@ -75,8 +75,9 @@ def main():
 
     debian_dir = None
     for _, project in zuul['projects'].items():
-        if project['short_name'] == 'contrail-packages':
-            debian_dir = project['src_dir']
+        debian_dir = 'src/gerrit-test.ddns.net/Juniper/contrail-packages'
+#        if project['short_name'] == 'contrail-packages':
+#            debian_dir = project['src_dir']
     if debian_dir:
         debian_dir = os.path.join(debian_dir, "debian/contrail/debian")
     target_dir = "contrail-%s" % (version['upstream'],)
