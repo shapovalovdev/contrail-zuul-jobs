@@ -49,7 +49,8 @@
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     file: "{{ repos_file }}"
-    baseurl: "{{ repos_baseurl }}/{{ item.repo }}/"
+    #baseurl: "{{ repos_baseurl }}/{{ item.repo }}/"
+    baseurl: "http://nexus-test.ddns.net:8081/repository/centos74/"
     enabled: yes
     gpgcheck: no
   with_items: "{{ repos_add }}"
