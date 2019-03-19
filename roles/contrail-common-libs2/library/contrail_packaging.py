@@ -74,7 +74,7 @@ def main():
     repo_name = docker_version
 
     debian_dir = None
-    for _, project in zuul['projects'].items():
+    for project in zuul['projects']:
         if project['short_name'] == 'contrail-packages':
             debian_dir = project['src_dir']
     if debian_dir:
