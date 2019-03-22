@@ -49,8 +49,7 @@
     name: "{{ item.name }}"
     description: "{{ item.description }}"
     file: "{{ repos_file }}"
-    #baseurl: "{{ repos_baseurl }}/{{ item.repo }}/"
-    baseurl: "http://nexus-test.ddns.net:8081/repository/centos74/"
+    baseurl: "{{ repos_baseurl }}/{{ item.repo }}"
     enabled: yes
     gpgcheck: no
   with_items: "{{ repos_add }}"
@@ -62,25 +61,34 @@
     name: epel-mirror
     description: CentOS epel mirror
     file: epel
-    #baseurl: "http://{{ docker_registry.fqdn }}/pulp/repos/centos74-epel/"
-    baseurl: "http://nexus-test.ddns.net:8081/repository/epel/"
+    baseurl: "{{ repos_baseurl }}/epel"
     enabled: "{{ use_epel }}"
     gpgcheck: no
   become: yes
   become_user: root
 
-- name: prepare third party cache yum Nexus repo
+# - name: prepare third party cache yum Nexus repo
+#   yum_repository:
+#     name: tpc-{{ item }}
+#     description: Contrail third-party dependencies
+#     file: tpc-{{ item }}
+#     baseurl: "http://{{ nexus.fqdn }}/repository/{{ nexus_rpm_repo }}/{{ tpc_branch }}/{{ item }}/"
+#     enabled: yes
+#     gpgcheck: no
+#   with_items:
+#     - source
+#     - binary
+#   become: yes
+#   become_user: root
+#   when: enable_tpc_repo
+
+- name: prepare tpc mirror repo file
   yum_repository:
-    name: tpc-{{ item }}
-    description: Contrail third-party dependencies
-    file: tpc-{{ item }}
-    #baseurl: "http://{{ nexus.fqdn }}/repository/{{ nexus_rpm_repo }}/{{ tpc_branch }}/{{ item }}/"
-    baseurl: "http://nexus-test.ddns.net:8081/repository/centos74/"
-    enabled: yes
+    name: tpc
+    description: Contrail third-party
+    file: tpc
+    baseurl: "{{ repos_baseurl }}/yum-tungsten-tpc"
+    enabled: "{{ enable_tpc_repo }}"
     gpgcheck: no
-  with_items:
-    - source
-    - binary
   become: yes
   become_user: root
-  when: enable_tpc_repo
