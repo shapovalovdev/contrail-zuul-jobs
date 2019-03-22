@@ -1,4 +1,12 @@
 ---
+- name: test cat tools/packages/Makefile
+  command: cat tools/packages/Makefile
+  args:
+    chdir: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}"
+  become: yes
+  become_user: root
+  ignore_errors: true
+
 - name: Install dependencies for {{ item }}
   command: make -f tools/packages/Makefile dep-{{ item }}
   args:
