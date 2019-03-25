@@ -284,7 +284,7 @@
     run: playbooks/contrail-build-test-containers/run.yaml
     required-projects:
       - Juniper/contrail-test
-   nodeset: builder-centos-7
+    nodeset: builder-centos-7
 
 - job:
     name: contrail-build-containers-centos7-newton
