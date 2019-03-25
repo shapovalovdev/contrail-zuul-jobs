@@ -284,11 +284,7 @@
     run: playbooks/contrail-build-test-containers/run.yaml
     required-projects:
       - Juniper/contrail-test
-#    nodeset: builder-centos-7
-    nodeset:
-      nodes:
-        - name: builder
-          label: centos-7-4-builder
+    nodeset: builder-centos-7
 
 - job:
     name: contrail-build-containers-centos7-newton
@@ -301,13 +297,9 @@
 - job:
     name: contrail-build-containers-centos7-ocata
     parent: contrail-build-containers-base
-#    nodeset: builder-centos-7
+    nodeset: builder-centos-7
     vars:
       openstack_version: ocata
-    nodeset:
-      nodes:
-        - name: builder
-          label: centos-7-4-builder
 
 - job:
     name: contrail-build-containers-centos7-queens
