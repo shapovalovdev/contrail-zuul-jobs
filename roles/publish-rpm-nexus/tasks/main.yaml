@@ -31,7 +31,7 @@
 
     - name: upload rpm to nexus
       command: >
-        curl -K {{ nexus_creds_path }}
+        curl -v -K {{ nexus_creds_path }}
           --upload-file {{ item }} {{ nexus_repo_url }}/{{ item | basename }}
       with_items: "{{ package_list | json_query('files[*].path') }}"
       tags:
