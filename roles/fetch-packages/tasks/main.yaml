@@ -15,27 +15,10 @@
     recurse: true
   register: packages
 
-- name: DBG list of files
-  shell: "ls -la {{ ansible_env.HOME }}"
-  register: result
-  ignore_errors: True
-
-- name: DBG list of files
-  debug:
-    var: result
-
-- name: DBG list of packages
-  debug:
-    msg: "{{ packages.files }}"
-
-- name: DBG dest for fetching packages
-  debug:
-    msg: "{{ zuul.executor.work_root }}/packages }}"
-
-- name: DBG mkdir
-  shell: "mkdir {{ zuul.executor.work_root }}/packages/"
-  ignore_errors: True
-  delegate_to: localhost
+#- name: DBG mkdir
+#  shell: "mkdir {{ zuul.executor.work_root }}/packages/"
+#  ignore_errors: True
+#  delegate_to: localhost
 
 - name: Fetch packages from the build VM to the executor
   synchronize:

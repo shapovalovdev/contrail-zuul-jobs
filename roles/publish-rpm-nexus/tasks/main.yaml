@@ -27,7 +27,7 @@
       copy:
         content: '--user {{ nexus_credentials.user }}:{{ nexus_credentials.password }}'
         dest: '{{ nexus_creds_path }}'
-      no_log: true
+#      no_log: true
 
     - name: upload rpm to nexus
       command: >
@@ -44,4 +44,4 @@
       file:
         path: '{{ nexus_creds_path }}'
         state: 'absent'
-      no_log: true
+#      no_log: true
