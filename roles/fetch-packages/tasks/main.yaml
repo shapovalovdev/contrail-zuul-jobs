@@ -16,7 +16,7 @@
   register: packages
 
 - name: DBG list of files
-  shell: "ls -la {{ item.path }}"
+  shell: "ls -la {{ ansible_env.HOME }}"
   register: result
   ignore_errors: True
 
