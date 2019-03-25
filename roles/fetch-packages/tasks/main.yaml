@@ -15,6 +15,15 @@
     recurse: true
   register: packages
 
+- name: DBG list of files
+  shell: "ls -la {{ item.path }}"
+  register: result
+  ignore_errors: True
+
+- name: DBG list of files
+  debug:
+    var: result
+
 - name: DBG list of packages
   debug:
     msg: "{{ packages.files }}"
