@@ -33,7 +33,7 @@
     msg: "{{ zuul.executor.work_root }}/packages }}"
 
 - name: DBG mkdir
-  whell: "mkdir "{{ zuul.executor.work_root }}/packages/"
+  whell: "mkdir {{ zuul.executor.work_root }}/packages/"
   ignore_errors: True
   delegate_to: localhost
 
