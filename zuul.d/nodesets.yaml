@@ -4,12 +4,18 @@
       - name: centos-7
         label: centos-7-4-builder-c
 
+#- nodeset:
+#    name: builder-centos-7
+#    nodes:
+#      - name: builder
+#        label: centos-7-4-builder-c
+
 - nodeset:
     name: builder-centos-7
     nodes:
       - name: builder
-#        label: centos-7-4-builder-c
-        label: centos-7-4-builder-c
+        label: centos-7-4-builder
+
 
 - nodeset:
     name: ubuntu-xenial
