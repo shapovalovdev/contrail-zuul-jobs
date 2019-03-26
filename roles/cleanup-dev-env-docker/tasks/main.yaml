@@ -1,0 +1,8 @@
+---
+- name: "stop dev-env container {{ dev_env_container_name }}"
+  command: "docker container stop {{ dev_env_container_name }}"
+  ignore_errors: true
+
+- name: "remove dev-env container {{ dev_env_container_name }}"
+  command: "docker container rm {{ dev_env_container_name }}"
+  ignore_errors: true

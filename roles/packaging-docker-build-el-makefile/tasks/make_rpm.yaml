@@ -1,0 +1,27 @@
+---
+- name: test cat tools/packages/Makefile
+  command: "cd {{ dev_env_basepath }} && docker exec {{ dev_env_container_name }} cat tools/packages/Makefile"
+  become: yes
+  become_user: root
+  ignore_errors: true
+
+- name: Install dependencies for {{ item }}
+  command: "cd {{ dev_env_basepath }} && docker exec {{ dev_env_container_name }} make -f tools/packages/Makefile dep-{{ item }}"
+  environment:
+    ENABLEMLX: 'TRUE'
+  become: yes
+  become_user: root
+  tags:
+    - skip_ansible_lint
+
+- name: Run rpmbuild for {{ item }}
+  command: "cd {{ dev_env_basepath }} && docker exec {{ dev_env_container_name }} make -f tools/packages/Makefile rpm-{{ item }}"
+  environment:
+    BUILDTAG: "{{ build_tag | default(packaging.version.distrib) }}"
+    SRCVER: "{{ packaging.version.upstream }}"
+    SKUTAG: ocata
+    MANIFESTFILE: "{{ dev_env_manifest_file }}"
+    ENABLEMLX: 'TRUE'
+  tags:
+    - skip_ansible_lint
+
