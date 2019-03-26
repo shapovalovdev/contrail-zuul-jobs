@@ -1,0 +1,20 @@
+---
+- name: generate dev-env container name
+  set_fact:
+    dev_env_container_name: "contrail-dev-env"
+    dev_env_basepath: "/root/contrail"
+    dev_env_manifest_file: "/root/manifest.xml"
+
+- name: trace dev-env container name
+  debug:
+    var: dev_env_container_name
+
+- name: "start dev-env docker container {{ dev_env_container_name }}"
+  docker:
+    image: opencontrailnightly/developer-sandbox
+    pull: always
+    volumes:
+      - "{{ ansible_env.HOME }}/{{ packaging.target_dir }}:{{ dev_env_basepath }}"
+      - "{{ ansible_env.HOME }}/manifest.xml:/root/manifest.xml"
+    name: "{{ dev_env_container_name }}"
+    privileged: true

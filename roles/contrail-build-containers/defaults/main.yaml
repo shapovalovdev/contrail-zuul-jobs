@@ -3,12 +3,12 @@ contrail_package_repository: http://{{ zuul_site_mirror_fqdn }}/repository/{{ pa
 contrail_version: "{{ packaging.repo_name }}"
 openstack_version: ocata
 rpm_repo_config_dir: /etc/yum.repos.d/
-docker_build_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/contrail-container-builder"
-deployers_build_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/contrail-deployers-containers"
-ansible_deployer_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/contrail-ansible-deployer"
-kolla_ansible_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/contrail-kolla-ansible"
-openshift_ansible_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/openshift-ansible"
-helm_deployer_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/contrail-helm-deployer"
-openstack_helm_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/openstack-helm"
-openstack_helm_infra_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/openstack-helm-infra"
+docker_build_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-container-builder"
+deployers_build_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-deployers-containers"
+ansible_deployer_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-ansible-deployer"
+kolla_ansible_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-kolla-ansible"
+openshift_ansible_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/openshift-ansible"
+helm_deployer_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-helm-deployer"
+openstack_helm_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/openstack-helm"
+openstack_helm_infra_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/openstack-helm-infra"
 

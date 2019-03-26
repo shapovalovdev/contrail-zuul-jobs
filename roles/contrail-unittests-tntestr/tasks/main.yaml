@@ -11,7 +11,7 @@
 
 - name: set variables
   set_fact:
-    testrunner_dir: '{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/tungstenfabric/tungsten-test-runner'
+    testrunner_dir: '{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/tungstenfabric/tungsten-test-runner'
     venv_dir: '{{ ansible_env.HOME }}/testrunner_venv'
     unittest_target_file: 'unittest_list.txt'
     tntestr_output: '{{ ansible_env.HOME }}/tntestr_output.txt'

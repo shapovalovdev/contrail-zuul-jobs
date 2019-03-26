@@ -1,5 +1,5 @@
 ---
-docker_provision_dir: '{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_name }}/Juniper/contrail-ansible-deployer'
+docker_provision_dir: '{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-ansible-deployer'
 contrail_version: >-
   {%- if zuul.change is defined -%}
     {{ zuul.change }}-{{ zuul.patchset }}
