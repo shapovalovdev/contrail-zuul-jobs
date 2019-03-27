@@ -86,16 +86,16 @@
     groups:
       - name: control-plane
         nodes:
-          - name: centos-7
-            label: centos-7-4-builder-c
+        - name: centos-7
+          label: centos-7-4-builder-c
       - name: data-plane
         nodes:
-          - name: centos-7
-            label: centos-7-4-builder-c
+        - name: centos-7
+          label: centos-7-4-builder-c
       - name: deployment
         nodes:
-          - name: centos-7
-            label: centos-7-4-builder-c
+        - name: centos-7
+          label: centos-7-4-builder-c
 
 - nodeset:
     name: c7-systest-c-multinode
