@@ -78,22 +78,6 @@
         nodes:
           - kolla-aio
 
-#- nodeset:
-#    name: c7-systest-c-aio
-#    nodes:
-#      - name: kolla-aio
-#        label: centos-7-4-builder
-#    groups:
-#      - name: control-plane
-#        nodes:
-#          - kolla-aio
-#      - name: data-plane
-#        nodes:
-#          - kolla-aio
-#      - name: deployment
-#        nodes:
-#          - kolla-aio
-
 - nodeset:
     name: c7-systest-c-multinode
     nodes:

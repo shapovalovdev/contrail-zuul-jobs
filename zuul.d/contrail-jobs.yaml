@@ -1,5 +1,6 @@
 # Jobs for testing Contrail projects
 
+## 1
 - job:
     name: contrail-vnc-build-package-centos74
     parent: contrail-vnc-build-package-el-base
@@ -276,6 +277,7 @@
       jenkins_job: winci-server2016-cad
       build_number: 0
 
+## 3
 - job:
     name: contrail-build-test-containers
     parent: docker-base
@@ -291,6 +293,7 @@
     vars:
       openstack_version: newton
 
+## 2
 - job:
     name: contrail-build-containers-centos7-ocata
     parent: contrail-build-containers-base
