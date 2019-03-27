@@ -1,6 +1,5 @@
 # Jobs for testing Contrail projects
 
-## 1
 - job:
     name: contrail-vnc-build-package-centos74
     parent: contrail-vnc-build-package-el-base
@@ -31,7 +30,6 @@
       - docs/.*
       - README.md
 
-## 6
 - job:
     name: contrail-sanity-centos7-kolla-ocata
     parent: contrail-sanity-kolla-base
@@ -41,8 +39,7 @@
     vars:
       openstack_version: ocata
       kolla_version: ocata
-#    nodeset: c7-systest-c-aio
-    nodeset: builder-centos-7
+    nodeset: c7-systest-c-aio
 
 - job:
     name: contrail-sanity-centos7-kolla-queens
@@ -53,8 +50,7 @@
     vars:
       openstack_version: queens
       kolla_version: queens
-#    nodeset: c7-systest-c-aio
-    nodeset: builder-centos-7
+    nodeset: c7-systest-c-aio
 
 - job:
     name: contrail-sanity-centos7-kolla-queens-multinode
@@ -65,8 +61,7 @@
     vars:
       openstack_version: queens
       kolla_version: queens
-#    nodeset: c7-systest-c-multinode
-    nodeset: builder-centos-7
+    nodeset: c7-systest-c-multinode
 
 - job:
     name: contrail-sanity-centos7-kolla-rocky
@@ -281,7 +276,6 @@
       jenkins_job: winci-server2016-cad
       build_number: 0
 
-## 3
 - job:
     name: contrail-build-test-containers
     parent: docker-base
@@ -297,7 +291,6 @@
     vars:
       openstack_version: newton
 
-## 2
 - job:
     name: contrail-build-containers-centos7-ocata
     parent: contrail-build-containers-base

@@ -62,6 +62,22 @@
         nodes:
           - rhel-aio
 
+#- nodeset:
+#    name: c7-systest-c-aio
+#    nodes:
+#      - name: kolla-aio
+#        label: c7-systest-c
+#    groups:
+#      - name: control-plane
+#        nodes:
+#          - kolla-aio
+#      - name: data-plane
+#        nodes:
+#          - kolla-aio
+#      - name: deployment
+#        nodes:
+#          - kolla-aio
+
 - nodeset:
     name: c7-systest-c-aio
     nodes:
@@ -70,13 +86,16 @@
     groups:
       - name: control-plane
         nodes:
-          - kolla-aio
+          - name: centos-7
+            label: centos-7-4-builder-c
       - name: data-plane
         nodes:
-          - kolla-aio
+          - name: centos-7
+            label: centos-7-4-builder-c
       - name: deployment
         nodes:
-          - kolla-aio
+          - name: centos-7
+            label: centos-7-4-builder-c
 
 - nodeset:
     name: c7-systest-c-multinode
