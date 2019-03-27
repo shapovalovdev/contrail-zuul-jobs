@@ -66,7 +66,8 @@
     name: c7-systest-c-aio
     nodes:
       - name: kolla-aio
-        label: c7-systest-c
+#        label: c7-systest-c
+        label: centos-7-4-builder
     groups:
       - name: control-plane
         nodes:
