@@ -5,7 +5,7 @@
     name: 'docker-ce-stable'
     description: 'docker-ce-stable'
     file: 'docker-mirror'
-    baseurl: '{{ docker_mirror_url }}/'
+    baseurl: '{{ docker_mirror_url }}/repository/'
     enabled: yes
     gpgcheck: no
   become: yes
