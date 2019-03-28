@@ -6,7 +6,7 @@ provider_config:
     ssh_private_key: /root/.ssh/id_rsa
     domainsuffix: novalocal
 
-docker_mirror_url: http://{{ docker_registry.fqdn }}/docker-ce-stable/
+docker_mirror_url: http://{{ docker_registry.fqdn }}/repository/docker-ce-stable/
 
 instances:
   {%- for host in (groups['control-plane'] + groups['data-plane']) | unique -%}
