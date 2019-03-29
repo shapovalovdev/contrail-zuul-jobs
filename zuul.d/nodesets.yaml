@@ -79,22 +79,21 @@
         nodes:
           - kolla-aio
 
-- nodeset:
-    name: c7-systest-c-k8s
-    nodes:
-      - name: kolla-aio-k8s
-#        label: c7-systest-c
-        label: centos-7-4-k8s
-    groups:
-      - name: control-plane-k8s
-        nodes:
-          - kolla-aio-k8s
-      - name: data-plane-k8s
-        nodes:
-          - kolla-aio-k8s
-      - name: deployment-k8s
-        nodes:
-          - kolla-aio-k8s
+#- nodeset:
+#    name: c7-systest-c-k8s
+#    nodes:
+#      - name: kolla-aio-k8s
+#        label: centos-7-4-k8s
+#    groups:
+#      - name: control-plane-k8s
+#        nodes:
+#          - kolla-aio-k8s
+#      - name: data-plane-k8s
+#        nodes:
+#          - kolla-aio-k8s
+#      - name: deployment-k8s
+#        nodes:
+#          - kolla-aio-k8s
 
 - nodeset:
     name: c7-systest-c-multinode
