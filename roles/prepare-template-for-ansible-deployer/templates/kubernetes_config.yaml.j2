@@ -6,7 +6,6 @@ contrail_configuration:
   CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"
   LOG_LEVEL: SYS_DEBUG
   PHYSICAL_INTERFACE: eth1
-  VROUTER_GATEWAY: "{{ hostvars[groups['data-plane'][0]].ansible_eth0.ipv4.gateway }}"
   JVM_EXTRA_OPTS: -Xms1g -Xmx2g
   KUBERNETES_PUBLIC_FIP_POOL:
      domain: default-domain
