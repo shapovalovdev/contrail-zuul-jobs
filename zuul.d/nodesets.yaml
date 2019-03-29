@@ -85,13 +85,13 @@
       - name: kolla-aio-k8s
         label: centos-7-4-k8s
     groups:
-      - name: control-plane-k8s
+      - name: control-plane
         nodes:
           - kolla-aio-k8s
-      - name: data-plane-k8s
+      - name: data-plane
         nodes:
           - kolla-aio-k8s
-      - name: deployment-k8s
+      - name: deployment
         nodes:
           - kolla-aio-k8s
 
