@@ -102,7 +102,8 @@
       openstack_version: ocata
       cloud_orchestrator: kubernetes
       test_target: ci_k8s_sanity
-    nodeset: c7-systest-c-aio
+#    nodeset: c7-systest-c-aio
+    nodeset: c7-systest-c-k8s
 
 - job:
     name: contrail-go-sanity-centos7-k8s

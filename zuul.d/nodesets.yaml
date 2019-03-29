@@ -80,6 +80,22 @@
           - kolla-aio
 
 - nodeset:
+    name: c7-systest-c-k8s
+    nodes:
+      - name: kolla-aio-k8s
+        label: centos-7-4-k8s
+    groups:
+      - name: control-plane
+        nodes:
+          - kolla-aio-k8s
+      - name: data-plane
+        nodes:
+          - kolla-aio-k8s
+      - name: deployment
+        nodes:
+          - kolla-aio-k8s
+
+- nodeset:
     name: c7-systest-c-multinode
     nodes:
       - name: openstack-control-1
