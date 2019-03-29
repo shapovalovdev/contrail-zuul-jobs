@@ -86,13 +86,13 @@
 #        label: c7-systest-c
         label: centos-7-4-k8s
     groups:
-      - name: control-plane
+      - name: control-plane-k8s
         nodes:
           - kolla-aio-k8s
-      - name: data-plane
+      - name: data-plane-k8s
         nodes:
           - kolla-aio-k8s
-      - name: deployment
+      - name: deployment-k8s
         nodes:
           - kolla-aio-k8s
 
