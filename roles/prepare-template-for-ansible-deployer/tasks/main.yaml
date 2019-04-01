@@ -13,21 +13,6 @@
   become: true
   with_items: '{{ package_dependecies }}'
 
-- name: DEBUG 1
-  debug:
-    var: "{{ sanity.data_plane_interface }}"
-  ignore_errors: true
-
-- name: DEBUG 2
-  debug:
-    var: "{{ groups['control-plane'][0] }}"
-  ignore_errors: true
-
-- name: DEBUG 3
-  debug:
-    var: "{{ hostvars[groups['control-plane'][0]]['ansible_ens5'].ipv4.address }}"
-  ignore_errors: true
-
 - name: Copy template for testrunner
   template:
     src: "instances.yaml.j2"
