@@ -25,10 +25,10 @@ contrail_configuration:
   AAA_MODE: cloud-admin
   AGENT_MODE: kernel
   BGP_PORT: 1179
-  CONTROLLER_NODES: '{{ ansible_default_ipv4.address }}'
-  CONTROL_NODES: '{{ ansible_default_ipv4.address }}'
-  PHYSICAL_INTERFACE: ens3
-  CONFIG_API_VIP: '{{ ansible_default_ipv4.address }}'
+  CONTROLLER_NODES: "{{ vars['ansible_' + sanity.control_plane_interface].ipv4.address }}"
+  CONTROL_NODES: "{{ vars['ansible_' + sanity.data_plane_interface].ipv4.address }}"
+  PHYSICAL_INTERFACE: "{{ sanity.data_plane_interface }}"
+  CONFIG_API_VIP: "{{ vars['ansible_' + sanity.control_plane_interface].ipv4.address }}"
   RABBITMQ_NODE_PORT: 5673
 
 deployment:

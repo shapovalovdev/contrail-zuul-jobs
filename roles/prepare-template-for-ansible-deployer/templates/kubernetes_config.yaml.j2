@@ -2,10 +2,10 @@ contrail_configuration:
   CONTRAIL_VERSION: "{{ contrail_version }}"
   OPENSTACK_VERSION: "{{ openstack_version }}"
   CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
-  CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_eth0.ipv4.address }}"
-  CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"
+  CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]]['ansible_' + sanity.control_plane_interface].ipv4.address }}"
+  CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]]['ansible_' + sanity.data_plane_interface].ipv4.address }}"
   LOG_LEVEL: SYS_DEBUG
-  PHYSICAL_INTERFACE: eth1
+  PHYSICAL_INTERFACE: "{{ sanity.data_plane_interface }}"
   JVM_EXTRA_OPTS: -Xms1g -Xmx2g
   KUBERNETES_PUBLIC_FIP_POOL:
      domain: default-domain
