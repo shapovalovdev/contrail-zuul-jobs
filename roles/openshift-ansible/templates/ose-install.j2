@@ -37,7 +37,7 @@ contrail_registry={{ contrail_docker_registry }}
 #contrail_registry_password=test
 # Below option presides over contrail masters if set
 vrouter_physical_interface={{ sanity.data_plane_interface }}
-contrail_vip={{ hostvars['openshift-master']['ansible_' + sanity.control_plane_interface'].ipv4.address }}
+contrail_vip={{ hostvars['openshift-master']['ansible_' + sanity.control_plane_interface].ipv4.address }}
 #docker_version=1.13.1
 
 # Contrail_vars
