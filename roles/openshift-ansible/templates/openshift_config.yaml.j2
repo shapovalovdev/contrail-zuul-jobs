@@ -12,8 +12,8 @@ provider_config:
  bms:
    ssh_pwd: c0ntrail123
    ssh_user: root
-   ntpserver: 10.84.5.100
-   domainsuffix: local
+   ntpserver: {{ sanity.ntp_server }}
+   domainsuffix: "{{ sanity.domainsuffix }}"
 instances:
  openshift-master:
    provider: bms
