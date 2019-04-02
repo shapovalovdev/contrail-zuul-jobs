@@ -44,4 +44,3 @@
     group: no
     owner: no
   with_items: "{{ packages.files }}"
-
