@@ -41,6 +41,8 @@ instances:
 contrail_configuration:
  PHYSICAL_INTERFACE: {{ sanity.data_plane_interface }}
  CONTROLLER_NODES: {{ hostvars['openshift-master']['ansible_' + sanity.control_plane_interface].ipv4.address }}
+ CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
+ DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
 
 orchestrator_configuration:
  keystone:
