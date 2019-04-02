@@ -4,7 +4,7 @@ provider_config:
     ntpserver: 192.168.1.1
     ssh_user: root
     ssh_private_key: /root/.ssh/id_rsa
-    domainsuffix: novalocal
+    domainsuffix: "{{ sanity.domainsuffix }}"
 
 docker_mirror_url: http://{{ docker_registry.fqdn }}/repository/docker-ce-stable/
 
