@@ -26,6 +26,14 @@
   ignore_errors: True
   delegate_to: localhost
 
+- name: DBG chown (worker)
+  file: "{{ item.path }}"
+    owner: root
+    group: root
+    recurse: yes
+  ignore_errors: True
+  with_items: "{{ packages.files }}"
+
 - name: Fetch packages from the build VM to the executor
   synchronize:
     src: "{{ item.path }}"
