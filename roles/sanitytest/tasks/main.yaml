@@ -30,7 +30,8 @@
   become: true
 
 # TODO need to wait when contrail-status is ok
-- pause:
+- name: wait a little
+  pause:
     minutes: 3
 
 - name: run the sanity test

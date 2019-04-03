@@ -41,5 +41,6 @@
     when: config_api_container.stdout is defined
 
 # TODO need to wait when contrail-status is ok
-- pause:
+- name: wait a little
+  pause:
     minutes: 3
