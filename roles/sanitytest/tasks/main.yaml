@@ -29,6 +29,10 @@
   ignore_errors: yes
   become: true
 
+# TODO need to wait when contrail-status is ok
+- pause:
+    minutes: 3
+
 - name: run the sanity test
   command: |
     '{{ repos_dir }}'/contrail-test/testrunner.sh run \
