@@ -40,3 +40,6 @@
     become: true
     when: config_api_container.stdout is defined
 
+# TODO need to wait when contrail-status is ok
+- pause:
+    minutes: 3
