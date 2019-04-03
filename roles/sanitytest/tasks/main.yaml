@@ -31,8 +31,8 @@
 
 # TODO need to wait when contrail-status is ok
 - name: wait a little
-  pause:
-    minutes: 3
+  shell: "sleep 180"
+  ignore_errors: yes
 
 - name: run the sanity test
   command: |
