@@ -3,27 +3,24 @@
   set_fact:
     testrunner_image: "{{ contrail_docker_registry }}/contrail-test-test:{{ openstack_version }}-{{ contrail_version }}"
     repos_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper"
-  when: sanity_result is undefined
 
 - name: make sure python docker bindings are installed
   become: true
   pip:
     name: 'docker-py'
     state: 'present'
-  when: sanity_result is undefined
 
 - name: pull the testrunner image
   docker_image:
     name: '{{ testrunner_image }}'
   become: true
-  when: sanity_result is undefined
 
 - name: (hack) change networking mode for containers run directly on docker engine
   replace:
     path: '{{ repos_dir }}/contrail-test/testrunner.sh'
     regexp: '--privileged'
     replace: '--privileged --network host'
-  when: (contrail_deployer is defined) and contrail_deployer == 'helm' and sanity_result is undefined
+  when: (contrail_deployer is defined) and contrail_deployer == 'helm'
 
 - name: clean test results directory
   file:
@@ -44,4 +41,3 @@
 - name: test the xml report for failures
   shell: "[ x\"$(grep testsuite /root/contrail-test-runs/*/reports/TESTS-TestSuites.xml  | grep -o  'failures=\\S\\+' | uniq)\" = x'failures=\"0\"' ]"
   become: true
-  register: sanity_result

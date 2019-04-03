@@ -16,6 +16,3 @@
 - hosts: deployment
   roles:
     - sanitytest
-  retries: 2
-  delay: 10
-  until: sanity_result.rc == 0
