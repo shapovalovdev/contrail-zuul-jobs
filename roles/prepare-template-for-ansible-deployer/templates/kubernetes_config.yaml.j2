@@ -7,6 +7,8 @@ contrail_configuration:
   LOG_LEVEL: SYS_DEBUG
   PHYSICAL_INTERFACE: "{{ sanity.data_plane_interface }}"
   JVM_EXTRA_OPTS: -Xms1g -Xmx2g
+  CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
+  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
   KUBERNETES_PUBLIC_FIP_POOL:
      domain: default-domain
      name: __fip_pool_public__

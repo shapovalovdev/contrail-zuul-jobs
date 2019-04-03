@@ -1,10 +1,10 @@
 #jinja2: trim_blocks:False
 provider_config:
   bms:
-    ntpserver: {{ local_ntp_server }}
+    ntpserver: {{ sanity.ntp_server }}
     ssh_user: root
     ssh_private_key: /root/.ssh/id_rsa
-    domainsuffix: novalocal
+    domainsuffix: "{{ sanity.domainsuffix }}"
 
 docker_mirror_url: http://{{ docker_registry.fqdn }}/repository/docker-ce-stable/
 

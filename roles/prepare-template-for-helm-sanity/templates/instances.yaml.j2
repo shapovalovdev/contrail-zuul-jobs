@@ -1,10 +1,10 @@
 #jinja2: trim_blocks:False
 provider_config:
   bms:
-    ntpserver: {{ local_ntp_server }}
+    ntpserver: {{ sanity.ntp_server }}
     ssh_user: root
     ssh_private_key: /root/.ssh/id_rsa
-    domainsuffix: local
+    domainsuffix: "{{ sanity.domainsuffix }}"
 
 instances:
   bms1:
@@ -30,6 +30,8 @@ contrail_configuration:
   PHYSICAL_INTERFACE: "{{ sanity.data_plane_interface }}"
   CONFIG_API_VIP: "{{ vars['ansible_' + sanity.control_plane_interface].ipv4.address }}"
   RABBITMQ_NODE_PORT: 5673
+  CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
+  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
 
 deployment:
     orchestrator: '{{ cloud_orchestrator }}'

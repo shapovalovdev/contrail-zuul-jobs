@@ -15,8 +15,8 @@ contrail_configuration:
   KEYSTONE_AUTH_URL_VERSION: "/v3"
   RABBITMQ_NODE_PORT: 5673
   OPENSTACK_VERSION: "{{ openstack_version }}"
-  CONFIG_NODEMGR__DEFAULTS__minimum_diskGB: 30
-  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 30
+  CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
+  DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
 
 kolla_config:
   kolla_globals:
