@@ -40,3 +40,7 @@
     become: true
     when: config_api_container.stdout is defined
 
+# TODO need to wait when contrail-status is ok
+- name: wait a little
+  shell: "sleep 180"
+  ignore_errors: yes

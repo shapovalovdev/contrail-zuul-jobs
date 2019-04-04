@@ -16,4 +16,3 @@
 - hosts: deployment
   roles:
     - sanitytest
-

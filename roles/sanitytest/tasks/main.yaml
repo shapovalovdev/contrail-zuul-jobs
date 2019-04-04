@@ -22,6 +22,18 @@
     replace: '--privileged --network host'
   when: (contrail_deployer is defined) and contrail_deployer == 'helm'
 
+- name: clean test results directory
+  file:
+    path: /root/contrail-test-runs/
+    state: absent
+  ignore_errors: yes
+  become: true
+
+# TODO need to wait when contrail-status is ok
+- name: wait a little
+  shell: "sleep 180"
+  ignore_errors: yes
+
 - name: run the sanity test
   command: |
     '{{ repos_dir }}'/contrail-test/testrunner.sh run \
@@ -34,4 +46,3 @@
 - name: test the xml report for failures
   shell: "[ x\"$(grep testsuite /root/contrail-test-runs/*/reports/TESTS-TestSuites.xml  | grep -o  'failures=\\S\\+' | uniq)\" = x'failures=\"0\"' ]"
   become: true
-
