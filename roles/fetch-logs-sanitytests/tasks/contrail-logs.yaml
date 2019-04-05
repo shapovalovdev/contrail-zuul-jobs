@@ -20,6 +20,15 @@
       become: yes
       run_once: true
 
+    - name: DBG chown
+      file:
+        path: "{{ contrail_log_dir }}"
+        state: directory
+        owner: root
+        group: root
+        recurse: yes
+      ignore_errors: True
+
     - name: fetch contrail logs
       synchronize:
         src: '{{ contrail_log_dir }}/'
