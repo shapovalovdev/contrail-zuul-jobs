@@ -13,9 +13,11 @@
       file:
         path: '{{ zuul.executor.log_root }}/contrail-logs'
         state: 'directory'
-        owner: 'zuul'
-        mode: '0755'
+# TODO remove after debug
+#        owner: 'zuul'
+#        mode: '0755'
       delegate_to: localhost
+      become: yes
       run_once: true
 
     - name: fetch contrail logs
