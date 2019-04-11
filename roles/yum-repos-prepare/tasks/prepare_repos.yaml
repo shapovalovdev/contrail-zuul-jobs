@@ -29,67 +29,55 @@
       set_fact:
         repos_add: '{{ repos_add }} + {{ openshift_repos_add }}'
 
-- name: disable subscription-manager on RHEL
-  command: subscription-manager config --rhsm.manage_repos=0
-  become: yes
-  become_user: root
-  when: 'ansible_distribution == "RedHat"'
-
-- name: remove the upstream yum repos
-  yum_repository:
-    name: "{{ item.name }}"
-    file: "{{ item.file }}"
-    state: absent
-  with_items: "{{ repos_remove }}"
-  become: yes
-  become_user: root
-
-- name: prepare local base yum mirror repo file
-  yum_repository:
-    name: "{{ item.name }}"
-    description: "{{ item.description }}"
-    file: "{{ repos_file }}"
-    baseurl: "{{ repos_baseurl }}/{{ item.repo }}"
-    enabled: yes
-    gpgcheck: no
-  with_items: "{{ repos_add }}"
-  become: yes
-  become_user: root
-
-- name: prepare epel mirror repo file
-  yum_repository:
-    name: epel-mirror
-    description: CentOS epel mirror
-    file: epel
-    baseurl: "{{ repos_baseurl }}/epel"
-    enabled: "{{ use_epel }}"
-    gpgcheck: no
-  become: yes
-  become_user: root
-
+- name: prepare centos
+  block:
+    - name: disable subscription-manager on RHEL
+      command: subscription-manager config --rhsm.manage_repos=0
+      when: 'ansible_distribution == "RedHat"'
+    - name: remove the upstream yum repos
+      yum_repository:
+        name: "{{ item.name }}"
+        file: "{{ item.file }}"
+        state: absent
+      with_items: "{{ repos_remove }}"
+    - name: prepare local base yum mirror repo file
+      yum_repository:
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        file: "{{ repos_file }}"
+        baseurl: "{{ repos_baseurl }}/{{ item.repo }}"
+        enabled: yes
+        gpgcheck: no
+      with_items: "{{ repos_add }}"
+    - name: prepare epel mirror repo file
+      yum_repository:
+        name: epel-mirror
+        description: CentOS epel mirror
+        file: epel
+        baseurl: "{{ repos_baseurl }}/epel"
+        enabled: "{{ use_epel }}"
+        gpgcheck: no
 # TODO: remove
-# - name: prepare third party cache yum Nexus repo
-#   yum_repository:
-#     name: tpc-{{ item }}
-#     description: Contrail third-party dependencies
-#     file: tpc-{{ item }}
-#     baseurl: "http://{{ nexus.fqdn }}/repository/{{ nexus_rpm_repo }}/{{ tpc_branch }}/{{ item }}/"
-#     enabled: yes
-#     gpgcheck: no
-#   with_items:
-#     - source
-#     - binary
-#   become: yes
-#   become_user: root
-#   when: enable_tpc_repo
-
-- name: prepare tpc mirror repo file
-  yum_repository:
-    name: tpc
-    description: Contrail third-party
-    file: tpc
-    baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc }}"
-    enabled: "{{ enable_tpc_repo }}"
-    gpgcheck: no
+#    - name: prepare third party cache yum Nexus repo
+#      yum_repository:
+#      name: tpc-{{ item }}
+#        description: Contrail third-party dependencies
+#        file: tpc-{{ item }}
+#        baseurl: "http://{{ nexus.fqdn }}/repository/{{ nexus_rpm_repo }}/{{ tpc_branch }}/{{ item }}/"
+#        enabled: yes
+#        gpgcheck: no
+#      with_items:
+#        - source
+#        - binary
+#      when: enable_tpc_repo
+    - name: prepare tpc mirror repo file
+      yum_repository:
+        name: tpc
+        description: Contrail third-party
+        file: tpc
+        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc }}"
+        enabled: "{{ enable_tpc_repo }}"
+        gpgcheck: no
+  when: 'ansible_os_family == "RedHat"'
   become: yes
   become_user: root

@@ -29,10 +29,20 @@
     file:
       path: '{{ zuul.executor.log_root }}/container-logs'
       state: 'directory'
-      owner: 'zuul'
-      mode: '0755'
+#      owner: 'zuul'
+#      mode: '0755'
     delegate_to: localhost
     run_once: true
+    become: yes
+
+  - name: DBG chown (worker)
+    file:
+      path: "{{ container_log_dir }}"
+      state: directory
+      owner: root
+      group: root
+      recurse: yes
+    ignore_errors: True
 
   - name: Fetch container logs
     synchronize:
