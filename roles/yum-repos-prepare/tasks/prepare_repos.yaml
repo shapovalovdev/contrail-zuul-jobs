@@ -67,6 +67,7 @@
   become: yes
   become_user: root
 
+# TODO: remove
 # - name: prepare third party cache yum Nexus repo
 #   yum_repository:
 #     name: tpc-{{ item }}
@@ -87,7 +88,7 @@
     name: tpc
     description: Contrail third-party
     file: tpc
-    baseurl: "{{ repos_baseurl }}/yum-tungsten-tpc"
+    baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc }}"
     enabled: "{{ enable_tpc_repo }}"
     gpgcheck: no
   become: yes
