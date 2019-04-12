@@ -6,7 +6,7 @@
     - role: configure-mirrors
       mirror_fqdn: "{{ zuul_site_mirror_fqdn|default(omit) }}"
       pypi_mirror: "http://{{ mirror_fqdn }}/pypi/simple"
-      wheel_mirror: "http://{{ mirror_fqdn }}/wheel/{{ ansible_distribution | lower }}-{{ ansible_distribution_version }}-{{ ansible_architecture | lower }}"
+      wheel_mirror: ""
   post_tasks:
     - name: Install apt package to sanity check the mirror configuration
       package:
