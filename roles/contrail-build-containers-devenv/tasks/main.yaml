@@ -1,0 +1,23 @@
+---
+- name: Prepare packaging variables
+  contrail_packaging:
+    zuul: "{{ zuul }}"
+    release_type: "{{ release_type }}"
+    build_number: "{{ build_number | default('unset_build_number') }}"
+
+- name: Prepare build configuration - common.env
+  template:
+    src: common.env.j2
+    dest: "{{ devenv_dir }}/common.env.tmpl"
+
+- name: Build containers
+  shell: "./startup.sh"
+  become: true
+  args:
+    chdir: "{{ devenv_dir }}"
+  environment:
+    AUTOBUILD: 1
+    BUILD_DEV_ENV: 1
+    SRC_ROOT: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}"
+    EXTERNAL_REPOS: "{{ ansible_env.HOME }}/src"
+    CANONICAL_HOSTNAME: "{{ zuul.project.canonical_hostname }}"

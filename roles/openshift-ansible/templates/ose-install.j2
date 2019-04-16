@@ -30,7 +30,7 @@ openshift_docker_insecure_registries={{ contrail_docker_registry }}
 openshift_use_contrail=true
 nested_mode_contrail=false
 contrail_version={{ contrail_major_version }}
-contrail_container_tag={% if contrail_image_os %}{{ contrail_image_os }}-{% endif %}{{ openstack_version }}-{{ contrail_version }}
+contrail_container_tag={% if contrail_image_os %}{{ contrail_image_os }}-{% endif %}{{ contrail_version }}
 contrail_registry={{ contrail_docker_registry }}
 # Username /Password for private Docker regiteries
 #contrail_registry_username=test
