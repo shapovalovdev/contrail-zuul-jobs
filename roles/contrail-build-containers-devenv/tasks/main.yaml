@@ -5,10 +5,13 @@
     release_type: "{{ release_type }}"
     build_number: "{{ build_number | default('unset_build_number') }}"
 
-- name: Prepare build configuration - common.env
+- name: Prepare build configuration - {{ item }}.tmpl
   template:
-    src: common.env.j2
-    dest: "{{ devenv_dir }}/common.env.tmpl"
+    src: "{{ item }}.j2"
+    dest: "{{ devenv_dir }}/{{ item }}.tmpl"
+  with_items:
+    - common.env
+    - daemon.json
 
 - name: Build containers
   shell: "./startup.sh"
