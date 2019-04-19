@@ -21,6 +21,7 @@
   environment:
     AUTOBUILD: 1
     BUILD_DEV_ENV: 1
+    BUILD_TEST_CONTAINERS: 1
     SRC_ROOT: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}"
     EXTERNAL_REPOS: "{{ ansible_env.HOME }}/src"
     CANONICAL_HOSTNAME: "{{ zuul.project.canonical_hostname }}"
