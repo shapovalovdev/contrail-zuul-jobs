@@ -110,7 +110,7 @@
     pre-run: playbooks/contrail-sanity-base/pre.yaml
     post-run: playbooks/contrail-sanity-base/post.yaml
     vars:
-      setup_docker_registry: True
+      setup_docker_registry: False
 
 - job:
     name: contrail-sanity-kolla-base
@@ -196,7 +196,7 @@
       Requires nodeset and run playbook.
     pre-run: playbooks/docker-base/pre.yaml
     vars:
-      setup_docker_registry: True
+      setup_docker_registry: False
 
 - job:
     name: contrail-build-containers-base
