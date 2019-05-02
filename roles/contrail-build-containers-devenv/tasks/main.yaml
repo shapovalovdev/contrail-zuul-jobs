@@ -11,7 +11,6 @@
     dest: "{{ devenv_dir }}/{{ item }}.tmpl"
   with_items:
     - common.env
-    - daemon.json
 
 - name: Build containers
   shell: "./startup.sh"
@@ -25,3 +24,5 @@
     SRC_ROOT: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}"
     EXTERNAL_REPOS: "{{ ansible_env.HOME }}/src"
     CANONICAL_HOSTNAME: "{{ zuul.project.canonical_hostname }}"
+    REGISTRY_IP: "{{ contrail_docker_registry.split(':')[0] }}"
+    REGISTRY_PORT: "{{ contrail_docker_registry.split(':')[0] }}"
