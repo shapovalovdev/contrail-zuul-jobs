@@ -1,6 +1,5 @@
 # Jobs for testing Contrail projects
 
-## 1
 - job:
     name: contrail-vnc-build-package-centos74
     parent: contrail-vnc-build-package-el-base
@@ -102,8 +101,7 @@
       openstack_version: ocata
       cloud_orchestrator: kubernetes
       test_target: ci_k8s_sanity
-#    nodeset: c7-systest-c-aio
-    nodeset: c7-systest-c-k8s
+    nodeset: c7-systest-c-aio
 
 - job:
     name: contrail-go-sanity-centos7-k8s
@@ -278,7 +276,6 @@
       jenkins_job: winci-server2016-cad
       build_number: 0
 
-## 3
 - job:
     name: contrail-build-test-containers
     parent: docker-base
@@ -294,7 +291,6 @@
     vars:
       openstack_version: newton
 
-## 2
 - job:
     name: contrail-build-containers-centos7-ocata
     parent: contrail-build-containers-base

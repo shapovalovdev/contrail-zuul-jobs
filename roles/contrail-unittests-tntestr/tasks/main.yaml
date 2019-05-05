@@ -9,10 +9,6 @@
     - '{{ ansible_os_family|lower }}.yaml'
     - default.yaml
 
-- name: DBG canonical_name
-  debug:
-    msg: "canonical_name = {{ zuul.project.canonical_name }}"
-
 - name: set variables
   set_fact:
     testrunner_dir: '{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/tungstenfabric/tungsten-test-runner'

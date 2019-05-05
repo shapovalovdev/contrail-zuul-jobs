@@ -4,17 +4,11 @@
       - name: centos-7
         label: centos-7-4-builder-c
 
-#- nodeset:
-#    name: builder-centos-7
-#    nodes:
-#      - name: builder
-#        label: centos-7-4-builder-c
-
 - nodeset:
     name: builder-centos-7
     nodes:
       - name: builder
-        label: centos-7-4-builder
+        label: centos-7-4-builder-c
 
 - nodeset:
     name: ubuntu-xenial
@@ -66,8 +60,7 @@
     name: c7-systest-c-aio
     nodes:
       - name: kolla-aio
-#        label: c7-systest-c
-        label: centos-7-4-builder
+        label: c7-systest-c
     groups:
       - name: control-plane
         nodes:
@@ -78,22 +71,6 @@
       - name: deployment
         nodes:
           - kolla-aio
-
-- nodeset:
-    name: c7-systest-c-k8s
-    nodes:
-      - name: kolla-aio-k8s
-        label: centos-7-4-k8s
-    groups:
-      - name: control-plane
-        nodes:
-          - kolla-aio-k8s
-      - name: data-plane
-        nodes:
-          - kolla-aio-k8s
-      - name: deployment
-        nodes:
-          - kolla-aio-k8s
 
 - nodeset:
     name: c7-systest-c-multinode

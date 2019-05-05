@@ -8,3 +8,4 @@ openstack_version:
   - rocky
 rpm_repo_config_dir: /etc/yum.repos.d/
 test_container_build_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-test"
+
