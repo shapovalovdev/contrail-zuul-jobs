@@ -36,9 +36,8 @@ contrail_registry={{ contrail_docker_registry }}
 #contrail_registry_username=test
 #contrail_registry_password=test
 # Below option presides over contrail masters if set
-#vrouter_physical_interface={{ hostvars['openshift-master'].ansible_default_ipv4.interface }}
+vrouter_physical_interface={{ hostvars['openshift-master'].ansible_default_ipv4.interface }}
 contrail_vip={{ hostvars['openshift-master'].ansible_default_ipv4.address }}
-vrouter_gateway={{ hostvars['openshift-compute'].ansible_default_ipv4.gateway }}
 #docker_version=1.13.1
 
 # Contrail_vars
