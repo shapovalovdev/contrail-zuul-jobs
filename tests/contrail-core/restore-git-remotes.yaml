@@ -5,7 +5,7 @@
     # there before we call `restore-git-remotes`. This guards us
     # against future zuul change, when it adds back origin remote.
     - name: Add origin remote for {{ zuul.project.short_name }}
-      shell: "git remote add origin {{ gerrit.schema }}{{ zuul.project.canonical_hostname }} && git fetch --all"
+      shell: "git remote add origin {{ gerrit.scheme }}{{ zuul.project.canonical_hostname }} && git fetch --all"
       args:
         chdir: "{{ zuul.project.src_dir }}"
   roles:
