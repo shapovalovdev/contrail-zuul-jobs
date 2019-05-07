@@ -13,21 +13,10 @@
       file:
         path: '{{ zuul.executor.log_root }}/contrail-logs'
         state: 'directory'
-# TODO remove after debug
-#        owner: 'zuul'
-#        mode: '0755'
+        owner: 'zuul'
+        mode: '0755'
       delegate_to: localhost
-      become: yes
       run_once: true
-
-    - name: DBG chown
-      file:
-        path: "{{ contrail_log_dir }}"
-        state: directory
-        owner: root
-        group: root
-        recurse: yes
-      ignore_errors: True
 
     - name: fetch contrail logs
       synchronize:
