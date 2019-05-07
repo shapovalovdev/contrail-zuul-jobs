@@ -29,4 +29,5 @@
     src: "{{ docker_provision_dir }}/config/instances.yaml"
     dest: "{{ zuul.executor.log_root }}/"
     mode: pull
-
+  # unknown error here : rsync: chown \"/var/lib/zuul/builds/6ebe8036d216425e9a8f5f6ea13a250f/work/logs/.instances.yaml.mBCU02\" failed: Invalid argument (22)\nrsync error: some files/attrs were not transferred (see previous errors) (code 23) at main.c(1655) [generator=3.1.1]
+  ignore_errors: true
