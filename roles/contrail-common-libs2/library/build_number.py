@@ -1,5 +1,8 @@
 from ansible.module_utils.basic import AnsibleModule
 
+import pymysql
+pymysql.install_as_MySQLdb()
+
 ANSIBLE_METADATA = {
     'metadata_version': '1.1',
     'status': ['preview'],
