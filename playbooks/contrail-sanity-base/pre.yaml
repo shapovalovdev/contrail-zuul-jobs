@@ -16,6 +16,7 @@
   roles:
     - yum-repos-prepare
     - install-pip-virtualenv
+    - setup-docker-registry
 
 - hosts: deployment:!control-plane:!data-plane
   roles:
