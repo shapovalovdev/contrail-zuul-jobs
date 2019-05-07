@@ -216,7 +216,6 @@
     nodeset: ubuntu-xenial
     vars:
       release_type: nightly
-      setup_docker_registry: true
 
 - job:
     name: build-third-party-rpms-centos7
@@ -257,8 +256,6 @@
       This job builds and publishes developer-sandbox container.
     parent: dev-env-base
     run: playbooks/publish-dev-env/run.yaml
-    vars:
-      setup_docker_registry: True
 
 - job:
     name: create-windows-containers
