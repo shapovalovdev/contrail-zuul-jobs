@@ -13,7 +13,6 @@
       file:
         path: '{{ zuul.executor.log_root }}/kolla-logs'
         state: 'directory'
-        owner: 'zuul'
         mode: '0755'
       delegate_to: localhost
       run_once: true
