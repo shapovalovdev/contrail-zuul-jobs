@@ -29,4 +29,6 @@
     src: "{{ docker_provision_dir }}/config/instances.yaml"
     dest: "{{ zuul.executor.log_root }}/"
     mode: pull
+    owner: no
+    group: no
 
