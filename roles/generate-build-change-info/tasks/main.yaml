@@ -32,6 +32,8 @@
     src: '{{ script_path }}/{{ item }}'
     dest: '{{ zuul.executor.log_root }}'
     mode: 'pull'
+    owner: no
+    group: no
   with_items:
     - 'changes.html'
     - 'changes.json'

@@ -11,6 +11,8 @@
     src: '{{ zuul_project_dir }}/inventory/ose-install'
     dest: '{{ zuul.executor.log_root }}/'
     mode: 'pull'
+    owner: no
+    group: no
 
 - name: run playbooks/prerequisites.yml playbook
   command: 'ansible-playbook -i inventory/ose-install playbooks/prerequisites.yml'
@@ -34,4 +36,6 @@
     src: '{{ ansible_env.HOME }}/contrail_test_input.yaml'
     dest: '{{ zuul.executor.log_root }}/'
     mode: 'pull'
+    owner: no
+    group: no
 

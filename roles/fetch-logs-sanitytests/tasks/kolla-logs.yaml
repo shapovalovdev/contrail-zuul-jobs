@@ -22,6 +22,7 @@
         src: '{{ kolla_log_dir }}/'
         dest: '{{ zuul.executor.log_root }}/kolla-logs/{{ inventory_hostname }}'
         mode: 'pull'
-        recursive: yes
+        owner: no
+        group: no
       become: true
 

@@ -13,4 +13,6 @@
     src: '{{ fail_log }}'
     dest: '{{ zuul.executor.log_root }}/'
     mode: 'pull'
+    owner: no
+    group: no
 

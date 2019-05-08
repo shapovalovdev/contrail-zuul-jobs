@@ -22,7 +22,8 @@
         src: '{{ contrail_log_dir }}/'
         dest: '{{ zuul.executor.log_root }}/contrail-logs/{{ inventory_hostname }}'
         mode: 'pull'
-        recursive: yes
+        owner: no
+        group: no
       become: true
       ignore_errors: true
 

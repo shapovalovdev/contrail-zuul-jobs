@@ -93,7 +93,8 @@
     src: "{{ ansible_env.HOME }}/pod-logs/"
     dest: "{{ zuul.executor.log_root }}/pod-logs"
     mode: pull
-    recursive: yes
+    owner: no
+    group: no
   when: pod_logdir.stat.isdir is defined and pod_logdir.stat.isdir
   become: true
 
@@ -108,7 +109,8 @@
     src: "{{ ansible_env.HOME }}/k8s-objects/"
     dest: "{{ zuul.executor.log_root }}/k8s-objects"
     mode: pull
-    recursive: yes
+    owner: no
+    group: no
   when: objects_dir.stat.isdir is defined and objects_dir.stat.isdir
   become: true
 

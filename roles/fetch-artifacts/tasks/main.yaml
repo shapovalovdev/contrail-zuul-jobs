@@ -23,6 +23,7 @@
         src: "{{ src_path }}"
         dest: "{{ zuul.executor.work_root }}"
         mode: pull
-        recursive: yes
+        owner: no
+        group: no
       become: true
 
