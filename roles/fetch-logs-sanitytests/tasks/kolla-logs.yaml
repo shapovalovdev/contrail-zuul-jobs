@@ -17,15 +17,6 @@
       delegate_to: localhost
       run_once: true
 
-    - name: DBG chown
-      file:
-        path: "{{ kolla_log_dir }}"
-        state: directory
-        owner: root
-        group: root
-        recurse: yes
-      ignore_errors: True
-
     - name: fetch kolla logs
       synchronize:
         src: '{{ kolla_log_dir }}/'
