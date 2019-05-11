@@ -1,11 +1,19 @@
 ---
-- name: Acquire IP address for interfaces that miss it
-  command: "dhclient {{ item }}"
+
+- set_fact:
+    dhclient: false
+
+- name: Check that dhclient is needed
+  set_fact:
+    dhclient: true
   with_items:
     - "{{ hostvars[inventory_hostname]['ansible_interfaces'] }}"
   when:
     - hostvars[inventory_hostname]['ansible_' + item]['type'] == 'ether'
     - not 'ipv4' in hostvars[inventory_hostname]['ansible_' + item]
+
+- name: Acquire IP address for interfaces that miss it
+  command: "dhclient"
   become: true
 
 - name: Reload ansible facts
