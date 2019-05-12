@@ -12,3 +12,6 @@
 - name: start interface {{ item }}
   command: "ifup {{ item }}"
   become: yes
+
+- name: Reload ansible facts
+  setup:
