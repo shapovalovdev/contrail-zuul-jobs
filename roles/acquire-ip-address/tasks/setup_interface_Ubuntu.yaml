@@ -1,0 +1,16 @@
+---
+
+# TODO: ubuntu18: install ifupdown, kill /etc/netplan/50-cloud-init.yaml 
+
+- name: create file for interface {{ item }}
+  become: yes
+  template:
+    dest: "/etc/network/interfaces.d/{{ item }}.cfg"
+    group: root
+    mode: 0644
+    owner: root
+    src: interface_Ubuntu.j2
+
+- name: start interface {{ item }}
+  command: "ifup {{ item }}"
+  become: yes

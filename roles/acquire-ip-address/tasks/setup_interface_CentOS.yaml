@@ -1,0 +1,14 @@
+---
+
+- name: create file for interface {{ item }}
+  become: yes
+  template:
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item }}"
+    group: root
+    mode: 0644
+    owner: root
+    src: interface_CentOS.j2
+
+- name: start interface {{ item }}
+  command: "ifup {{ item }}"
+  become: yes
