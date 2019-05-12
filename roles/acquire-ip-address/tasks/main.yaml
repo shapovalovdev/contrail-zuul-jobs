@@ -8,3 +8,6 @@
   when:
     - hostvars[inventory_hostname]['ansible_' + item]['type'] == 'ether'
     - not 'ipv4' in hostvars[inventory_hostname]['ansible_' + item]
+
+- name: Reload ansible facts
+  setup:
