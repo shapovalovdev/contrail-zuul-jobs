@@ -1,10 +1,7 @@
 ---
 - name: copy repository files
   become: yes
-  copy:
-    src: "{{ item }}"
-    dest: "{{ devenv_dir }}/config{{ item }}"
-    remote_src: yes
+  shell: "cp -fR {{ item }} {{ devenv_dir }}/config{{ item }}"
   with_items:
     - /etc/pip.conf
     - /etc/yum.repos.d
