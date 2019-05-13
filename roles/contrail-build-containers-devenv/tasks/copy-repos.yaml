@@ -1,4 +1,11 @@
 ---
+
+- name: prepare config directory
+  file:
+    path: "{{ devenv_dir }}/config/etc"
+    state: directory
+    recurse: true
+
 - name: copy repository files
   become: yes
   shell: "cp -fR {{ item }} {{ devenv_dir }}/config{{ item }}"
