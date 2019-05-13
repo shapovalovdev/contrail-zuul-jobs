@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+[epel]
+name=Extra Packages for Enterprise Linux 7 - $basearch
+baseurl={{ epel_mirror }}
+failovermethod=priority
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
