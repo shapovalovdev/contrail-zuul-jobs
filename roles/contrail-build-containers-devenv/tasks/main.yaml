@@ -1,4 +1,7 @@
 ---
+- name: set up infrastructure repositories
+  include: copy-repos.yaml
+
 - name: Prepare packaging variables
   contrail_packaging:
     zuul: "{{ zuul }}"

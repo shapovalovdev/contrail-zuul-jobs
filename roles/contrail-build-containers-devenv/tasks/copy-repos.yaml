@@ -1,0 +1,8 @@
+---
+- name: copy repository files
+  become: yes
+  shell: "cp -f {{ item }} {{ devenv_dir }}/config{{ item }}"
+  with_items:
+    - /etc/pip.conf.j2
+    - /etc/yum.repos.d/*
+    - /etc/yum.conf
