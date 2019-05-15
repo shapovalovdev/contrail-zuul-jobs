@@ -29,3 +29,4 @@
     CANONICAL_HOSTNAME: "{{ zuul.project.canonical_hostname }}"
     REGISTRY_IP: "{{ contrail_docker_registry.split(':')[0] }}"
     REGISTRY_PORT: "{{ contrail_docker_registry.split(':')[1] }}"
+    SITE_MIRROR: "http://{{ zuul_site_mirror_fqdn }}/repository"
