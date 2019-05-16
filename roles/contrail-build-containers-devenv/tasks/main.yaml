@@ -21,8 +21,10 @@
   args:
     chdir: "{{ devenv_dir }}"
   environment:
+    IMAGE: "{{ devenv_image_name }}"
+    DEVENVTAG: "{{ devenv_image_tag }}"
     AUTOBUILD: 1
-    BUILD_DEV_ENV: 1
+    BUILD_DEV_ENV_ON_PULL_FAIL: 1
     BUILD_TEST_CONTAINERS: 1
     SRC_ROOT: "{{ ansible_env.HOME }}/{{ packaging.target_dir }}"
     EXTERNAL_REPOS: "{{ ansible_env.HOME }}/src"
@@ -30,3 +32,7 @@
     REGISTRY_IP: "{{ contrail_docker_registry.split(':')[0] }}"
     REGISTRY_PORT: "{{ contrail_docker_registry.split(':')[1] }}"
     SITE_MIRROR: "http://{{ zuul_site_mirror_fqdn }}/repository"
+
+- name: Push devenv docker image
+  shell: "docker push {{ devenv_image_name }}:{{ devenv_image_tag }}"
+  become: true
