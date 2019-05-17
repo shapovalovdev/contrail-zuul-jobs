@@ -6,7 +6,7 @@
     build_number: "{{ build_number | default('unset_build_number') }}"
 
 - name: Fetch third-party packages
-  command: "cd {{ dev_env_basepath }} && docker exec {{ dev_env_container_name }} ./third_party/fetch_packages.py --site-mirror http://{{ zuul_site_mirror_fqdn }}"
+  command: "cd {{ dev_env_basepath }} && docker exec {{ dev_env_container_name }} ./third_party/fetch_packages.py --site-mirror http://{{ zuul_site_mirror_fqdn }}/repository"
   tags:
     - skip_ansible_lint
 
