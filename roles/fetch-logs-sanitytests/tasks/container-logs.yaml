@@ -38,7 +38,6 @@
       src: '{{ container_log_dir }}/'
       dest: '{{ zuul.executor.log_root }}/container-logs/{{ inventory_hostname }}'
       mode: 'pull'
-      owner: no
-      group: no
+      recursive: true
     become: true
 

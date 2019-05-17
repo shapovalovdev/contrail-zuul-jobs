@@ -12,8 +12,6 @@
     src: "{{ docker_build_dir }}/common.env"
     dest: "{{ zuul.executor.log_root }}/"
     mode: pull
-    owner: no
-    group: no
   become: true
 
 - name: Get list of repo files

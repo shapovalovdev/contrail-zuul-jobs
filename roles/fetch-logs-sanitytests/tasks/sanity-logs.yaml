@@ -45,8 +45,6 @@
       src: '{{ item.path }}'
       dest: '{{ zuul.executor.log_root }}/sanity-logs'
       mode: 'pull'
-      owner: no
-      group: no
     become: true
     with_items: '{{ xml_report_file.files }}'
     when: xml_report_file.matched > 0
@@ -56,8 +54,6 @@
       src: '{{ item.path }}'
       dest: '{{ zuul.executor.log_root }}/sanity-logs'
       mode: 'pull'
-      owner: no
-      group: no
     become: true
     with_items: '{{ html_report_file.files }}'
     when: html_report_file.matched > 0
@@ -67,8 +63,7 @@
       src: '{{ item.path }}'
       dest: '{{ zuul.executor.log_root }}/sanity-logs'
       mode: 'pull'
-      owner: no
-      group: no
+      recursive: true
     become: true
     with_items: '{{ logs_dir.files }}'
     when: logs_dir.matched > 0

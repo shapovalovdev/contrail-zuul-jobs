@@ -17,7 +17,5 @@
     src: "{{ item.path }}"
     dest: "{{ zuul.executor.work_root }}/packages/"
     mode: pull
-    owner: no
-    group: no
   with_items: "{{ packages.files }}"
 
