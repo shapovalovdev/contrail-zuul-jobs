@@ -1,11 +1,5 @@
 ---
 
-- name: dbg get
-  shell: "mount; pwd; ip addr; ls -l /var ; ls -l /var/ssh || /bin/true"
-  register: dbg_var
-- debug:
-    msg: "{{ dbg_var }}"
-
 - name: find the current patchset
   shell: "ssh -i '/var/ssh/zuul_rsa' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 29418 zuul@{{ zuul.project.canonical_hostname }} gerrit query --comments {{ zuul.change }} --current-patch-set  | grep -A 1 'currentPatchSet:' | grep 'number' | cut -d ':' -f2 | xargs"
   register: current_patch_set
