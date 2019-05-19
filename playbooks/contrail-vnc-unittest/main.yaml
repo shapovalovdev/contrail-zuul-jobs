@@ -3,6 +3,8 @@
   roles:
     - dump-key
     - skip-job
+      vars:
+        job_name: 'contrail-vnc-unittest-centos7'
     - zuul-include-vars
     - contrail-tpc-repos
     - yum-repos-prepare
