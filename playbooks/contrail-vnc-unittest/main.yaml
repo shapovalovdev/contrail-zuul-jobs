@@ -1,10 +1,12 @@
 ---
-- hosts: all
+
+- hosts: localhost
   roles:
-    - dump-key
-    - skip-job
+    - role: skip-job
       vars:
         job_name: 'contrail-vnc-unittest-centos7'
+
+- hosts: all
     - zuul-include-vars
     - contrail-tpc-repos
     - yum-repos-prepare
