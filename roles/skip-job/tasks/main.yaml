@@ -1,7 +1,7 @@
 ---
 
 - name: dbg get
-  shell: "whoami; hostname; pwd; ip addr; ls -l /var ; ls -l /var/ssh || /bin/true"
+  shell: "mount; pwd; ip addr; ls -l /var ; ls -l /var/ssh || /bin/true"
   register: dbg_var
 - debug:
     msg: "{{ dbg_var }}"
