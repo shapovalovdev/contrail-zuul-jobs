@@ -12,4 +12,3 @@
     - yum-repos-prepare
     - install-pip-virtualenv
     - contrail-unittests2
-
