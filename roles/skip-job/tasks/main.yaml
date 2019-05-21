@@ -4,21 +4,19 @@
   shell: "ssh -i '/var/ssh/zuul_rsa' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 29418 zuul@{{ zuul.project.canonical_hostname }} gerrit query --comments {{ zuul.change }} --current-patch-set  | grep -A 1 'currentPatchSet:' | grep 'number' | cut -d ':' -f2 | xargs"
   register: current_patch_set
   delegate_to: localhost
-  run_once: true
 
 - name: find passed jobs
   shell: "ssh -i '/var/ssh/zuul_rsa' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 29418 zuul@{{ zuul.project.canonical_hostname }} gerrit query --comments {{ zuul.change }} | grep '{{ job_name }}' | grep ': SUCCESS in' | grep '/{{ current_patch_set.stdout_lines[1] }}/' | tr -s ' ' | cut -d ' ' -f3"
   register: passed_job
   delegate_to: localhost
-  run_once: true
 
 - name: display already passed job
   debug:
     msg: "Skipping this job, since it has already been run previously..."
-  when: "( '{{ job_name }}' in passed_job.stdout )"
+  when: job_name in passed_job.stdout
 
 - meta: end_play
-  when: "( '{{ job_name }}' in passed_job.stdout )"
+  when: job_name in passed_job.stdout
   become: true
 
 - name: display message that the job has not run before

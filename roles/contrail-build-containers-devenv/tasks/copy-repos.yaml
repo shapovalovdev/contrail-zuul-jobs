@@ -8,7 +8,7 @@
 
 - name: copy repository files
   become: yes
-  shell: "cp -fR {{ item }} {{ devenv_dir }}/config{{ item }}"
+  command: "cp -fR {{ item }} {{ devenv_dir }}/config{{ item }}"
   with_items:
     - /etc/pip.conf
     - /etc/yum.repos.d

@@ -32,7 +32,9 @@
     REGISTRY_IP: "{{ contrail_docker_registry.split(':')[0] }}"
     REGISTRY_PORT: "{{ contrail_docker_registry.split(':')[1] }}"
     SITE_MIRROR: "http://{{ zuul_site_mirror_fqdn }}/repository"
+  tags:
+  - skip_ansible_lint
 
 - name: Push devenv docker image
-  shell: "docker push {{ devenv_image_name }}:{{ devenv_image_tag }}"
+  command: "docker push {{ devenv_image_name }}:{{ devenv_image_tag }}"
   become: true
