@@ -62,7 +62,10 @@ def main():
         version['distrib'] = "ci{change}.{patchset}".format(
             change=change, patchset=patchset, date=date
         )
-        docker_version = "{change}-{patchset}".format(change=change, patchset=patchset)
+        if zuul['pipeline'] not in ['gate', 'experimental-sanity']:
+            docker_version = "{change}-{patchset}".format(change=change, patchset=patchset)
+        else:
+            docker_version = version['public']
     elif release_type == ReleaseType.NIGHTLY:
         version['distrib'] = "{}".format(build_number)
         docker_version = '{}-{}'.format(docker_version, build_number)

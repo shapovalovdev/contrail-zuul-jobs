@@ -2,5 +2,7 @@
 
 daemon_json_path: /etc/docker/daemon.json
 proxy_fqdn: '{{ nexus.fqdn }}'
-proxy_port: '{{ nexus.registry.proxy }}'
+# it's not define yet for these unused jobs: contrail-build-test-containers and contrail-build-containers-base
+#proxy_port: '{{ nexus.registry.??? }}'
+proxy_port: 1
 
