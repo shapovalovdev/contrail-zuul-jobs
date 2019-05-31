@@ -6,7 +6,6 @@
       vars:
         job_name: 'contrail-vnc-unittest-centos7'
     - zuul-include-vars
-    - contrail-tpc-repos
     - yum-repos-prepare
     - install-pip-virtualenv
     - contrail-unittests2
