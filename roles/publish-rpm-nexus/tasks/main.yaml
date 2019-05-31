@@ -19,14 +19,6 @@
       - '*.rpm'
   register: package_list
 
-- name: debug 1
-  debug:
-    msg: "creds file: {{ nexus.creds_path }}  dest: {{ nexus_repo_url }}"
-- name: debug 2
-  command: cat {{ nexus.creds_path }}
-- name: debug 3
-  command: ls -l /etc/zuul
-
 - name: upload rpms
   when: package_list.matched|int != 0
   command: >
