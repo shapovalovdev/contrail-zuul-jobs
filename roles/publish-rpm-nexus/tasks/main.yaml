@@ -22,7 +22,7 @@
 - name: upload rpms
   when: package_list.matched|int != 0
   command: >
-    curl -s -K {{ nexus.creds_path }}
+    curl -v -K {{ nexus.creds_path }}
       --upload-file {{ item }} {{ nexus_repo_url }}/{{ item | basename }}
   with_items: "{{ package_list | json_query('files[*].path') }}"
   tags:
