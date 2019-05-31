@@ -30,6 +30,9 @@
         repos_add: '{{ repos_add }} + {{ openshift_repos_add }}'
 
 - name: prepare centos
+  become: yes
+  become_user: root
+  when: 'ansible_os_family == "RedHat"'
   block:
     - name: disable subscription-manager on RHEL
       command: subscription-manager config --rhsm.manage_repos=0
@@ -57,27 +60,19 @@
         baseurl: "{{ repos_baseurl }}/epel"
         enabled: "{{ use_epel }}"
         gpgcheck: no
-# TODO: remove
-#    - name: prepare third party cache yum Nexus repo
-#      yum_repository:
-#      name: tpc-{{ item }}
-#        description: Contrail third-party dependencies
-#        file: tpc-{{ item }}
-#        baseurl: "http://{{ nexus.fqdn }}/repository/{{ nexus_rpm_repo }}/{{ tpc_branch }}/{{ item }}/"
-#        enabled: yes
-#        gpgcheck: no
-#      with_items:
-#        - source
-#        - binary
-#      when: enable_tpc_repo
-    - name: prepare tpc mirror repo file
+    - name: prepare third party source cache yum Nexus repo (depends on branch)
       yum_repository:
-        name: tpc
-        description: Contrail third-party
-        file: tpc
-        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc }}"
-        enabled: "{{ enable_tpc_repo }}"
+      name: tpc-source
+        description: Contrail third-party source dependencies
+        file: tpc-source
+        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc_source }}/{{ tpc_branch }}/"
+        enabled: yes
         gpgcheck: no
-  when: 'ansible_os_family == "RedHat"'
-  become: yes
-  become_user: root
+    - name: prepare third party binary cache yum Nexus repo (doesn't depend on branch)
+      yum_repository:
+      name: tpc-binary
+        description: Contrail third-party binary dependencies
+        file: tpc-binary
+        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc_binary }}/"
+        enabled: yes
+        gpgcheck: no

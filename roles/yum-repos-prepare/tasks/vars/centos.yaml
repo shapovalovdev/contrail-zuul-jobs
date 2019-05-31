@@ -6,7 +6,7 @@ repos_remove:
     - { name: epel, file: epel }
     - { name: epel-source, file: epel }
 repos_file: CentOS-Base
-repos_baseurl: http://{{ zuul_site_mirror_fqdn }}/repository
+repos_baseurl: http://{{ nexus.fqdn }}/repository
 repos_add:
     - { name: updates-mirror, repo: centos7-updates, description: CentOS updates mirror }
     - { name: extras-mirror, repo: centos7-extras, description: CentOS extras mirror }
