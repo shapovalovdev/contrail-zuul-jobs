@@ -1,4 +1,5 @@
 ---
+
 - name: set up infrastructure repositories
   include: copy-repos.yaml
 
@@ -14,6 +15,11 @@
     dest: "{{ devenv_dir }}/{{ item }}.tmpl"
   with_items:
     - common.env
+
+- name: remove tpc.repo.template (all repo files should be taken from host)
+  file:
+    path: "{{ devenv_dir }}/tpc.repo.template"
+    state: absent
 
 - name: Build containers
   shell: "./startup.sh"
