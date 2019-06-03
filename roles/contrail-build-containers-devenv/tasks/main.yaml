@@ -19,8 +19,8 @@
 # containers using just templates in its folder.
 - name: prepare tpc.repo.template for contaniers build inside devenv
   template:
-    source: tpc.repo.template.j2
-    path: "{{ devenv_dir }}/tpc.repo.template"
+    src: tpc.repo.template.j2
+    dest: "{{ devenv_dir }}/tpc.repo.template"
 
 - name: Prepare packaging variables
   contrail_packaging:
