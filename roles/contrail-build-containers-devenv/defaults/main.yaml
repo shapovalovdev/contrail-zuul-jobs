@@ -2,3 +2,4 @@ devenv_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Ju
 contrail_version: "{{ packaging.repo_name }}"
 devenv_image_name: "{{ contrail_docker_registry }}/contrail-devenv"
 devenv_image_tag: "{{ packaging.version.public }}"
+tpc_branch: "{{ zuul.branch | match('^R\\d(\\.\\d+)+$') | ternary(zuul.branch, 'master') }}"
