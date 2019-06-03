@@ -1,7 +1,26 @@
 ---
 
-- name: set up infrastructure repositories
-  include: copy-repos.yaml
+- name: prepare config directory
+  file:
+    path: "{{ devenv_dir }}/config/etc"
+    state: directory
+    recurse: true
+
+- name: copy repository files
+  become: yes
+  command: "cp -fR {{ item }} {{ devenv_dir }}/config{{ item }}"
+  with_items:
+    - /etc/pip.conf
+    - /etc/yum.repos.d
+    - /etc/yum.conf
+
+# TODO: try to commonize it with yum-prepare-repos
+# this file is needed because of container-builder. it builds
+# containers using just templates in its folder.
+- name: prepare tpc.repo.template for contaniers build inside devenv
+  template:
+    source: tpc.repo.template.j2
+    path: "{{ devenv_dir }}/tpc.repo.template"
 
 - name: Prepare packaging variables
   contrail_packaging:
@@ -11,15 +30,8 @@
 
 - name: Prepare build configuration - {{ item }}.tmpl
   template:
-    src: "{{ item }}.j2"
-    dest: "{{ devenv_dir }}/{{ item }}.tmpl"
-  with_items:
-    - common.env
-
-- name: remove tpc.repo.template (all repo files should be taken from host)
-  file:
-    path: "{{ devenv_dir }}/tpc.repo.template"
-    state: absent
+    src: common.env.j2
+    dest: "{{ devenv_dir }}/common.env.tmpl"
 
 - name: Build containers
   shell: "./startup.sh"

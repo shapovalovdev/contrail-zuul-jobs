@@ -1,0 +1,11 @@
+[tpc-binary]
+name=Static third parties for Contrail
+baseurl={{ repos_baseurl }}/{{ nexus.repos.yum_tpc_binary }}/
+enabled=1
+gpgcheck=0
+
+[tpc-source]
+name=Third parties for Contrail built from sources
+baseurl={{ repos_baseurl }}/{{ nexus.repos.yum_tpc_source }}/{{ tpc_branch }}/
+enabled=1
+gpgcheck=0
