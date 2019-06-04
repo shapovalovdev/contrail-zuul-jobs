@@ -1,4 +1,5 @@
 devenv_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-dev-env"
+test_dir: "{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-test"
 contrail_version: "{{ packaging.repo_name }}"
 devenv_image_name: "{{ contrail_docker_registry }}/contrail-devenv"
 devenv_image_tag: "{{ packaging.version.public }}"

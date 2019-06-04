@@ -22,6 +22,11 @@
     src: tpc.repo.template.j2
     dest: "{{ devenv_dir }}/tpc.repo.template"
 
+- name: prepare google-chrome.repo for test contanier build inside devenv
+  template:
+    src: google-chrome.repo.j2
+    dest: "{{ test_dir }}/docker/base/google-chrome.repo"
+
 - name: Prepare packaging variables
   contrail_packaging:
     zuul: "{{ zuul }}"
