@@ -7,12 +7,6 @@ contrail_configuration:
   #
   CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
   CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
-  #
-  KUBERNETES_API_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
-  KUBEMANAGER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
-  #
-  PHYSICAL_INTERFACE: "{{ hostvars[groups['data-plane'][0]].ansible_default_ipv4.interface }}"
-
   LOG_LEVEL: SYS_DEBUG
   JVM_EXTRA_OPTS: -Xms1g -Xmx2g
   CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
