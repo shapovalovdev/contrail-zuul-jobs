@@ -60,6 +60,15 @@
         baseurl: "{{ repos_baseurl }}/epel"
         enabled: "{{ use_epel }}"
         gpgcheck: no
+    - name: prepare docker mirror repo file
+      yum_repository:
+        name: docker-ce-stable-mirror
+        description: Docker CE Stable mirror
+        file: docker-ce
+        baseurl: "{{ repos_baseurl }}/docker-ce-stable"
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://download.docker.com/linux/centos/gpg
     - name: prepare third party source cache yum Nexus repo (depends on branch)
       yum_repository:
         name: tpc-source
