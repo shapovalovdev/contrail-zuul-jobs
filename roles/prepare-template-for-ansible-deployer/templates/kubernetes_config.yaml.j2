@@ -1,12 +1,11 @@
 contrail_configuration:
   CONTRAIL_CONTAINER_TAG: "{{ contrail_version }}"
-  OPENSTACK_VERSION: "{{ openstack_version }}"
   CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
 
-  # TODO: use one interface becuase kubelet needs to be on vhost0 interface
+  # TODO: use one interface because kubelet needs to be on vhost0 interface
   #
-  CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
-  CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
+  CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_eth1.address }}"
+  CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_eth1.address }}"
   LOG_LEVEL: SYS_DEBUG
   JVM_EXTRA_OPTS: -Xms1g -Xmx2g
   CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
@@ -16,4 +15,3 @@ contrail_configuration:
      name: __fip_pool_public__
      network: __public__
      project: k8s-default
-  RABBITMQ_NODE_PORT: 5673
