@@ -1,5 +1,5 @@
 ---
-test_target: 'ci_sanity'
+test_target: 'sanity'
 openstack_version: 'ocata'
 contrail_version: >-
   {%- if zuul.change is defined -%}
