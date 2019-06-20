@@ -31,6 +31,8 @@
         -k /root/.ssh/id_rsa \
         -f '{{ test_target }}' \
         '{{ testrunner_image }}'
+  environment:
+    EXTRA_RUN_TEST_ARGS: "-t"
   ignore_errors: yes
   become: true
 
