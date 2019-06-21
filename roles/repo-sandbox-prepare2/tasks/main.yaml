@@ -26,6 +26,7 @@
     projects: "{{ zuul._projects }}"
     manifest_path: "{{ ansible_env.HOME }}/{{ zuul._projects[zuul.project.canonical_hostname + '/Juniper/contrail-vnc'].src_dir }}/{{ manifest_file }}"
     snapshot_path: "{{ ansible_env.HOME }}/manifest.xml"
+    gerrit_scheme: "{{ gerrit.scheme }}"
 
 - name: Synchronize repositories to the sandbox
   command: "repo sync --quiet"

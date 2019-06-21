@@ -48,7 +48,7 @@ def convert_to_valid_git_id(dirname):
     return dirname.replace('/', '--')
 
 
-def translate(zuul_projects, sandbox_root, manifest_path):
+def translate(zuul_projects, sandbox_root, manifest_path, gerrit_scheme):
     """This will rewrite manifest to fetch repositories from filesystem locations
     instead of GitHub URLs. This way zuul-merger-prepared checkouts can be used
     during `repo sync`
@@ -95,7 +95,7 @@ def translate(zuul_projects, sandbox_root, manifest_path):
         except KeyError:
             project_relative_path = project.attrib['name']
         sandbox_path = os.path.join(sandbox_root, project_relative_path)
-        origins[sandbox_path] = "http://%s" % (zuul_project['canonical_name'],)
+        origins[sandbox_path] = "%s://%s" % (gerrit_scheme, zuul_project['canonical_name'],)
 
     return dump_xml(manifest), origins
 
@@ -125,6 +125,7 @@ def run_module():
         projects=dict(type='dict', required=True),
         sandbox_root=dict(type='str', required=True),
         snapshot_path=dict(type='str', required=True),
+        gerrit_scheme=dict(type='str', required=True),
     )
 
     module = AnsibleModule(
@@ -136,9 +137,10 @@ def run_module():
     manifest_path = module.params['manifest_path']
     sandbox_root = module.params['sandbox_root']
     snapshot_path = module.params['snapshot_path']
+    gerrit_scheme = module.params['gerrit_scheme']
 
     translated_manifest, origins = translate(projects, sandbox_root,
-                                             manifest_path)
+                                             manifest_path, gerrit_scheme)
     translated_path = os.path.join(sandbox_root, ".repo/manifest.xml")
     with open(translated_path, 'w') as fh:
         fh.write(translated_manifest)
