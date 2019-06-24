@@ -166,6 +166,7 @@
 
 - job:
     name: ci-test-publish-infra-doc-unit
+    voting: false
     description: |
       This job is running unit tests for fetch-docs and upload-docs roles
     run: tests/publish-infra-doc-unit.yaml
@@ -177,6 +178,7 @@
 
 - job:
     name: puppet-lint
+    voting: false
     description: |
       This job is running syntax and lint check for puppet files for contrail-infra
     run: playbooks/puppet-lint/run.yaml
