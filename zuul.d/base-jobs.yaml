@@ -184,7 +184,7 @@
     description: |
       Base job used to work on dev-env.
     required-projects:
-      - name: Juniper/contrail-dev-env
+      - name: tungstenfabric/tf-dev-env
         override-checkout: master
     nodeset: builder-centos-7
 

@@ -9,8 +9,8 @@
   command: docker ps
   become: true
 
-# For commands below, default chdir is /root/contrail-dev-env
-- name: Test contrail-dev-env
+# For commands below, default chdir is /root/tf-dev-env
+- name: Test tf-dev-env
   include: docker_exec.yaml
   with_items:
     - chdir: /root/contrail

@@ -256,7 +256,7 @@
 - job:
     name: test-dev-env
     description: |
-      Test job for contrail-dev-env.
+      Test job for tf-dev-env.
       Runs a set of steps to build RPMs and containers.
     parent: dev-env-base
     run: playbooks/test-dev-env/run.yaml
