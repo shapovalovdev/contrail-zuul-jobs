@@ -252,3 +252,19 @@
     pre-run: playbooks/contrail-base-untrusted/pre.yaml
     required-projects:
       - progmaticlab/contrail-project-config
+
+- job:
+    name: ctpp-per-review
+    description: |
+      This job is bulding rpms from c-t-p-p and uploading them to Nexus for
+      per review use.
+    parent: build-third-party-rpms-base
+    run: playbooks/contrail-third-party-packages-per-review/run.yaml
+    required-projects:
+      - progmaticlab/contrail-zuul-jobs
+    files:
+      - ^upstream/rpm/.*
+      - ^tests/.*
+      - ^roles/publish-rpm-nexus/.*
+      - ^roles/build-third-party-rpms/.*
+    nodeset: builder-centos-7
