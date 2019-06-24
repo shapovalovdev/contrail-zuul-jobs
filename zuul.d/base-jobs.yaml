@@ -251,4 +251,4 @@
       Adds yum-repos-prepare in untrusted context.
     pre-run: playbooks/contrail-base-untrusted/pre.yaml
     required-projects:
-      - Juniper/contrail-project-config
+      - progmaticlab/contrail-project-config
