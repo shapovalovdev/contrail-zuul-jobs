@@ -58,7 +58,7 @@
     UPSTREAM_VERSION: "{{ packaging.version.upstream }}"
     ZUUL_CHANGES: "{{ zuul.ref }}"
     ZUUL_PROJECT: "{{ zuul.project.short_name }}"
-    SCONS_JOBS: "1"
+    SCONS_JOBS: "4"
     LC_ALL: "C"
     GIT_REFS: >-
       {% set git_refs = [] -%}
