@@ -254,21 +254,6 @@
     nodeset: builder-centos-7
 
 - job:
-    name: test-dev-env
-    description: |
-      Test job for tf-dev-env.
-      Runs a set of steps to build RPMs and containers.
-    parent: dev-env-base
-    run: playbooks/test-dev-env/run.yaml
-
-- job:
-    name: publish-dev-env
-    description: |
-      This job builds and publishes developer-sandbox container.
-    parent: dev-env-base
-    run: playbooks/publish-dev-env/run.yaml
-
-- job:
     name: contrail-windows-test-cad
     parent: trigger-win-base
     description: This jobs starts Jenkins job in Windows CI to test CAD.
@@ -276,63 +261,6 @@
       manifest_file: windows-ci.xml
       jenkins_job: winci-server2016-cad
       build_number: 0
-
-- job:
-    name: contrail-build-test-containers
-    parent: docker-base
-    branches: ^(?!(R5\.0|release-3\.9-contrail)).*$
-    run: playbooks/contrail-build-test-containers/run.yaml
-    required-projects:
-      - Juniper/contrail-test
-    nodeset: builder-centos-7
-
-- job:
-    name: contrail-build-test-containers
-    parent: docker-base
-    branches:
-      - ^R5\.0$
-      - ^release-3.9-contrail$
-    override-checkout: R5.0
-    run: playbooks/contrail-build-test-containers/run.yaml
-    required-projects:
-      - Juniper/contrail-test
-    nodeset: builder-centos-7
-
-- job:
-    name: contrail-build-containers-centos7-newton
-    parent: contrail-build-containers-base
-    nodeset: builder-centos-7
-    vars:
-      openstack_version: newton
-
-- job:
-    name: contrail-build-containers-centos7-ocata
-    parent: contrail-build-containers-base
-    nodeset: builder-centos-7
-    vars:
-      openstack_version: ocata
-
-- job:
-    name: contrail-build-containers-centos7-queens
-    parent: contrail-build-containers-base
-    nodeset: builder-centos-7
-    vars:
-      openstack_version: queens
-
-- job:
-    name: contrail-build-containers-rhel7-queens
-    parent: contrail-build-containers-base
-    nodeset: builder-rhel-7
-    vars:
-      openstack_version: queens
-
-- job:
-    name: contrail-build-containers-centos7-rocky
-    branches: ^(R5.1|master|contrail\/rocky)$
-    parent: contrail-build-containers-base
-    nodeset: builder-centos-7
-    vars:
-      openstack_version: rocky
 
 - job:
     name: linters-go

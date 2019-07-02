@@ -69,15 +69,15 @@
         enabled: yes
         gpgcheck: yes
         gpgkey: https://download.docker.com/linux/centos/gpg
-    - name: prepare third party source cache yum Nexus repo (depends on branch)
+    - name: prepare third party source cache yum Nexus repo
       yum_repository:
         name: tpc-source
         description: Contrail third-party source dependencies
         file: tpc-source
-        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc_source }}/{{ tpc_branch }}/"
+        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc_source }}/"
         enabled: yes
         gpgcheck: no
-    - name: prepare third party binary cache yum Nexus repo (doesn't depend on branch)
+    - name: prepare third party binary cache yum Nexus repo
       yum_repository:
         name: tpc-binary
         description: Contrail third-party binary dependencies

@@ -1,5 +1,3 @@
 ---
 pkg_src_dir: '{{ zuul.executor.work_root }}/packages'
-remote_path_source: '{{ nexus.repos.yum_tpc_source }}/{{ zuul.branch }}'
-remote_path_ctpp: '{{ nexus.repos.yum }}/{{ zuul.change }}-{{ zuul.patchset }}-ctpp'
-remote_repo_path: '{{ remote_path_source if zuul.pipeline == "post-merge" else remote_path_ctpp }}'
+remote_repo_path: '{{ nexus.repos.yum_tpc_source }}'

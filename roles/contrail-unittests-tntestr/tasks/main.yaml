@@ -31,7 +31,6 @@
     mode: '0755'
   with_items:
     - contrail-unittests-gather.rb
-    - repo
 
 - name: run a full Contrail VNC build
   command: 'scons -j {{ ansible_processor_vcpus }}'

@@ -3,4 +3,3 @@ test_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "e
 contrail_version: "{{ packaging.repo_name }}"
 devenv_image_name: "{{ contrail_docker_registry }}/tf-dev-env"
 devenv_image_tag: "{{ packaging.version.public }}"
-tpc_branch: "{{ zuul.branch | match('^R\\d(\\.\\d+)+$') | ternary(zuul.branch, 'master') }}"

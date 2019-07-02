@@ -176,7 +176,6 @@
       This job builds packages from third-party-packages repo
       on Red Hat-based operating systems. This is a base job,
       nodeset has to be assigned to build for a specific target.
-    voting: True
     run: playbooks/build-third-party-rpms-base/run.yaml
 
 - job:
@@ -188,55 +187,6 @@
       - name: tungstenfabric/tf-dev-env
         override-checkout: master
     nodeset: builder-centos-7
-
-- job:
-    name: docker-base
-    parent: contrail-base2
-    description: |
-      Prepares basic docker configuration - proxy and insecure registries.
-      Requires nodeset and run playbook.
-    pre-run: playbooks/docker-base/pre.yaml
-
-- job:
-    name: contrail-build-containers-base
-    branches:
-      - ^R5\.0$
-      - ^release-3.9-contrail$
-    parent: docker-base
-    override-checkout: R5.0
-    description: |
-      Builds Contrail using contrail-container-builder.
-      Requires nodeset and openstack_version.
-    run: playbooks/contrail-build-containers-base/run.yaml
-    required-projects:
-      - Juniper/contrail-container-builder
-      - Juniper/contrail-ansible-deployer
-      - Juniper/contrail-deployers-containers
-      - Juniper/contrail-kolla-ansible
-      - name: Juniper/openshift-ansible
-        override-checkout: release-3.9-contrail
-      - Juniper/contrail-helm-deployer
-      - Juniper/openstack-helm
-      - Juniper/openstack-helm-infra
-
-- job:
-    name: contrail-build-containers-base
-    branches: ^(?!(R5\.0|release-3\.9-contrail)).*$
-    parent: docker-base
-    description: |
-      Builds Contrail using contrail-container-builder.
-      Requires nodeset and openstack_version.
-    run: playbooks/contrail-build-containers-base/run.yaml
-    required-projects:
-      - Juniper/contrail-container-builder
-      - Juniper/contrail-ansible-deployer
-      - Juniper/contrail-deployers-containers
-      - Juniper/contrail-kolla-ansible
-      - name: Juniper/openshift-ansible
-        override-checkout: release-3.11-contrail
-      - Juniper/contrail-helm-deployer
-      - Juniper/openstack-helm
-      - Juniper/openstack-helm-infra
 
 - job:
     name: contrail-vnc-unittest-tntestr-base
@@ -253,19 +203,3 @@
     pre-run: playbooks/contrail-base-untrusted/pre.yaml
     required-projects:
       - progmaticlab/contrail-project-config
-
-- job:
-    name: ctpp-per-review
-    description: |
-      This job is bulding rpms from c-t-p-p and uploading them to Nexus for
-      per review use.
-    parent: build-third-party-rpms-base
-    run: playbooks/contrail-third-party-packages-per-review/run.yaml
-    required-projects:
-      - progmaticlab/contrail-zuul-jobs
-    files:
-      - ^upstream/rpm/.*
-      - ^tests/.*
-      - ^roles/publish-rpm-nexus/.*
-      - ^roles/build-third-party-rpms/.*
-    nodeset: builder-centos-7
