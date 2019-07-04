@@ -3,10 +3,7 @@
 - job:
     name: contrail-vnc-build-centos74
     parent: contrail-vnc-build-base
-    nodeset:
-      nodes:
-        - name: builder
-          label: centos-7-4-builder
+    nodeset: builder-centos-7
 
 - job:
     name: contrail-vnc-build-rhel7-queens
@@ -74,18 +71,6 @@
       openstack_version: rocky
       kolla_version: rocky
     nodeset: c7-systest-c-aio
-
-- job:
-    name: contrail-sanity-rhel7-kolla-queens
-    parent: contrail-sanity-kolla-base
-    pre-run: playbooks/contrail-sanity-kolla-base/redhat-pre.yaml
-    required-projects:
-      - name: Juniper/contrail-kolla-ansible
-        override-checkout: contrail/queens
-    vars:
-      openstack_version: queens
-      kolla_version: queens
-    nodeset: rhel-7-sanity-aio
 
 - job:
     name: contrail-sanity-centos7-k8s
@@ -213,7 +198,7 @@
     voting: False
     parent: contrail-base2
     run: playbooks/post-nightly-registry-port.yaml
-    nodeset: ubuntu-xenial
+    nodeset: ubuntu-xenial-small
     vars:
       release_type: nightly
 
@@ -269,10 +254,6 @@
       This job runs linters-go job for contrail-generateds, contrail-api-client
       and contrail-go-api repos
     run: playbooks/linters-go/run.yaml
-    nodeset:
-      nodes:
-        - name: builder
-          label: ubuntu-xenial-builder
 
 - job:
     name: contrail-build-win2016

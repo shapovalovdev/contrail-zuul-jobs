@@ -162,10 +162,7 @@
     vars:
       cloud_orchestrator: openstack
       contrail_deployer: helm
-    nodeset:
-      nodes:
-        - name: helm-aio
-          label: ubuntu-xenial-builder-xxlarge
+    nodeset: ubuntu-xenial-large
     roles:
       - zuul: Juniper/contrail-helm-deployer
 

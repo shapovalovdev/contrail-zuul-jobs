@@ -3,11 +3,8 @@
     check:
       jobs:
         - ci-test-core-centos-7
-        - ci-test-core-ubuntu-xenial
         - ci-test-contrail-core-centos-7
-        - ci-test-contrail-core-ubuntu-xenial
         - ci-test-packaging-centos-7
-        - ci-test-packaging-ubuntu-xenial
         - ci-test-lint-rpm-specs-centos-7
         - ci-test-ansible-lint-centos-7
         - ci-test-publish-infra-doc
@@ -23,11 +20,8 @@
       queue: contrail-ci
       jobs:
         - ci-test-core-centos-7
-        - ci-test-core-ubuntu-xenial
         - ci-test-contrail-core-centos-7
-        - ci-test-contrail-core-ubuntu-xenial
         - ci-test-packaging-centos-7
-        - ci-test-packaging-ubuntu-xenial
         - ci-test-lint-rpm-specs-centos-7
         - ci-test-ansible-lint-centos-7
         - ci-test-publish-infra-doc

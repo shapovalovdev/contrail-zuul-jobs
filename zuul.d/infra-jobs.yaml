@@ -22,12 +22,7 @@
 - job:
     name: ci-test-core-centos-7
     parent: ci-test-core-base
-    nodeset: centos-7
-
-- job:
-    name: ci-test-core-ubuntu-xenial
-    parent: ci-test-core-base
-    nodeset: ubuntu-xenial
+    nodeset: builder-centos-7
 
 - job:
     name: ci-test-contrail-core-base
@@ -44,12 +39,7 @@
 - job:
     name: ci-test-contrail-core-centos-7
     parent: ci-test-contrail-core-base
-    nodeset: centos-7
-
-- job:
-    name: ci-test-contrail-core-ubuntu-xenial
-    parent: ci-test-contrail-core-base
-    nodeset: ubuntu-xenial
+    nodeset: builder-centos-7
 
 - job:
     name: ci-test-packaging-base
@@ -68,11 +58,6 @@
     name: ci-test-packaging-centos-7
     parent: ci-test-packaging-base
     nodeset: builder-centos-7
-
-- job:
-    name: ci-test-packaging-ubuntu-xenial
-    parent: ci-test-packaging-base
-    nodeset: builder-ubuntu-xenial
 
 - job:
     name: ci-test-lint-rpm-specs-centos-7
@@ -116,7 +101,7 @@
       tox_environment:
         ANSIBLE_ROLES_PATH: ~/src/github.com/Juniper/zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-project-config/roles:~/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-helm-deployer/roles
         ANSIBLE_LIBRARY: ~/src/github.com/tungstenfabric/zuul/zuul/ansible:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-zuul-jobs/roles/contrail-common-libs2:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-project-config/roles/contrail-common-libs
-    nodeset: ubuntu-xenial-c
+    nodeset: ubuntu-xenial-small
 
 - job:
     name: build-infra-doc
@@ -160,7 +145,7 @@
     run: playbooks/puppet-lint/run.yaml
     required-projects:
       - Juniper/contrail-infra
-    nodeset: builder-ubuntu-xenial
+    nodeset: ubuntu-xenial-small
 
 - job:
     name: ci-test-publish-rpm-nexus
