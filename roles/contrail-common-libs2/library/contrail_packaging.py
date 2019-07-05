@@ -45,7 +45,7 @@ def main():
         branch = 'master'
     date = datetime.now().strftime("%Y%m%d%H%M%S")
 
-    version = {'epoch': None}
+    version = dict()
     if branch == 'master':
         version['upstream'] = MASTER_RELEASE
         version['public'] = 'master'

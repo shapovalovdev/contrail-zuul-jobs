@@ -2,4 +2,5 @@ devenv_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", 
 test_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", "contrail-test") | map(attribute="src_dir") | list | first }}'
 contrail_version: "{{ packaging.repo_name }}"
 devenv_image_name: "{{ contrail_docker_registry }}/tf-dev-env"
-devenv_image_tag: "{{ packaging.version.public }}"
+# use branch name as tag cause it's also passed to 'repo sync'
+devenv_image_tag: "{{ zuul.branch }}"
