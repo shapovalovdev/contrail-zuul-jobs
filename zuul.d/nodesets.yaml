@@ -11,10 +11,10 @@
         label: ubuntu-xenial-small
 
 - nodeset:
-    name: ubuntu-xenial-xxlarge
+    name: ubuntu-xenial-large
     nodes:
       - name: builder
-        label: ubuntu-xenial-xxlarge
+        label: ubuntu-xenial-large
 
 - nodeset:
     name: builder-centos-7
