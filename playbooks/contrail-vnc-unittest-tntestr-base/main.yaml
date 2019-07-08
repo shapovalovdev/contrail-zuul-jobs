@@ -1,7 +1,8 @@
 ---
 - hosts: all
   roles:
+    - role: skip-job
+      vars:
+        job_name: 'contrail-vnc-unittest-centos7-tntestr'
     - zuul-include-vars
-    - packaging-prepare-contrail2
     - contrail-unittests-tntestr
-

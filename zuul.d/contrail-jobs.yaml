@@ -13,12 +13,6 @@
       openstack_version: queens
 
 - job:
-    name: contrail-vnc-unittest-centos7
-    parent: contrail-vnc-unittest-base
-    voting: False
-    nodeset: builder-centos-7
-
-- job:
     name: contrail-vnc-unittest-centos7-tntestr
     parent: contrail-vnc-unittest-tntestr-base
     voting: False
@@ -26,6 +20,7 @@
     irrelevant-files:
       - docs/.*
       - README.md
+      - specs/.*
 
 - job:
     name: contrail-sanity-centos7-kolla-ocata
@@ -40,6 +35,7 @@
 
 - job:
     name: contrail-sanity-centos7-kolla-queens
+    branches: ^(R5.0|contrail\/queens)$
     parent: contrail-sanity-kolla-base
     required-projects:
       - name: Juniper/contrail-kolla-ansible

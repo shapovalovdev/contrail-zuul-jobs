@@ -1,10 +1,4 @@
 - nodeset:
-    name: ubuntu-trusty
-    nodes:
-      - name: builder
-        label: ubuntu-trusty
-
-- nodeset:
     name: ubuntu-xenial-small
     nodes:
       - name: ubuntu-xenial
