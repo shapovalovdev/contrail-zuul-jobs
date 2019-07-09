@@ -30,11 +30,15 @@ cmd = %{git ls-remote origin 2>/dev/null | \grep #{change_set} | \grep refs | aw
 
 @dirs = { }
 `#{cmd}`.split.each { |cid|
+    next if cmd.to_s.empty?
     STDERR.puts "contrail-unittest-gather.rb: Parse SHA #{cid}\n"
-    file = %{git show --pretty="format:" --name-only #{cid}}
-    STDERR.puts "contrail-unittest-gather.rb: Files parsed:\n #{file}\n"
-    next if "#{project}/#{file}" !~ /(.*?\/.*?\/.*?)\//
-    @dirs[$1] = true
+    get_file = %{git show --pretty="format:" --name-only #{cid}}
+    `#{get_file}`.split.each { |file|
+        next if file.to_s.empty?
+        STDERR.puts "contrail-unittest-gather.rb: Files parsed:\n #{file}\n"
+        next if "#{project}/#{file}" !~ /(.*?\/.*?\/.*?)\//
+        @dirs[$1] = true
+    }
 }
 STDERR.puts "contrail-unittest-gather.rb: List of directories changed:\n"
 @dirs.each_key { |dir|
