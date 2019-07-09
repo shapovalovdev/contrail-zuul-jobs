@@ -32,17 +32,6 @@
   with_items:
     - contrail-unittests-gather.rb
 
-- name: run a full Contrail VNC build
-  command: 'scons -j {{ ansible_processor_vcpus }}'
-  args:
-    chdir: '{{ packaging.target_dir }}'
-  environment:
-    BUILD_ONLY: 1
-    CONTRAIL_COMPILE_WITHOUT_SYMBOLS: yes
-    LC_ALL: 'C'
-    ZUUL_CHANGES: '{{ zuul.ref }}'
-  become: true
-
 - name: gather unittest targets to run
   command: '{{ ansible_env.HOME }}/contrail-unittests-gather.rb'
   environment:
@@ -74,6 +63,17 @@
     name: '{{ testrunner_dir }}'
     virtualenv: '{{ venv_dir }}'
     virtualenv_python: '{{ python_version }}'
+
+- name: run a full Contrail VNC build
+  command: 'scons -j {{ ansible_processor_vcpus }}'
+  args:
+    chdir: '{{ packaging.target_dir }}'
+  environment:
+    BUILD_ONLY: 1
+    CONTRAIL_COMPILE_WITHOUT_SYMBOLS: yes
+    LC_ALL: 'C'
+    ZUUL_CHANGES: '{{ zuul.ref }}'
+  become: true
 
 - name: prepare and run list of unittests
   when: unittest_target.stdout_lines[-1] != ''
