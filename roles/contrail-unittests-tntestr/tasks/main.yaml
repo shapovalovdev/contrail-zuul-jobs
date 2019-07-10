@@ -64,17 +64,6 @@
     virtualenv: '{{ venv_dir }}'
     virtualenv_python: '{{ python_version }}'
 
-- name: run a full Contrail VNC build
-  command: 'scons -j {{ ansible_processor_vcpus }}'
-  args:
-    chdir: '{{ packaging.target_dir }}'
-  environment:
-    BUILD_ONLY: 1
-    CONTRAIL_COMPILE_WITHOUT_SYMBOLS: yes
-    LC_ALL: 'C'
-    ZUUL_CHANGES: '{{ zuul.ref }}'
-  become: true
-
 - name: prepare and run list of unittests
   when: unittest_target.stdout_lines[-1] != ''
   block:
@@ -89,6 +78,17 @@
     copy:
       content: '{{ scons_describe.stdout }}'
       dest: '{{ ansible_env.HOME }}/{{ unittest_target_file }}'
+
+  - name: run a full Contrail VNC build
+    command: 'scons -j {{ ansible_processor_vcpus }}'
+    args:
+      chdir: '{{ packaging.target_dir }}'
+    environment:
+      BUILD_ONLY: 1
+      CONTRAIL_COMPILE_WITHOUT_SYMBOLS: yes
+      LC_ALL: 'C'
+      ZUUL_CHANGES: '{{ zuul.ref }}'
+    become: true
 
   - name: initialize test result fact
     set_fact:
