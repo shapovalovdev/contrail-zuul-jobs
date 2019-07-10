@@ -54,7 +54,13 @@ json = JSON.parse(File.read(json_file))
 
 # Find all applicable scons test targets
 @tests = [ ]
+@all_tests = [ ]
 json.each_pair { |module_name, module_data|
+    @all_tests += module_data["scons_test_targets"]
+    module_data["misc_test_targets"].each { |m|
+        @all_tests += json[m]["scons_test_targets"]
+    }
+
     skip = true
     @dirs.each_key { |dir|
         if module_data["source_directories"].include?(dir) then
@@ -72,8 +78,17 @@ json.each_pair { |module_name, module_data|
 }
 
 # couldn't find changes in any specific project, so
-# default to run generic test target
-@tests += json['default']['scons_test_targets'] if @tests.empty?
+# try to find default section and run generic test target
+if @tests.empty?
+    if json.key?('default')
+        @tests += json['default']['scons_test_targets']
+        json['default']['misc_test_targets'].each { |m|
+            @tests += json[m]['scons_test_targets']
+        }
+    else
+        @tests = @all_tests
+    end
+end
 
 STDERR.puts "contrail-unittest-gather.rb: SCons targets to run:\n"
 @tests.sort.uniq.each { |target|
