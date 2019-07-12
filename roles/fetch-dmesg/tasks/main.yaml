@@ -2,7 +2,6 @@
 - name: Gather dmesg output
   command: dmesg
   register: dmesg
-  no_log: true
 
 - name: Write host dmesg output
   delegate_to: localhost
