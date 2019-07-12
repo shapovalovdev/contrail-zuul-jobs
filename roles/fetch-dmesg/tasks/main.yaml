@@ -1,6 +1,6 @@
 ---
 - name: Gather dmesg output
-  shell: dmesg
+  command: dmesg
   register: dmesg
   no_log: true
 
