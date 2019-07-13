@@ -4,11 +4,13 @@
     name: contrail-vnc-build-centos74
     parent: contrail-vnc-build-base
     nodeset: builder-centos-7
+    timeout: 7200
 
 - job:
     name: contrail-vnc-build-rhel7-queens
     parent: contrail-vnc-build-base
     nodeset: builder-rhel-7
+    timeout: 7200
     vars:
       openstack_version: queens
 
@@ -17,6 +19,7 @@
     parent: contrail-vnc-unittest-tntestr-base
     voting: False
     nodeset: builder-centos-7
+    timeout: 14400
     irrelevant-files:
       - docs/.*
       - README.md
@@ -188,6 +191,7 @@
     vars:
       openstack_version: ocata
       test_target: ci_sanity
+    timeout: 7200
 
 - job:
     name: post-nightly-registry-port
