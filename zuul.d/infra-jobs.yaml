@@ -13,7 +13,7 @@
     required-projects:
       - progmaticlab/contrail-project-config
     roles:
-      - zuul: openstack-infra/zuul-jobs
+      - zuul: Juniper/zuul-jobs
     run: tests/core.yaml
     files:
       - ^roles/acquire-ip-address/.*
@@ -28,7 +28,7 @@
     name: ci-test-contrail-core-base
     parent: ci-test-base
     roles:
-      - zuul: openstack-infra/zuul-jobs
+      - zuul: Juniper/zuul-jobs
     required-projects:
       - Juniper/contrail-vnc
     run: tests/contrail-core.yaml
@@ -91,7 +91,7 @@
     pre-run: playbooks/zuul-jobs-linters/pre.yaml
     required-projects:
       - progmaticlab/contrail-project-config
-      - openstack-infra/zuul-jobs
+      - Juniper/zuul-jobs
       - name: tungstenfabric/zuul
         override-checkout: contrail/feature/zuulv3
       - progmaticlab/contrail-zuul-jobs
@@ -99,7 +99,7 @@
     vars:
       tox_envlist: linters
       tox_environment:
-        ANSIBLE_ROLES_PATH: ~/src/github.com/openstack-infra/zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-project-config/roles:~/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-helm-deployer/roles
+        ANSIBLE_ROLES_PATH: ~/src/github.com/Juniper/zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-project-config/roles:~/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-helm-deployer/roles
         ANSIBLE_LIBRARY: ~/src/github.com/tungstenfabric/zuul/zuul/ansible:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-zuul-jobs/roles/contrail-common-libs2:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-project-config/roles/contrail-common-libs
     nodeset: ubuntu-xenial-small
 
