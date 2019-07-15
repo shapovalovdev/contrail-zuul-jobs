@@ -17,6 +17,12 @@
         label: centos-7-large
 
 - nodeset:
+    name: unittest-centos-7
+    nodes:
+      - name: unittest
+        label: centos-7-large
+
+- nodeset:
     name: worker-centos-7
     nodes:
       - name: worker
