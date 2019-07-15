@@ -3,11 +3,10 @@
   roles:
     - acquire-ip-address
   tasks: 
-    - name: Fetch local_vars.yaml to executor
+    - name: Fetch helm repos to executor
       synchronize:
-        src: "{{ repos_dir }}/{{ item }}"
+        src: "{{ zuul.executor.work_root }}/{{ packaging.target_dir }}/src/{{ zuul.project.canonical_name }}/Juniper/{{ item }}"
         dest: "/opt"
-      no_log: true
       with_items:
         - openstack-helm-infra
         - openstack-helm
