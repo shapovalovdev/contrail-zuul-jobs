@@ -147,13 +147,13 @@
     nodeset:
       nodes:
         - name: openshift-master
-          label: rhel-7-builder
+          label: rhel-7-medium
         - name: openshift-infra
-          label: rhel-7-builder
+          label: rhel-7-medium
         - name: openshift-compute
-          label: rhel-7-builder
+          label: rhel-7-medium
         - name: deployment-1
-          label: ubuntu-xenial-small
+          label: ubuntu-xenial-xsmall
       groups:
         - name: deployment
           nodes:
@@ -172,13 +172,13 @@
     nodeset:
       nodes:
         - name: openshift-master
-          label: rhel-7-builder
+          label: rhel-7-medium
         - name: openshift-infra
-          label: rhel-7-builder
+          label: rhel-7-medium
         - name: openshift-compute
-          label: rhel-7-builder
+          label: rhel-7-medium
         - name: deployment-1
-          label: ubuntu-xenial-small
+          label: ubuntu-xenial-xsmall
       groups:
         - name: deployment
           nodes:
@@ -194,18 +194,9 @@
     timeout: 7200
 
 - job:
-    name: post-nightly-registry-port
-    voting: False
-    parent: contrail-base2
-    run: playbooks/post-nightly-registry-port.yaml
-    nodeset: ubuntu-xenial-small
-    vars:
-      release_type: nightly
-
-- job:
     name: build-third-party-rpms-centos7
     parent: build-third-party-rpms-base
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: lint-rpm-specs
@@ -214,7 +205,7 @@
       Afterwards, it prints out descriptions of all existing errors.
     run: playbooks/lint-rpm-specs/run.yaml
     parent: contrail-src-base
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: generate-build-change-info
@@ -225,7 +216,7 @@
     run: playbooks/generate-build-change-info/run.yaml
     required-projects:
       - tungsten-infra/ci-utils
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: generate-build-change-info-czj
@@ -236,7 +227,7 @@
     run: playbooks/generate-build-change-info-czj/run.yaml
     required-projects:
       - tungsten-infra/ci-utils
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: contrail-windows-test-cad

@@ -62,8 +62,8 @@
       stat:
         path: "{{ zuul.executor.work_root }}/packages/{{ item|basename }}"
       with_items: "{{ debian_packages }}"
-      # the node we're executing fetch-packages on is called 'centos-7' or 'ubuntu-xenial'
-      when: "{{ 'centos-7' in hostvars }}"
+      # the node we're executing fetch-packages on is called 'worker' or 'ubuntu-xenial'
+      when: "{{ 'worker' in hostvars }}"
       register: other_packages
       delegate_to: localhost
 
@@ -78,7 +78,7 @@
       stat:
         path: "{{ zuul.executor.work_root }}/packages/{{ item|basename }}"
       with_items: "{{ redhat_packages }}"
-      # the node we're executing fetch-packages on is called 'centos-7' or 'ubuntu-xenial'
+      # the node we're executing fetch-packages on is called 'worker' or 'ubuntu-xenial'
       when: "{{ 'ubuntu-xenial' in hostvars }}"
       register: other_packages
       delegate_to: localhost

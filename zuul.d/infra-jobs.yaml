@@ -22,7 +22,7 @@
 - job:
     name: ci-test-core-centos-7
     parent: ci-test-core-base
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: ci-test-contrail-core-base
@@ -39,7 +39,7 @@
 - job:
     name: ci-test-contrail-core-centos-7
     parent: ci-test-contrail-core-base
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: ci-test-packaging-base
@@ -57,7 +57,7 @@
 - job:
     name: ci-test-packaging-centos-7
     parent: ci-test-packaging-base
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: ci-test-lint-rpm-specs-centos-7
@@ -68,7 +68,7 @@
     files:
       - ^roles/lint-rpm-specs/.*
       - ^tests/.*
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: ci-test-ansible-lint-centos-7
@@ -80,7 +80,7 @@
       - ^ansible-lint-rules/.*
       - ^tests/fixtures/ansible-lint/.*
       - ^tests/ansible-lint.*
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: zuul-jobs-linters
@@ -101,7 +101,7 @@
       tox_environment:
         ANSIBLE_ROLES_PATH: ~/src/github.com/Juniper/zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-zuul-jobs/roles:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-project-config/roles:~/src/{{ zuul.project.canonical_hostname }}/Juniper/contrail-helm-deployer/roles
         ANSIBLE_LIBRARY: ~/src/github.com/tungstenfabric/zuul/zuul/ansible:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-zuul-jobs/roles/contrail-common-libs2:~/src/{{ zuul.project.canonical_hostname }}/progmaticlab/contrail-project-config/roles/contrail-common-libs
-    nodeset: ubuntu-xenial-small
+    nodeset: ubuntu-xenial-xsmall
 
 - job:
     name: build-infra-doc
@@ -109,7 +109,7 @@
       This jobs builds ci-doc using sphinx.
     parent: contrail-src-base
     run: playbooks/build-infra-doc/run.yaml
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: ci-test-publish-infra-doc
@@ -123,7 +123,7 @@
       - ^roles/fetch-docs/.*
       - ^roles/upload-docs/.*
       - ^tests/.*
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: ci-test-publish-infra-doc-unit
@@ -135,7 +135,7 @@
       - ^roles/fetch-docs/.*
       - ^roles/upload-docs/.*
       - ^tests/.*
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7
 
 - job:
     name: puppet-lint
@@ -145,7 +145,7 @@
     run: playbooks/puppet-lint/run.yaml
     required-projects:
       - Juniper/contrail-infra
-    nodeset: ubuntu-xenial-small
+    nodeset: ubuntu-xenial-xsmall
 
 - job:
     name: ci-test-publish-rpm-nexus
@@ -160,4 +160,4 @@
       - ^tests/.*
       - ^roles/publish-rpm-nexus/.*
       - ^roles/build-third-party-rpms/.*
-    nodeset: builder-centos-7
+    nodeset: worker-centos-7

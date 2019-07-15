@@ -1,8 +1,8 @@
 - nodeset:
-    name: ubuntu-xenial-small
+    name: ubuntu-xenial-xsmall
     nodes:
       - name: ubuntu-xenial
-        label: ubuntu-xenial-small
+        label: ubuntu-xenial-xsmall
 
 - nodeset:
     name: ubuntu-xenial-large
@@ -14,19 +14,25 @@
     name: builder-centos-7
     nodes:
       - name: builder
-        label: centos-7-4-builder
+        label: centos-7-large
+
+- nodeset:
+    name: worker-centos-7
+    nodes:
+      - name: worker
+        label: centos-7-small
 
 - nodeset:
     name: builder-rhel-7
     nodes:
       - name: builder
-        label: rhel-7-builder
+        label: rhel-7-medium
 
 - nodeset:
     name: c7-systest-c-aio
     nodes:
       - name: kolla-aio
-        label: c7-systest-c
+        label: centos-7-large
     groups:
       - name: control-plane
         nodes:
@@ -42,9 +48,9 @@
     name: c7-systest-c-multinode
     nodes:
       - name: openstack-control-1
-        label: c7-systest-c
+        label: centos-7-medium
       - name: openstack-compute-1
-        label: c7-systest-c
+        label: centos-7-medium
     groups:
       - name: deployment
         nodes:
