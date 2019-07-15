@@ -67,3 +67,21 @@
       - name: data-plane
         nodes:
           - openstack-compute-1
+
+- nodeset:
+    name: ubuntu-systest-c-multinode
+    nodes:
+      - name: openstack-control-1
+        label: ubuntu-xenial-medium
+      - name: openstack-compute-1
+        label: ubuntu-xenial-medium
+    groups:
+      - name: deployment
+        nodes:
+          - openstack-control-1
+      - name: control-plane
+        nodes:
+          - openstack-control-1
+      - name: data-plane
+        nodes:
+          - openstack-compute-1

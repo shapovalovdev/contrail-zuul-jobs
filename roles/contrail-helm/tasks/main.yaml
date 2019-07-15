@@ -1,0 +1,39 @@
+---
+
+# TODO: this role assumes that only one control node is present
+
+- name: Set variables
+  set_fact:
+    repos_dir: "/opt"
+
+- name: copy multinode vars template to target machine
+  template:
+    src: templates/multinode-vars.yaml.j2
+    dest: "{{ repos_dir }}/openstack-helm-infra/tools/gate/devel/multinode-vars.yaml"
+    mode: 0644
+
+- name: copy multinode inventory template to target machine
+  template:
+    src: templates/multinode-inventory.yaml.j2
+    dest: "{{ repos_dir }}/openstack-helm-infra/tools/gate/devel/multinode-inventory.yaml"
+    mode: 0644
+
+- name: copy deployment script to target machine
+  copy:
+    src: helm-deploy.sh
+    dest: "{{ ansible_env.HOME }}"
+    mode: 0755
+
+- name: run helm deployment script
+  command: ./helm-deploy.sh
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+  environment:
+    BASE_DIR: "{{ repos_dir }}"
+    OSH_PATH: "{{ repos_dir }}/openstack-helm"
+    OSH_INFRA_PATH: "{{ repos_dir }}/openstack-helm-infra"
+    CHD_PATH: "{{ repos_dir }}/contrail-helm-deployer"
+    CONTRAIL_REGISTRY: "{{ contrail_docker_registry }}"
+    CONTAINER_TAG: "{{ container_tag }}"
+    CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
+    CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"

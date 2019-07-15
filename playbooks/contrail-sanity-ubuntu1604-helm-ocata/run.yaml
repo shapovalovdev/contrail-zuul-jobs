@@ -2,8 +2,19 @@
 - hosts: all
   roles:
     - acquire-ip-address
-    - self-ssh-key
-    - contrail-helm-deployer
+  tasks: 
+    - name: Fetch local_vars.yaml to executor
+      synchronize:
+        src: "{{ repos_dir }}/{{ item }}"
+        dest: "/opt"
+      no_log: true
+      with_items:
+        - openstack-helm-infra
+        - openstack-helm
+        - contrail-helm-deployer
+
+- hosts: deployment
+  roles:
+    - contrail-helm
     - prepare-template-for-helm-sanity
     - sanitytest
-

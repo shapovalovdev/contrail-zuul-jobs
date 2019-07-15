@@ -12,7 +12,6 @@ contrail_configuration:
   KEYSTONE_AUTH_ADMIN_PASSWORD: c0ntrail123
   KEYSTONE_AUTH_HOST: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
   KEYSTONE_AUTH_URL_VERSION: "/v3"
-  RABBITMQ_NODE_PORT: 5673
   OPENSTACK_VERSION: "{{ openstack_version }}"
   CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
   DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10

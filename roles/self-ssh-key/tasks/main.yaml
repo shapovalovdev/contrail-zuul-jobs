@@ -21,4 +21,3 @@
   authorized_key:
     user: "{{ user.name }}"
     key: "{{ pubkey.stdout }}"
-
