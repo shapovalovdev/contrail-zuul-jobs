@@ -8,6 +8,11 @@ sudo iptables -F
 sudo sysctl -w vm.max_map_count=1048575
 
 cd ${OSH_PATH}
+
+# debug pre-checks
+cat ./tools/gate/devel/multinode-vars.yaml
+cat ./tools/gate/devel/multinode-inventory.yaml
+
 ./tools/deployment/developer/common/001-install-packages-opencontrail.sh
 
 set -x

@@ -18,6 +18,14 @@
     dest: "{{ repos_dir }}/openstack-helm-infra/tools/gate/devel/multinode-inventory.yaml"
     mode: 0644
 
+- name: Fetch parsed templates to logs
+  synchronize:
+    src: "{{ repos_dir }}/openstack-helm-infra/tools/gate/devel"
+    dest: "{{ zuul.executor.log_root }}/helm-logs"
+    mode: pull
+    recursive: true
+  become: true
+
 - name: copy deployment script to target machine
   copy:
     src: helm-deploy.sh
