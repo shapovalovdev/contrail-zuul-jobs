@@ -2,7 +2,16 @@
 - hosts: all
   roles:
     - acquire-ip-address
-  tasks: 
+  tasks:
+    - name: ensure folder /opt exists
+      file:
+        path: "/opt"
+        state: directory
+        recurse: yes
+        mode: 0755
+        owner: zuul
+        group: zuul
+      become: true
     - name: Fetch helm repos to executor
       synchronize:
         src: "{{ zuul.executor.work_root }}/src/{{ zuul.project.canonical_hostname }}/Juniper/{{ item }}"
