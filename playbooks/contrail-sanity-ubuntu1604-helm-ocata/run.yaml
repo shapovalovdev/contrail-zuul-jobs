@@ -16,6 +16,7 @@
       synchronize:
         src: "{{ zuul.executor.work_root }}/src/{{ zuul.project.canonical_hostname }}/Juniper/{{ item }}"
         dest: "/opt"
+      no_log: true
       with_items:
         - openstack-helm-infra
         - openstack-helm
