@@ -10,7 +10,7 @@ all:
           ansible_ssh_private_key_file: /home/zuul/.ssh/id_rsa
     nodes:
       hosts:
-{%- for host in groups['data-plane'] | unique -%}
+{% for host in groups['data-plane'] | unique -%}
         {{ hostvars[host].ansible_hostname }}:
           ansible_port: 22
           ansible_host: {{ hostvars[host].ansible_default_ipv4.address }}
