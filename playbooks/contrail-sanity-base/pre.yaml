@@ -32,11 +32,14 @@
 - hosts: all
   tasks:
     - name: ensure the deployment user's ssh key is present in authorized_keys on all nodes
+      authorized_key:
+        user: "{{ ansible_user }}"
+        key: "{{ hostvars[groups['deployment'][0]].pubkey.stdout }}"
+    - name: ensure the deployment user's ssh key is present in authorized_keys on all nodes
       become: true
       authorized_key:
-        user: "{{ hostvars[groups['deployment'][0]].user.name }}"
+        user: "root"
         key: "{{ hostvars[groups['deployment'][0]].pubkey.stdout }}"
-      when: "'deployment' in groups"
 
 - hosts: all
   vars:

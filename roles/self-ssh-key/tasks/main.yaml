@@ -1,23 +1,37 @@
 ---
+
 - name: Ensure that the given user has ssh key generated
-  become: true
   user:
-    name: "{{ user }}"
+    name: "{{ ansible_user }}"
     generate_ssh_key: yes
-  register: user
 
 - name: Get user's home path along other info (saved in getent_passwd fact)
   getent:
     database: passwd
-    key: "{{ user.name }}"
+    key: "{{ ansible_user }}"
 
 - name: Read the pubkey
-  become: true
-  command: "cat {{ getent_passwd[user.name][4] + '/.ssh/id_rsa.pub' }}"
+  command: "cat {{ getent_passwd[ansible_user][4] + '/.ssh/id_rsa.pub' }}"
   register: pubkey
 
-- name: Ensure the ssh key is present in authorized_keys
+- name: copy the same key for root user (some deployers runs under root account)
+  become: true
+  copy:
+    remote_src: yes
+    src: "{{ getent_passwd[ansible_user][4] + '/.ssh/id_rsa' }}"
+    dest: "/root/.ssh/id_rsa"
+    owner: root
+    group: root
+    mode: '0600'
+    backup: yes
+
+- name: Ensure the ssh key is present in authorized_keys for user {{ ansible_user }}
+  authorized_key:
+    user: "{{ ansible_user }}"
+    key: "{{ pubkey.stdout }}"
+
+- name: Ensure the ssh key is present in authorized_keys for user root
   become: true
   authorized_key:
-    user: "{{ user.name }}"
+    user: "root"
     key: "{{ pubkey.stdout }}"
