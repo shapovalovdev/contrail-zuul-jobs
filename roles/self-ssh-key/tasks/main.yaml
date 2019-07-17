@@ -18,12 +18,15 @@
   become: true
   copy:
     remote_src: yes
-    src: "{{ getent_passwd[ansible_user][4] + '/.ssh/id_rsa' }}"
-    dest: "/root/.ssh/id_rsa"
+    src: "{{ getent_passwd[ansible_user][4] + '/.ssh/' + item }}"
+    dest: "/root/.ssh/{{ item }}"
     owner: root
     group: root
     mode: '0600'
     backup: yes
+  with_items:
+    - id_rsa
+    - id_rsa.pub
 
 - name: Ensure the ssh key is present in authorized_keys for user {{ ansible_user }}
   authorized_key:
