@@ -63,10 +63,10 @@
 - name: Fetch build containers logs
   include: fetch_logs.yaml
   with_items:
-    - {src: " {{ devenv_dir }}/container" , dst: "build-devenv-logs"}
-    - {src: " {{ test_dir }}" , dst: "build-test-logs"}
-    - {src: " {{ container_builder_dir }}/containers" , dst: "build-containers-logs"}
-    - {src: " {{ deployers_builder_dir }}/containers" , dst: "build-deployers-logs"}
+    - {src: "{{ devenv_dir }}/container" , dst: "build-devenv-logs"}
+    - {src: "{{ test_dir }}" , dst: "build-test-logs"}
+    - {src: "{{ container_builder_dir }}/containers" , dst: "build-containers-logs"}
+    - {src: "{{ deployers_builder_dir }}/containers" , dst: "build-deployers-logs"}
   when: result is not skipped
 
 - name: Push devenv docker image
