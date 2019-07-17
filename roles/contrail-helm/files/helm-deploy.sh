@@ -18,7 +18,7 @@ make dev-deploy k8s multinode
 nslookup kubernetes.default.svc.cluster.local || /bin/true
 kubectl get nodes -o wide
 kubectl get nodes -o custom-columns=C1:.status.addresses[0].address,C2:.status.addresses[1].address
-kubectl get nodes -o yaml &> $my_dir/logs/nodes.yaml
+kubectl get nodes -o yaml
 
 # names are assigned by kubernetes. use the same algorithm to generate name.
 for ip in $nodes_cont_ips_0 ; do
