@@ -1,0 +1,20 @@
+---
+- name: Find build containers logs files
+  ignore_errors: True
+  find:
+    paths: '{{ item.src }}/'
+    pattern: '*.log'
+    recurse: false
+  become: true
+  register: log_files
+- name: Fetch build containers logs files if found
+  ignore_errors: True
+  synchronize:
+    src: '{{ file_path }}'
+    dest: "{{ zuul.executor.log_root }}/{{ item.dst }}"
+    mode: 'pull'
+  become: true
+  with_items: '{{ log_files.files }}'
+  loop_control:
+    loop_var: file_path
+  when: log_files.matched > 0
