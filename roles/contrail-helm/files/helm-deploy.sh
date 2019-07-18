@@ -39,15 +39,21 @@ done
 
 cd ${OSH_PATH}
 
+export OSH_EXTRA_HELM_ARGS_MARIADB="--set pod.replicas.server=1"
+export OSH_EXTRA_HELM_ARGS_KEYSTONE="--set pod.replicas.api=1"
+export OSH_EXTRA_HELM_ARGS_GLANCE="--set pod.replicas.api=1 --set pod.replicas.registry=1"
+export OSH_EXTRA_HELM_ARGS_CINDER="--set pod.replicas.api=1"
+
 export OSH_EXTRA_HELM_ARGS_NEUTRON="--values ./tools/overrides/backends/opencontrail/neutron-rbac.yaml --set images.tags.opencontrail_neutron_init=${CONTRAIL_REGISTRY}/contrail-openstack-neutron-init:${CONTAINER_TAG}"
 echo "INFO: extra neutron args: $OSH_EXTRA_HELM_ARGS_NEUTRON"
-extra_nova_args=''
+extra_nova_args='--set pod.replicas.placement=1 --set pod.replicas.osapi=1 --set pod.replicas.conductor=1 --set pod.replicas.consoleauth=1'
 if [[ "$OPENSTACK_VERSION" == 'ocata' ]]; then
-  extra_nova_args=""
+  extra_nova_args+=" --set compute_patch=true"
 fi
 export OSH_EXTRA_HELM_ARGS_NOVA="$extra_nova_args --set images.tags.opencontrail_compute_init=${CONTRAIL_REGISTRY}/contrail-openstack-compute-init:${CONTAINER_TAG}"
 echo "INFO: extra nova args: $OSH_EXTRA_HELM_ARGS_NOVA"
-export OSH_EXTRA_HELM_ARGS_HEAT="--set images.tags.opencontrail_heat_init=${CONTRAIL_REGISTRY}/contrail-openstack-heat-init:${CONTAINER_TAG}"
+extra_heat_args="--set pod.replicas.api=1 --set pod.replicas.cfn=1 --set pod.replicas.cloudwatch=1 --set pod.replicas.engine=1"
+export OSH_EXTRA_HELM_ARGS_HEAT="$extra_heat_args --set images.tags.opencontrail_heat_init=${CONTRAIL_REGISTRY}/contrail-openstack-heat-init:${CONTAINER_TAG}"
 echo "INFO: extra heat args: $OSH_EXTRA_HELM_ARGS_HEAT"
 
 ./tools/deployment/multinode/010-setup-client.sh
