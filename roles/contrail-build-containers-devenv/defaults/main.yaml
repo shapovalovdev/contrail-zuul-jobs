@@ -10,4 +10,4 @@ deployers_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("sh
 contrail_version: "{{ packaging.repo_name }}"
 devenv_image_name: "{{ contrail_docker_registry }}/{{ dev_env_prj_name }}"
 # use branch name as tag cause it's also passed to 'repo sync'
-devenv_image_tag: "{{ zuul.branch }}"
+devenv_image_tag: "{{ packaging.version.branch }}"
