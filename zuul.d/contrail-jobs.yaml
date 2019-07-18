@@ -17,7 +17,6 @@
 - job:
     name: contrail-vnc-unittest-centos7-tntestr
     parent: contrail-vnc-unittest-tntestr-base
-    voting: False
     nodeset: unittest-centos-7
     timeout: 14400
     irrelevant-files:
@@ -240,7 +239,6 @@
 
 - job:
     name: linters-go
-    voting: False
     description: |
       This job runs linters-go job for contrail-generateds, contrail-api-client
       and contrail-go-api repos
