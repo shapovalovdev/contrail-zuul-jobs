@@ -10,11 +10,11 @@
 - name: Fetch build containers logs files if found
   ignore_errors: True
   synchronize:
-    src: '{{ file_path }}'
-    dest: "{{ zuul.executor.log_root }}/{{ item.dst }}"
+    src: '{{ file_item.path }}'
+    dest: "{{ zuul.executor.log_root }}/{{ item.dst }}/"
     mode: 'pull'
   become: true
   with_items: '{{ log_files.files }}'
   loop_control:
-    loop_var: file_path
+    loop_var: file_item
   when: log_files.matched > 0
