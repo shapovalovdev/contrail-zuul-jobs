@@ -35,7 +35,7 @@ for ip in `kubectl get nodes -o custom-columns=C1:.status.addresses[0].address |
       kubectl label node $name opencontrail.org/vrouter-kernel=enabled
     fi
   fi
-fi
+done
 
 cd ${OSH_PATH}
 
