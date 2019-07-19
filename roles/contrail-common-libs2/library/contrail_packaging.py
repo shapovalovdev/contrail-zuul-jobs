@@ -76,31 +76,11 @@ def main():
             msg="Unknown release_type: %s" % (release_type,), **result
         )
 
-    repo_name = docker_version
-
-    debian_dir = None
-    for project in zuul['projects']:
-        if project['short_name'] in ["contrail-packages", "packages"]:
-            debian_dir = os.path.join(project['src_dir'], "debian/contrail/debian")
-
-    target_dir = "contrail-%s" % (version['upstream'],)
-
-    full_version = "{upstream}~{distrib}".format(**version)
-
-    openstack_suffix = ('-' + openstack_version) if openstack_version else ''
-    repo_names = {
-        "CentOS": repo_name + '-centos',
-        "RedHat": repo_name + '-rhel' + openstack_suffix,
-    }
-
     packaging = {
         'name': 'contrail',
-        'debian_dir': debian_dir,
-        'full_version': full_version,
         'version': version,
-        'target_dir': target_dir,
-        'repo_name': repo_name,
-        'repo_names': repo_names,
+        'target_dir': "contrail-%s" % (version['upstream'],),
+        'repo_name': docker_version,
         'docker_version': docker_version,
     }
 
