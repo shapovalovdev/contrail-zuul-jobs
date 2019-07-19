@@ -229,15 +229,6 @@
     nodeset: worker-centos-7
 
 - job:
-    name: contrail-windows-test-cad
-    parent: trigger-win-base
-    description: This jobs starts Jenkins job in Windows CI to test CAD.
-    vars:
-      manifest_file: windows-ci.xml
-      jenkins_job: winci-server2016-cad
-      build_number: 0
-
-- job:
     name: linters-go
     description: |
       This job runs linters-go job for contrail-generateds, contrail-api-client
@@ -245,23 +236,32 @@
     run: playbooks/linters-go/run.yaml
 
 - job:
-    name: contrail-build-win2016
-    parent: trigger-win-base
-    branches: ^(R5.1|master)$
-    description: This jobs starts Jenkins job in Windows CI. Build only.
-    vars:
-      manifest_file: windows.xml
-      jenkins_job: winci-server-2016-prod-zuulv3
-      build_number: 0
-      test_level: None
+    name: contrail-vnc-build-base
+    parent: contrail-vnc-base2
+    description: |
+      Job that build Contrail VNC (controller, analytics, etc.)
+
+      This is a base job for testing packaging of Contrail VNC for Enterprise
+      Linux based distributions (CentOS, RHEL). Release-based variants of this
+      job are then added to the Juniper/contrail-packages project.
+    required-projects:
+      - name: tungstenfabric/tf-dev-env
+        override-checkout: master
+      - Juniper/contrail-ansible-deployer
+      - Juniper/contrail-container-builder
+      - Juniper/contrail-deployers-containers
+      - Juniper/contrail-helm-deployer
+      - Juniper/contrail-kolla-ansible
+      - Juniper/contrail-test
+      - Juniper/openshift-ansible
+      - Juniper/openstack-helm
+      - Juniper/openstack-helm-infra
+    pre-run: playbooks/contrail-base2/pre.yaml
+    run: playbooks/packaging/contrail-vnc-el.yaml
 
 - job:
-    name: contrail-alltests-win2016
-    parent: trigger-win-base
-    branches: ^(R5.1|master)$
-    description: This jobs starts Jenkins job in Windows CI. Builds and runs all tests.
-    vars:
-      manifest_file: windows.xml
-      jenkins_job: winci-server-2016-prod-zuulv3
-      build_number: 0
-      test_level: All
+    name: contrail-vnc-unittest-webui
+    parent: contrail-vnc-base2
+    run: playbooks/unittest/webui.yaml
+    post-run: playbooks/unittest/webui-post.yaml
+    nodeset: worker-centos-7

@@ -7,6 +7,9 @@
     openstack_version: "{{ openstack_version | default(omit) }}"
   delegate_to: localhost
 
+- debug:
+    var: packaging
+
 - name: Return contrail_packaging variable back to zuul
   zuul_return:
     data:

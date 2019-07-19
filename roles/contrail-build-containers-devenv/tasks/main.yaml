@@ -27,12 +27,6 @@
     src: google-chrome.repo.j2
     dest: "{{ test_dir }}/docker/base/google-chrome.repo"
 
-- name: Prepare packaging variables
-  contrail_packaging:
-    zuul: "{{ zuul }}"
-    release_type: "{{ release_type }}"
-    build_number: "{{ build_number | default('unset_build_number') }}"
-
 - name: Prepare build configuration - {{ item }}.tmpl
   template:
     src: common.env.j2
