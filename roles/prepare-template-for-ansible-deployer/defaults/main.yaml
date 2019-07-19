@@ -4,7 +4,7 @@ contrail_version: >-
   {%- if zuul.change is defined -%}
     {{ zuul.change }}-{{ zuul.patchset }}
   {%- else -%}
-    {{ contrail_container_tag }}
+    {{ packaging.docker_version }}
   {%- endif -%}
 openstack_version: 'queens'
 
