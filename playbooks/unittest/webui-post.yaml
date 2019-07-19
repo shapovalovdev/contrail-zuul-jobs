@@ -1,7 +1,0 @@
----
-
-- name: Send WebUI unittest logs to the executor
-  hosts: all
-  roles:
-    - fetch-webui-unittests-logs
-

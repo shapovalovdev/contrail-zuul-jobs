@@ -1,9 +1,0 @@
----
-- hosts: builder
-  tasks:
-    - name: check packaging
-      debug:
-        var: packaging
-  roles:
-    - zuul-include-vars
-    - contrail-build-containers-devenv
