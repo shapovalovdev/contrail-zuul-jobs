@@ -1,6 +1,9 @@
 ---
 - hosts: builder
+  tasks:
+    - name: check packaging
+      debug:
+        var: packaging
   roles:
-    - contrail-common-libs2
     - zuul-include-vars
     - contrail-build-containers-devenv

@@ -1,7 +1,9 @@
 ---
 
 - hosts: all
+  tasks:
+    - name: check packaging
+      debug:
+        var: packaging
   roles:
-    - contrail-common-libs2
     - contrail-unittests-webui
-
