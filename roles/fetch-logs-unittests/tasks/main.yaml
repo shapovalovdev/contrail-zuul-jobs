@@ -48,6 +48,7 @@
         matched_targets: '{{ matched_targets | default([]) + [ item ] }}'
       with_items: '{{ unittest_targets }}'
       when: item.matched | bool
+      no_log: true
 
     - name: execute tasks for fetching logs to log server
       include: logs.yaml
@@ -61,4 +62,4 @@
         src: '{{ results_dir }}'
         dest: '{{ zuul.executor.log_root }}/'
         mode: 'pull'
-
+      no_log: true

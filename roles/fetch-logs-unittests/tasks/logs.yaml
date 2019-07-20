@@ -16,6 +16,7 @@
   become: true
   register: log_file
   with_items: '{{ matched_targets }}'
+  no_log: true
 
 - name: gzip log files
   archive:
