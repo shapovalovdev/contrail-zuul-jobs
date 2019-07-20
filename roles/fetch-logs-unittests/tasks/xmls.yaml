@@ -28,6 +28,7 @@
     - '{{ xml_report_file.results }}'
     - 'files'
   when: xml_report_file.results | length > 0
+  no_log: true
 
 - name: copy gziped xml reports
   copy:
@@ -40,4 +41,4 @@
     - '{{ xml_report_file.results }}'
     - 'files'
   when: xml_report_file.results | length > 0
-
+  no_log: true

@@ -7,6 +7,7 @@
     owner: 'zuul'
     mode: 0755
   with_items: '{{ matched_targets }}'
+  no_log: true
 
 - name: find the tests log file
   find:
@@ -27,6 +28,7 @@
     - '{{ log_file.results }}'
     - 'files'
   when: log_file.results | length > 0
+  no_log: true
 
 - name: copy gziped logs
   copy:
@@ -39,4 +41,4 @@
     - '{{ log_file.results }}'
     - 'files'
   when: log_file.results | length > 0
-
+  no_log: true
