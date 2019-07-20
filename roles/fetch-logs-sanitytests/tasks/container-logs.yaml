@@ -40,4 +40,4 @@
       mode: 'pull'
       recursive: true
     become: true
-
+    ignore_errors: true
