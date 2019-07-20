@@ -20,6 +20,7 @@ kubectl get nodes -o wide
 kubectl get nodes -o custom-columns=C1:.status.addresses[0].address,C2:.status.addresses[1].address
 kubectl get nodes -o yaml
 
+compute_ip=''
 for ip in `kubectl get nodes -o custom-columns=C1:.status.addresses[0].address | grep -v "C1"` ; do
   name=`kubectl get nodes -o custom-columns=C1:.status.addresses[0].address,C2:.status.addresses[1].address | grep $ip | awk '{print $2}'`
   if echo $CONTROLLER_NODES | grep -q $ip ; then
@@ -34,6 +35,7 @@ for ip in `kubectl get nodes -o custom-columns=C1:.status.addresses[0].address |
     else
       kubectl label node $name opencontrail.org/vrouter-kernel=enabled
     fi
+    compute_ip+="${ip},"
   fi
 done
 
@@ -141,4 +143,4 @@ make build-heat
 ./tools/deployment/developer/nfs/091-heat-opencontrail.sh
 
 # Verify creation of VM
-./tools/deployment/developer/nfs/901-use-it-opencontrail.sh
+#./tools/deployment/developer/nfs/901-use-it-opencontrail.sh
