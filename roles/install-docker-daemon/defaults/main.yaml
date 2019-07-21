@@ -1,4 +1,3 @@
 ---
 
-docker_mirror_url: http://{{ docker_registry.fqdn }}/repository/docker-ce-stable/
-
+docker_mirror_url: http://{{ nexus.fqdn }}/repository/docker-ce-stable/

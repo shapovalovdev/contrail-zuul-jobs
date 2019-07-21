@@ -10,6 +10,6 @@ contrail_version: >-
   {%- else -%}
     {{ packaging.docker_version }}
   {%- endif -%}
-contrail_docker_registry: 'localhost:5000'
+contrail_docker_registry: "{{ nexus.fqdn }}:{{ nexus.registry.tungsten_ci }}"
 contrail_image_os: ''
 
