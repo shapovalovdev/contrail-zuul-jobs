@@ -6,18 +6,24 @@ provider_config:
     domainsuffix: local
 
 instances:
-  bms1:
+  {%- for host in (groups['control-plane'] + groups['data-plane']) | unique -%}
+  {% set control_plane_roles = control_plane_common_roles + control_plane_specific_roles[cloud_orchestrator] -%}
+  {% set data_plane_roles = data_plane_common_roles + data_plane_specific_roles[cloud_orchestrator] -%}
+  {% set host_roles = [] -%}
+  {% if host in groups['control-plane'] -%}
+  {% set host_roles = host_roles + control_plane_roles -%}
+  {% endif -%}
+  {% if host in groups['data-plane'] -%}
+  {% set host_roles = host_roles + data_plane_roles -%}
+  {% endif %}
+  {{ hostvars[host].inventory_hostname }}:
     provider: bms
-    ip: '{{ ansible_default_ipv4.address }}'
+    ip: '{{ hostvars[host].ansible_default_ipv4.address }}'
     roles:
-      config_database:
-      config:
-      control:
-      analytics_database:
-      analytics:
-      webui:
-      vrouter:
-      openstack:
+      {% for role in host_roles -%}
+      {{ role }}:
+      {% endfor -%}
+  {% endfor %}
 
 contrail_configuration:
   AUTH_MODE: keystone
@@ -25,7 +31,7 @@ contrail_configuration:
   AGENT_MODE: kernel
   BGP_PORT: 1179
   CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
-  CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"
+  CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_ens4.ipv4.address }}"
   CONFIG_DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
   DATABASE_NODEMGR__DEFAULTS__minimum_diskGB: 10
 
