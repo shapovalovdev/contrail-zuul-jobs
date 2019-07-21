@@ -7,8 +7,6 @@ provider_config:
 
 instances:
   {%- for host in (groups['control-plane'] + groups['data-plane']) | unique -%}
-  {% set control_plane_roles = control_plane_common_roles + control_plane_specific_roles[cloud_orchestrator] -%}
-  {% set data_plane_roles = data_plane_common_roles + data_plane_specific_roles[cloud_orchestrator] -%}
   {% set host_roles = [] -%}
   {% if host in groups['control-plane'] -%}
   {% set host_roles = host_roles + control_plane_roles -%}
