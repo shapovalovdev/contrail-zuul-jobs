@@ -89,8 +89,13 @@ def load_unittests(descr_file):
     '''
         Function loads list of UT dictionaries fom file
     '''
+    ut_list = list()
     with open(descr_file, 'r') as fh:
-        ut_list = [json.loads(line.rstrip()) for line in fh]
+        for line in fh:
+            try:
+                ut_list.append(json.loads(line.rstrip()))
+            except:
+                pass
     return ut_list
 
 
