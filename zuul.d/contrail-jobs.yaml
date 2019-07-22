@@ -190,7 +190,7 @@
     vars:
       openstack_version: ocata
       test_target: ci_sanity
-    timeout: 7200
+    timeout: 10800
 
 - job:
     name: build-third-party-rpms-centos7
