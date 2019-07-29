@@ -57,9 +57,11 @@ json = JSON.parse(File.read(json_file))
 @all_tests = [ ]
 json.each_pair { |module_name, module_data|
     @all_tests += module_data["scons_test_targets"]
-    module_data["misc_test_targets"].each { |m|
-        @all_tests += json[m]["scons_test_targets"]
-    }
+    if module_data.key?("misc_test_targets")
+        module_data["misc_test_targets"].each { |m|
+            @all_tests += json[m]["scons_test_targets"]
+        }
+    end
 
     skip = true
     @dirs.each_key { |dir|
@@ -72,9 +74,11 @@ json.each_pair { |module_name, module_data|
     next if skip
 
     @tests += module_data["scons_test_targets"]
-    module_data["misc_test_targets"].each { |m|
-        @tests += json[m]["scons_test_targets"]
-    }
+    if module_data.key?("misc_test_targets")
+        module_data["misc_test_targets"].each { |m|
+            @tests += json[m]["scons_test_targets"]
+        }
+    end
 }
 
 # couldn't find changes in any specific project, so
