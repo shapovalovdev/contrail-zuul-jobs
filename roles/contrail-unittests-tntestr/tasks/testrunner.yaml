@@ -1,7 +1,14 @@
 ---
 
+# workaround for failed sandesh tests
+- set_fact:
+    parallel_jobs: '8'
+- set_fact:
+    parallel_jobs: '1'
+  when: item == 'sandesh:test'
+
 - name: 'running target {{ item }}'
-  shell: "timeout 3600s bash -eo pipefail -c '{{ venv_dir}}/bin/tntestr --debug --less-strict {{ item }} | tee -a {{ tntestr_output }}'"
+  shell: "timeout 3600s bash -eo pipefail -c '{{ venv_dir}}/bin/tntestr --debug --less-strict -j {{ parallel_jobs }} {{ item }} | tee -a {{ tntestr_output }}'"
   args:
     executable: '/bin/bash'
     chdir: '{{ packaging.target_dir }}'
