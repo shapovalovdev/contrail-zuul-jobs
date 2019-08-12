@@ -58,6 +58,13 @@
   tags:
     - skip_ansible_lint
 
+- name: Fetch built images
+  shell: "docker images"
+  become: true
+  ignore_errors: True
+  tags:
+    - skip_ansible_lint
+
 - name: Fetch build containers logs
   include: fetch_logs.yaml
   with_items:
