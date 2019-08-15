@@ -1,20 +1,22 @@
 ---
-- name: Find build containers logs files
-  ignore_errors: True
-  find:
-    paths: '{{ item.src }}/'
-    pattern: '*.log'
-    recurse: false
+
+- name: Fetch build containers logs
+  include: fetch_log_directory.yaml
+  with_items:
+    - {src: "{{ devenv_dir }}/container" , dst: "build-devenv-logs"}
+    - {src: "{{ test_dir }}" , dst: "build-test-logs"}
+    - {src: "{{ container_builder_dir }}/containers" , dst: "build-containers-logs"}
+    - {src: "{{ deployers_builder_dir }}/containers" , dst: "build-deployers-logs"}
+  when: result is not skipped
+
+- name: Fetch built images
+  shell: "docker images"
   become: true
-  register: log_files
-- name: Fetch build containers logs files if found
   ignore_errors: True
-  synchronize:
-    src: '{{ file_item.path }}'
-    dest: "{{ zuul.executor.log_root }}/{{ item.dst }}/"
-    mode: 'pull'
-  become: true
-  with_items: '{{ log_files.files }}'
-  loop_control:
-    loop_var: file_item
-  when: log_files.matched > 0
+  tags:
+    - skip_ansible_lint
+
+- name: Get ps output
+  shell: "ps aux -H"
+  tags:
+    - skip_ansible_lint
