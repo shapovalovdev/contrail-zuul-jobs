@@ -58,5 +58,4 @@
 
 - name: Push devenv docker image
   command: "docker push {{ devenv_image_name }}:{{ devenv_image_tag }}"
-  when: result is succeeded
   become: true

@@ -7,7 +7,6 @@
     - {src: "{{ test_dir }}" , dst: "build-test-logs"}
     - {src: "{{ container_builder_dir }}/containers" , dst: "build-containers-logs"}
     - {src: "{{ deployers_builder_dir }}/containers" , dst: "build-deployers-logs"}
-  when: result is not skipped
 
 - name: Fetch built images
   shell: "docker images"
