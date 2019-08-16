@@ -3,5 +3,5 @@
   hosts: all
   roles:
     - fetch-logs-sanitytests
-    - fetch-dmesg
+    - fetch-runtime-logs
 
