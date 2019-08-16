@@ -1,4 +1,5 @@
 ---
+
 - name: Gather dmesg output
   command: dmesg
   register: dmesg
@@ -9,3 +10,12 @@
     content: "{{ dmesg.stdout }}"
     dest: "{{ zuul.executor.log_root }}/zuul-info/dmesg.{{ inventory_hostname }}.txt"
 
+- name: Gather ps output
+  command: "ps aux -H"
+  register: ps
+
+- name: Write host ps output
+  delegate_to: localhost
+  copy:
+    content: "{{ ps.stdout }}"
+    dest: "{{ zuul.executor.log_root }}/zuul-info/ps.{{ inventory_hostname }}.txt"
