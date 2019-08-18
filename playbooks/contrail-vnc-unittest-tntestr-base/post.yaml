@@ -3,5 +3,5 @@
   roles:
     - fetch-logs-unittests
     - gather-ut-fails
-    - fetch-fetch-runtime-logs
+    - fetch-runtime-logs
 
