@@ -42,6 +42,7 @@
     - name: set targets in variable
       set_fact:
         unittest_targets: '{{ unittest_file.content | b64decode | from_json }}'
+        matched_targets: '{{ [] }}'
 
     - name: remove dangling nodes from UT target list
       set_fact:
