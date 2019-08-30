@@ -1,5 +1,5 @@
 ---
-- hosts: builder
+- hosts: worker
   roles:
     - install-third-party-toolchain
     - build-third-party-rpms
