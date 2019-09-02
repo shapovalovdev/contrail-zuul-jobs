@@ -43,6 +43,8 @@
       - Juniper/contrail-vro-plugin
       - Juniper/contrail-web-controller
       - Juniper/contrail-web-core
+      - Juniper/contrail-web-server-manager
+      - Juniper/contrail-web-storage
       - Juniper/contrail-webui-third-party
       - Juniper/openshift-ansible
       - Juniper/openstack-helm
@@ -93,6 +95,8 @@
       - Juniper/contrail-vro-plugin
       - Juniper/contrail-web-controller
       - Juniper/contrail-web-core
+      - Juniper/contrail-web-server-manager
+      - Juniper/contrail-web-storage
       - Juniper/contrail-webui-third-party
       - Juniper/contrail-vcenter-fabric-manager
       - Juniper/openshift-ansible
