@@ -1,19 +1,19 @@
 ---
 
-- name: Install /etc/pip.conf configuration
-  become: yes
-  template:
-    dest: /etc/pip.conf
-    group: root
-    mode: 0644
-    owner: root
-    src: etc/pip.conf.j2
-
-- name: Install .pydistutils.cfg configuration in homedir
-  template:
-    dest: ~/.pydistutils.cfg
-    mode: 0644
-    src: .pydistutils.cfg.j2
+# switch off pypi mirror until it's fixed https://issues.sonatype.org/browse/NEXUS-18117
+#- name: Install /etc/pip.conf configuration
+#  become: yes
+#  template:
+#    dest: /etc/pip.conf
+#    group: root
+#    mode: 0644
+#    owner: root
+#    src: etc/pip.conf.j2
+#- name: Install .pydistutils.cfg configuration in homedir
+#  template:
+#    dest: ~/.pydistutils.cfg
+#    mode: 0644
+#    src: .pydistutils.cfg.j2
 
 - name: Include OS-specific variables
   include_vars: "{{ item }}"
