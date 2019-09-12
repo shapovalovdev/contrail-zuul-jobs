@@ -8,6 +8,7 @@ test_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "e
 container_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", container_builder_prj_name) | map(attribute="src_dir") | list | first }}'
 deployers_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", deployers_builder_prj_name) | map(attribute="src_dir") | list | first }}'
 contrail_version: "{{ packaging.repo_name }}"
-devenv_image_name: "{{ contrail_docker_registry }}/{{ dev_env_prj_name }}"
+devenv_image_suffix: "{% if ansible_distribution == 'RedHat %}-rhel{% elif ansible_distribution == 'CentOS' %}-centos{% endif %}"
+devenv_image_name: "{{ contrail_docker_registry }}/{{ dev_env_prj_name }}{{ devenv_image_suffix }}"
 # use branch name as tag cause it's also passed to 'repo sync'
 devenv_image_tag: "{{ packaging.version.branch }}"
