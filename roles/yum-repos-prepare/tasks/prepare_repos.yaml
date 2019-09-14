@@ -36,7 +36,9 @@
   block:
     - name: disable subscription-manager on RHEL
       command: subscription-manager config --rhsm.manage_repos=0
-      when: 'ansible_distribution == "RedHat"'
+      when:
+        - disable_subscription_manager
+        - 'ansible_distribution == "RedHat"'
     - name: remove the upstream yum repos
       yum_repository:
         name: "{{ item.name }}"
@@ -66,7 +68,7 @@
         description: Docker CE Stable mirror
         file: docker-ce
         baseurl: "{{ repos_baseurl }}/docker-ce-stable"
-        enabled: yes
+        enabled: "{{ use_docker_repo }}"
         gpgcheck: yes
         gpgkey: https://download.docker.com/linux/centos/gpg
     - name: prepare third party source cache yum Nexus repo
