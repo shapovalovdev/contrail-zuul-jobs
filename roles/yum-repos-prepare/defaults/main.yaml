@@ -5,3 +5,4 @@ openshift_version: '3.9'
 
 disable_subscription_manager: false
 use_docker_repo: true
+rhsm_repos_add: []

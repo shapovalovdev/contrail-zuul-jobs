@@ -29,7 +29,7 @@
       set_fact:
         repos_add: '{{ repos_add }} + {{ openshift_repos_add }}'
 
-- name: prepare centos
+- name: prepare rhel/centos
   become: yes
   become_user: root
   when: 'ansible_os_family == "RedHat"'
@@ -38,6 +38,12 @@
       command: subscription-manager config --rhsm.manage_repos=0
       when:
         - disable_subscription_manager
+        - 'ansible_distribution == "RedHat"'
+    - name: enable requested subscription-manager repos
+      command: subscription-manager repos --enable={{ item }}
+      with_items: "{{ rhsm_repos_add }}"
+      when:
+        - not disable_subscription_manager
         - 'ansible_distribution == "RedHat"'
     - name: remove the upstream yum repos
       yum_repository:
