@@ -6,10 +6,10 @@ repos_remove: []
 repos_file: redhat-mirror
 repos_baseurl: http://{{ nexus.fqdn }}/repository/
 rhsm_repos_add:
-  - { name: rhel-7-server-rpms, repo: rhel-7-server-rpms, description: rhel-7-server-rpms }
-  - { name: rhel-7-server-extras-rpms, repo: rhel-7-server-extras-rpms, description: rhel-7-server-extras-rpms }
-  - { name: rhel-7-server-optional-rpms, repo: rhel-7-server-optional-rpms, description: rhel-7-server-optional-rpms }
-  - { name: rhel-server-rhscl-7-rpms, repo: rhel-server-rhscl-7-rpms, description: rhel-server-rhscl-7-rpms }
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-optional-rpms
+  - rhel-server-rhscl-7-rpms
 repos_add: []
 #  - { name: rhel-7-server-rpms-mirror, repo: rhel-7-server-rpms, description: rhel-7-server-rpms }
 #  - { name: rhel-7-server-extras-rpms-mirror, repo: rhel-7-server-extras-rpms, description: rhel-7-server-extras-rpms }
