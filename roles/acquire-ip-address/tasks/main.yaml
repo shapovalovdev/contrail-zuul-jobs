@@ -1,5 +1,8 @@
 ---
 
+- name: Reload ansible facts
+  setup:
+
 - name: detect default iface (with 'lower' name)
   set_fact:
     default_iface: "{{ hostvars[inventory_hostname]['ansible_interfaces'] | sort | first }}"
