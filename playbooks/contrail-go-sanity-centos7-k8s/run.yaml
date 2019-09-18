@@ -1,7 +1,4 @@
 ---
-- hosts: all
-  roles:
-    - acquire-ip-address
 
 - hosts: deployment
   roles:
@@ -16,4 +13,3 @@
   roles:
     - contrail-go
     - sanitytest
-
