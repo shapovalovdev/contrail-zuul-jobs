@@ -27,6 +27,7 @@
       networking
       {%- endif %}
     state: restarted
+  become: yes
 
 - name: Reload ansible facts
   setup:
