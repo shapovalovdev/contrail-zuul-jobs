@@ -2,7 +2,6 @@
 
 - hosts: all:!deployment
   roles:
-    - acquire-ip-address
     - yum-repos-prepare
     - role: configure-hosts-entries # openshift installation reconfigures /etc/resolv.conf
       hosts_entries:
@@ -14,4 +13,3 @@
   roles:
     - openshift-ansible
     - sanitytest
-
