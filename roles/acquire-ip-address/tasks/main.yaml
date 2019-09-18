@@ -1,6 +1,8 @@
 ---
 
-
+- name: detect default iface (with 'lower' name)
+  set_fact:
+    default_iface: "{{ hostvars[inventory_hostname]['ansible_interfaces'] | sort | first }}"
 
 # use ansible_distribution for better control instead of ansible_os_family
 - name: Configure interfaces
@@ -11,8 +13,17 @@
     - hostvars[inventory_hostname]['ansible_' + item]['type'] == 'ether'
     - not 'ipv4' in hostvars[inventory_hostname]['ansible_' + item]
 
-- name: restart networking
-  reboot:
+- name: reset | Restart network
+  service:
+    name: >-
+      {% if ansible_os_family == "RedHat" -%}
+      network
+      {%- elif ansible_distribution == "Ubuntu" and ansible_distribution_release == "bionic" -%}
+      systemd-networkd
+      {%- elif ansible_os_family == "Debian" -%}
+      networking
+      {%- endif %}
+    state: restarted
 
 - name: Reload ansible facts
   setup:
