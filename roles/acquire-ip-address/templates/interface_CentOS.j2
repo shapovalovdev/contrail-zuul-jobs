@@ -4,5 +4,5 @@ HWADDR={{ hostvars[inventory_hostname]['ansible_' + item]['macaddress'] }}
 ONBOOT=yes
 TYPE=Ethernet
 USERCTL=no
-DEFROUTE=no
+DEFROUTE={{ 'yes' if default_iface == item else 'no' }}"
 PEERDNS=no
