@@ -1,12 +1,17 @@
 dev_env_prj_name: "tf-dev-env"
-container_builder_prj_name: "contrail-container-builder"
-contrail_test_prj_name: "contrail-test"
-deployers_builder_prj_name: "contrail-deployers-containers"
+# container_builder_prj_name: "contrail-container-builder"
+# contrail_test_prj_name: "contrail-test"
+# deployers_builder_prj_name: "contrail-deployers-containers"
 
 devenv_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", dev_env_prj_name) | map(attribute="src_dir") | list | first }}'
-test_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", contrail_test_prj_name) | map(attribute="src_dir") | list | first }}'
-container_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", container_builder_prj_name) | map(attribute="src_dir") | list | first }}'
-deployers_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", deployers_builder_prj_name) | map(attribute="src_dir") | list | first }}'
+# test_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", contrail_test_prj_name) | map(attribute="src_dir") | list | first }}'
+# container_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", container_builder_prj_name) | map(attribute="src_dir") | list | first }}'
+# deployers_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", deployers_builder_prj_name) | map(attribute="src_dir") | list | first }}'
+
+test_dir: '{{ packaging.target_dir }}/third_party/contrail-test'
+container_builder_dir: '{{ packaging.target_dir }}/contrail-container-builder'
+deployers_builder_dir: '{{ packaging.target_dir }}/contrail-deployers-containers'
+
 contrail_version: "{{ packaging.repo_name }}"
 devenv_image_suffix: "{% if ansible_distribution == 'RedHat' %}-rhel{% elif ansible_distribution == 'CentOS' %}-centos{% endif %}"
 devenv_image_name: "{{ contrail_docker_registry }}/{{ dev_env_prj_name }}{{ devenv_image_suffix }}"
