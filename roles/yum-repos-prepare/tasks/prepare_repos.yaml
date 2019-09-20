@@ -17,6 +17,14 @@
     - name: add OpenStack repos to repos_add
       set_fact:
         repos_add: "{{ repos_add }} + {{ openstack_repos_add }}"
+      when:
+        - disable_subscription_manager
+
+    - name: add OpenStack repos to rhsm_repos_add
+      set_fact:
+        repos_add: "{{ rhsm_repos_add }} + {{ openstack_repos_add || map(attribute='repo') | list }}"
+      when:
+        - not disable_subscription_manager
 
 - when:
     - cloud_orchestrator == 'kubernetes'
@@ -28,6 +36,14 @@
     - name: add OpenShift repos to repos_add
       set_fact:
         repos_add: '{{ repos_add }} + {{ openshift_repos_add }}'
+      when:
+        - disable_subscription_manager
+
+    - name: add OpenStack repos to rhsm_repos_add
+      set_fact:
+        repos_add: "{{ rhsm_repos_add }} + {{ openshift_repos_add || map(attribute='repo') | list }}"
+      when:
+        - not disable_subscription_manager
 
 - name: prepare rhel/centos
   become: yes
