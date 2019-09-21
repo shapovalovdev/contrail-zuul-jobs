@@ -22,7 +22,7 @@
 
     - name: add OpenStack repos to rhsm_repos_add
       set_fact:
-        repos_add: "{{ rhsm_repos_add }} + {{ openstack_repos_add | map(attribute='repo') | list }}"
+        rhsm_repos_add: "{{ rhsm_repos_add }} + {{ openstack_repos_add | map(attribute='repo') | list }}"
       when:
         - not disable_subscription_manager
 
