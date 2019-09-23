@@ -1,7 +1,5 @@
 ---
 
 - name: Set up infrastructure mirrors
-  include_tasks: mirror.yaml
-#  when: mirror_fqdn is defined
+  include: mirror.yaml
   static: no
-
