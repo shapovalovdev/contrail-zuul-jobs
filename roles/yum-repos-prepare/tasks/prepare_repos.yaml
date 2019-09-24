@@ -56,11 +56,15 @@
         - disable_subscription_manager
         - 'ansible_distribution == "RedHat"'
     - name: enable requested subscription-manager repos
-      command: subscription-manager repos --enable={{ item }}
-      with_items: "{{ rhsm_repos_add }}"
+      command: >-
+        subscription-manager repos
+        {% for repo in rhsm_repos_add %}
+        --enable={{ repo }}
+        {% endfor %}
       when:
-        - not disable_subscription_manager
         - 'ansible_distribution == "RedHat"'
+        - not disable_subscription_manager
+        - rhsm_repos_add | length > 0
     - name: remove the upstream yum repos
       yum_repository:
         name: "{{ item.name }}"
