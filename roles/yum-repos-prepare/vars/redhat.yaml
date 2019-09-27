@@ -4,7 +4,7 @@ repos_remove: []
 #  - { name: epel, file: epel }
 #  - { name: epel-source, file: epel }
 repos_file: redhat-mirror
-repos_baseurl: http://{{ nexus.fqdn }}/repository/
+repos_baseurl: http://{{ nexus.fqdn }}/repository
 rhsm_repos_add:
   - rhel-7-server-rpms
   - rhel-7-server-extras-rpms
