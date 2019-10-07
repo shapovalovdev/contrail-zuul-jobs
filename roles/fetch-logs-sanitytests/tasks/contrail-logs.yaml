@@ -12,6 +12,12 @@
   register: cs
   ignore_errors: true
 
+- name: Gather docker ps output
+  command: "docker ps -a"
+  become: true
+  register: dps
+  ignore_errors: true
+
 - name: fetch contrail logs
   when: contrail_logdir.stat.isdir is defined and contrail_logdir.stat.isdir
   block:
@@ -28,6 +34,14 @@
       copy:
         content: "{{ cs.stdout }}"
         dest: "{{ zuul.executor.log_root }}/contrail-logs/contrail-status.{{ inventory_hostname }}.txt"
+      ignore_errors: true
+
+    - name: Write docekr ps output
+      delegate_to: localhost
+      copy:
+        content: "{{ dps.stdout }}"
+        dest: "{{ zuul.executor.log_root }}/contrail-logs/docker-ps.{{ inventory_hostname }}.txt"
+      ignore_errors: true
 
     - name: fetch contrail logs
       synchronize:
