@@ -6,6 +6,18 @@
   register: contrail_logdir
   become: true
 
+- name: Gather contrail-status output
+  command: "contrail-status"
+  become: true
+  register: cs
+  ignore_errors: true
+
+- name: Write contrail-status output
+  delegate_to: localhost
+  copy:
+    content: "{{ cs.stdout }}"
+    dest: "{{ zuul.executor.log_root }}/contrail-logs/contrail-status.{{ inventory_hostname }}.txt"
+
 - name: fetch contrail logs
   when: contrail_logdir.stat.isdir is defined and contrail_logdir.stat.isdir
   block:
