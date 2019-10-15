@@ -1,4 +1,20 @@
 ---
+- name: DBG1
+  debug:
+    msg: "zuul: {{ zuul }}"
+
+- name: DBG2
+  debug:
+    msg: "release_type: {{ release_type }}"
+
+- name: DBG3
+  debug:
+    msg: "build_number: {{ build_number | default(omit) }}"
+
+- name: DBG4
+  debug:
+    msg: "openstack_version: {{ openstack_version | default(omit) }}"
+
 - name: Load contrail packaging variables
   contrail_packaging:
     zuul: "{{ zuul }}"
@@ -7,7 +23,8 @@
     openstack_version: "{{ openstack_version | default(omit) }}"
   delegate_to: localhost
 
-- debug:
+- name: DBG packaging
+  debug:
     var: packaging
 
 - name: Return contrail_packaging variable back to zuul
