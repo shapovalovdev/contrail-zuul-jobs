@@ -1,0 +1,9 @@
+nexus:
+  fqdn: nexus
+  registry:
+    tungsten_ci: 5001
+    aquasec: 5006
+aquascan:
+  user: "scan"
+  pass: "scanpass"
+max_security_threshold: "7.0"

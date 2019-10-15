@@ -193,6 +193,14 @@
     timeout: 10800
 
 - job:
+    name: contrail-security-scan-rhel-queens
+    parent: contrail-security-scan-base
+    run: playbooks/contrail-security-scan-rhel-queens/run.yaml
+    vars:
+      openstack_version: queens
+    timeout: 10800
+
+- job:
     name: build-third-party-rpms-centos7
     parent: build-third-party-rpms-base
     nodeset: worker-centos-7

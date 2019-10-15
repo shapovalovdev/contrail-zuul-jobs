@@ -1,0 +1,65 @@
+- name: Ensure jq is installed
+  package:
+    name: jq
+    state: present
+
+- name: Scan docker registry catalog for matching images
+  shell: >-
+    curl -s http://{{ nexus.fqdn }}:{{ nexus.registry.tungsten_ci }}/v2/_catalog |
+    jq -c -r '.repositories[]|select(. |contains("contrail-"))' |
+    sort |
+    xargs -I _ bash -c
+    'curl -s -k http://{{ nexus.fqdn }}:{{ nexus.registry.tungsten_ci }}/v2/_/tags/list |
+    jq -c -r "select(.tags[] | contains(\"{{ packaging.version.branch }}\")) | .name" | sort | uniq'
+  args:
+    warn: False
+  register: matching_images
+
+- name: Set images in docker pullable format
+  set_fact:
+     docker_images_to_scan: >-
+       {{ docker_images_to_scan | default([]) + [
+       nexus.fqdn ~ ":" ~ nexus.registry.tungsten_ci ~ "/" ~ item ~ ":" ~ packaging.version.branch] }}
+  with_items: "{{ matching_images.stdout_lines }}"
+
+- name: Pull images required to test
+  command: "docker pull {{ item }}"
+  become: true
+  with_items: "{{ docker_images_to_scan }}"
+  failed_when: false
+
+- name: Scan images
+  shell: >-
+    docker run
+    -v /var/run/docker.sock:/var/run/docker.sock
+    {{ nexus.fqdn }}:{{ nexus.registry.aquasec }}/scanner:4.2
+    scan
+    -H http://{{ nexus.fqdn }}:8080
+    -U "$SCANNER_USER"
+    -P "$SCANNER_PASS"
+    --local "{{ item }}"
+  environment:
+    SCANNER_USER: "{{ aquascan.user }}"
+    SCANNER_PASS: "{{ aquascan.pass }}"
+  register: scan_raw
+  with_items: "{{ docker_images_to_scan }}"
+  failed_when: false
+
+- name: Parse results to set max_score per image
+  set_fact:
+    scan_results: >-
+      {
+      {% for image, report in dict(docker_images_to_scan | zip(scan_raw.results | map(attribute='stdout'))).iteritems() %}
+      {%   set max_score = (report |from_json).vulnerability_summary.max_score %}
+      "{{ image }}": "{{max_score }}"
+      {%- if not loop.last %},{% endif %}
+      {% endfor %}
+      }
+
+- name: Assert that all images pass minimum security threshold
+  assert:
+    that:
+      - "{{ item.value < max_security_threshold }}"
+    msg: "Image {{ item.key }} has at least one critical vulnerability. Max score was: {{ item.value }}"
+  with_dict: "{{ scan_results }}"
+
