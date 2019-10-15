@@ -69,6 +69,8 @@ def main():
         else:
             docker_version = "{}-latest".format(version['public'])
     elif release_type == ReleaseType.NIGHTLY:
+        if not build_number:
+            build_number = date
         version['distrib'] = "{}".format(build_number)
         docker_version = '{}-{}'.format(docker_version, build_number)
     else:
