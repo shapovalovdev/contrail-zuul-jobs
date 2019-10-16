@@ -17,7 +17,7 @@ result = dict(
 )
 
 MASTER_RELEASE = '5.2.0'
-version_branch_regex = re.compile(r'^(master)|(R\d+\.\d+(\.\d+)?(\.x)?)$')
+version_branch_regex = re.compile(r'^(master)|^(R\d?)|(R\d+\.\d+(\.\d+)?(\.x)?)$')
 
 
 class ReleaseType(object):
@@ -43,7 +43,7 @@ def main():
     branch = zuul['branch']
     if not version_branch_regex.match(branch):
         branch = 'master'
-    date = datetime.now().strftime("%Y%m%d%H%M%S")
+    date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
     version = dict()
     if branch == 'master':
@@ -62,7 +62,7 @@ def main():
         change = zuul['change']
         patchset = zuul['patchset']
         version['distrib'] = "ci{change}.{patchset}".format(
-            change=change, patchset=patchset, date=date
+            change=change, patchset=patchset
         )
         if zuul['pipeline'] not in ['gate', 'experimental-sanity']:
             docker_version = "{change}-{patchset}".format(change=change, patchset=patchset)
