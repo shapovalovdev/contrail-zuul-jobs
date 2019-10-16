@@ -32,34 +32,52 @@
   shell: >-
     docker run
     -v /var/run/docker.sock:/var/run/docker.sock
-    {{ nexus.fqdn }}:{{ nexus.registry.aquasec }}/scanner:4.2
+    -v {{ reports_dir }}:/reports
+    {{ nexus.fqdn }}:{{ nexus.registry.aquasec }}/scanner:{{ aquascan.version }}
     scan
     -H http://{{ nexus.fqdn }}:8080
     -U "$SCANNER_USER"
     -P "$SCANNER_PASS"
+    --htmlfile /reports/$SHORTNAME.html
+    --jsonfile /reports/$SHORTNAME.json
     --local "{{ item }}"
   environment:
-    SCANNER_USER: "{{ aquascan.user }}"
-    SCANNER_PASS: "{{ aquascan.pass }}"
+    SCANNER_USER: "{{ aqua_scanner_user }}"
+    SCANNER_PASS: "{{ aqua_scanner_pass }}"
+    SHORTNAME: "{{ item.split(':')[-2].split('/')[-1] }}"
   register: scan_raw
   with_items: "{{ docker_images_to_scan }}"
   failed_when: false
 
 - name: Parse results to set max_score per image
-  set_fact:
-    scan_results: >-
-      {
-      {% for image, report in dict(docker_images_to_scan | zip(scan_raw.results | map(attribute='stdout'))).iteritems() %}
-      {%   set max_score = (report |from_json).vulnerability_summary.max_score %}
-      "{{ image }}": "{{max_score }}"
-      {%- if not loop.last %},{% endif %}
-      {% endfor %}
-      }
+  shell: cat {{ reports_dir }}/$SHORTNAME.json | jq -c -r "[..|objects|select(.nvd_score? or .vendor_score?) | .nvd_score, .vendor_score] | max"
+  environment:
+    SCANNER_USER: "{{ aqua_scanner_user }}"
+    SCANNER_PASS: "{{ aqua_scanner_pass }}"
+    SHORTNAME: "{{ item.split(':')[-2].split('/')[-1] }}"
+  register: scan_results
+  with_items: "{{ docker_images_to_scan }}"
+
+- name: Return scan results back to zuul
+  zuul_return:
+    data: 
+      scan_results: "{{ docker_images_to_scan | zip(scan_results.results | map(attribute='stdout')) | list }}"
+  delegate_to: localhost
 
 - name: Assert that all images pass minimum security threshold
   assert:
     that:
-      - "{{ item.value < max_security_threshold }}"
-    msg: "Image {{ item.key }} has at least one critical vulnerability. Max score was: {{ item.value }}"
-  with_dict: "{{ scan_results }}"
+      - "{{ item.1 != -1 }}"
+    msg: "Image {{ item.0 }} does not have a score assessed by Aqua Scan. This image will be skipped."
+  loop: "{{ docker_images_to_scan | zip(scan_results.results | map(attribute='stdout')) | list }}"
+  #with_dict: "{{ dict(docker_images_to_scan | zip(scan_results | map(attribute='stdout'))) | items }}"
+  ignore_errors: yes
+
+- name: Assert that all images pass minimum security threshold
+  assert:
+    that:
+      - "{{ item.1 < max_security_threshold }}"
+    msg: "Image {{ item.0 }} has at least one critical vulnerability. Max score was: {{ item.1 }}"
+  loop: "{{ docker_images_to_scan | zip(scan_results.results | map(attribute='stdout')) | list }}"
+
 

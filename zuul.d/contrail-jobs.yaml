@@ -195,7 +195,7 @@
 - job:
     name: contrail-security-scan-rhel-queens
     parent: contrail-security-scan-base
-    run: playbooks/contrail-security-scan-rhel-queens/run.yaml
+    run: playbooks/contrail-security-scan-base/run.yaml
     vars:
       openstack_version: queens
     timeout: 10800
