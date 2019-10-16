@@ -48,6 +48,7 @@
     WORKSPACE: '{{ ansible_env.HOME }}'
     ZUUL_CHANGES: '{{ zuul.ref }}'
     ZUUL_PROJECT: '{{ zuul.project.short_name }}'
+    RELEASE_TYPE: '{{ release_type }}'
   register: unittest_target
   failed_when: unittest_target.rc != 0
   become: true
