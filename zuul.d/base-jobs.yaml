@@ -175,7 +175,7 @@
     vars:
       aquasec_version: "4.2"
       max_security_threshold: "7.0"
-    nodeset: ubuntu-systest-c-multinode
+    nodeset: worker-centos-7
 
 - job:
     name: build-third-party-rpms-base
