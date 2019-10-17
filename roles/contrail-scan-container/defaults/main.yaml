@@ -1,3 +1,10 @@
 max_security_threshold: "7.0"
 reports_dir: /tmp/scan_reports
 aquascan_version: 4.2
+
+contrail_version: >-
+  {%- if zuul.change is defined -%}
+    {{ zuul.change }}-{{ zuul.patchset }}
+  {%- else -%}
+    {{ packaging.docker_version }}
+  {%- endif -%}

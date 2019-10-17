@@ -10,7 +10,7 @@
     sort |
     xargs -I _ bash -c
     'curl -s -k http://{{ nexus.fqdn }}:{{ nexus.registry.tungsten_ci }}/v2/_/tags/list |
-    jq -c -r "select(.tags[] | contains(\"{{ packaging.version.branch }}\")) | .name" | sort | uniq'
+    jq -c -r "select(.tags[] | contains(\"{{ contrail_version }}\")) | .name" | sort | uniq'
   args:
     warn: False
   register: matching_images
@@ -19,7 +19,7 @@
   set_fact:
      docker_images_to_scan: >-
        {{ docker_images_to_scan | default([]) + [
-       nexus.fqdn ~ ":" ~ nexus.registry.tungsten_ci ~ "/" ~ item ~ ":" ~ packaging.version.branch] }}
+       nexus.fqdn ~ ":" ~ nexus.registry.tungsten_ci ~ "/" ~ item ~ ":" ~ contrail_version] }}
   with_items: "{{ matching_images.stdout_lines }}"
 
 - name: Pull images required to test
