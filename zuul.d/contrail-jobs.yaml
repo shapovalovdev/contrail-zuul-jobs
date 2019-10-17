@@ -23,6 +23,13 @@
       - docs/.*
       - README.md
       - specs/.*
+- job:
+    name: contrail-vnc-security-scan-centos74
+    parent: contrail-security-scan-base
+    run: playbooks/contrail-security-scan-base/run.yaml
+    vars:
+      openstack_version: queens
+    timeout: 7200
 
 - job:
     name: contrail-sanity-centos7-kolla-ocata
@@ -198,7 +205,7 @@
     run: playbooks/contrail-security-scan-base/run.yaml
     vars:
       openstack_version: queens
-    timeout: 10800
+    timeout: 7200
 
 - job:
     name: build-third-party-rpms-centos7
