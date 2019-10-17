@@ -23,6 +23,7 @@
       - docs/.*
       - README.md
       - specs/.*
+
 - job:
     name: contrail-vnc-security-scan-centos74
     parent: contrail-security-scan-base
