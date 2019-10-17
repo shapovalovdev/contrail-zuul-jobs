@@ -2,7 +2,6 @@ import os
 import re
 
 from ansible.module_utils.basic import AnsibleModule
-from datetime import datetime
 
 ANSIBLE_METADATA = {
     'metadata_version': '1.1',
@@ -43,7 +42,6 @@ def main():
     branch = zuul['branch']
     if not version_branch_regex.match(branch):
         branch = 'master'
-    date = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
     version = dict()
     if branch == 'master':
@@ -58,7 +56,7 @@ def main():
         docker_version = version['upstream']
 
     if release_type == ReleaseType.CONTINUOUS_INTEGRATION:
-        # Versioning in CI consists of change id, pachset and date
+        # Versioning in CI consists of change id and pachset
         change = zuul['change']
         patchset = zuul['patchset']
         version['distrib'] = "ci{change}.{patchset}".format(
@@ -69,10 +67,8 @@ def main():
         else:
             docker_version = "{}-latest".format(version['public'])
     elif release_type == ReleaseType.NIGHTLY:
-        if not build_number:
-            build_number = date
-        version['distrib'] = "{}".format(build_number)
-        docker_version = '{}-{}'.format(docker_version, build_number)
+        version['distrib'] = "{}".format(ReleaseType.NIGHTLY)
+        docker_version = '{}-{}'.format(docker_version, ReleaseType.NIGHTLY)
     else:
         module.fail_json(
             msg="Unknown release_type: %s" % (release_type,), **result
