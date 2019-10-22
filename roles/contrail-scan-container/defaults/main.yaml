@@ -3,8 +3,11 @@ reports_dir: /tmp/scan_reports
 aquascan_version: 4.2
 
 contrail_version: >-
+  {% if ansible_distribution == 'RedHat' %}
+  {% set containers_tag_prefix = 'rhel-' %}
+  {% endif %}
   {%- if zuul.change is defined -%}
-    {{ zuul.change }}-{{ zuul.patchset }}
+    {{ containers_tag_prefix | default('') }}{{ zuul.change }}-{{ zuul.patchset }}
   {%- else -%}
-    {{ packaging.docker_version }}
+    {{ containers_tag_prefix | default('') }}{{ packaging.docker_version }}
   {%- endif -%}
