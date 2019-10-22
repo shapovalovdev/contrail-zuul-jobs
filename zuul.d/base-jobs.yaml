@@ -167,7 +167,7 @@
 
 - job:
     name: contrail-security-scan-base
-    parent: contrail-sanity-base
+    parent: contrail-base2
     description: |
       Base job for using AquaScan to check for security vulnerabilities
       in built containers.
