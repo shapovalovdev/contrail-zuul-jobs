@@ -7,13 +7,9 @@
   debug:
     msg: |
       # Node Information
-      Hostname: {{ hostvars[item]['ansible_hostname']|default('unknown') }}
-      Provider: {{ hostvars[item]['nodepool']['provider'] }}
-      Label: {{ hostvars[item]['nodepool']['label'] }}
-      {% if hostvars[item]['nodepool']['interface_ip'] is defined %}
-      Interface IP: {{ hostvars[item]['nodepool']['interface_ip'] }}
-      {% endif %}
-  loop: "{{ query('inventory_hostnames', 'all,!localhost') }}"
+      Hostname: {{ hostvars[inventory_hostname]['ansible_hostname']|default('unknown') }}
+      Provider: {{ hostvars[inventory_hostname]['nodepool']['provider'] }}
+      Label: {{ hostvars[inventory_hostname]['nodepool']['label'] }}
   ignore_errors: yes
 
 - name: Load contrail packaging variables
@@ -27,6 +23,12 @@
 - name: DBG packaging
   debug:
     var: packaging
+
+- name: install required packages
+  package:
+    name: git
+    state: present
+  become: true
 
 - name: Return contrail_packaging variable back to zuul
   zuul_return:
