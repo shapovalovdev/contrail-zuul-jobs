@@ -3,6 +3,19 @@
   debug:
     msg: "release_type: {{ release_type }} build_number: {{ build_number | default(omit) }} openstack_version: {{ openstack_version | default(omit) }}"
 
+- name: Print node information
+  debug:
+    msg: |
+      # Node Information
+      Hostname: {{ hostvars[item]['ansible_hostname']|default('unknown') }}
+      Provider: {{ hostvars[item]['nodepool']['provider'] }}
+      Label: {{ hostvars[item]['nodepool']['label'] }}
+      {% if hostvars[item]['nodepool']['interface_ip'] is defined %}
+      Interface IP: {{ hostvars[item]['nodepool']['interface_ip'] }}
+      {% endif %}
+  loop: "{{ query('inventory_hostnames', 'all,!localhost') }}"
+  ignore_errors: yes
+
 - name: Load contrail packaging variables
   contrail_packaging:
     zuul: "{{ zuul }}"
