@@ -3,15 +3,6 @@
   debug:
     msg: "release_type: {{ release_type }} build_number: {{ build_number | default(omit) }} openstack_version: {{ openstack_version | default(omit) }}"
 
-- name: Print node information
-  debug:
-    msg: |
-      # Node Information
-      Hostname: {{ hostvars[inventory_hostname]['ansible_hostname']|default('unknown') }}
-      Provider: {{ hostvars[inventory_hostname]['nodepool']['provider'] }}
-      Label: {{ hostvars[inventory_hostname]['nodepool']['label'] }}
-  ignore_errors: yes
-
 - name: Load contrail packaging variables
   contrail_packaging:
     zuul: "{{ zuul }}"
