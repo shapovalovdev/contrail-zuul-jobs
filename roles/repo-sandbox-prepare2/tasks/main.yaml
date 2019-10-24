@@ -19,6 +19,7 @@
   package:
     name: python-lxml
     state: present
+  become: true
 
 - name: Create CI & snapshot manifests
   generate_manifest:
