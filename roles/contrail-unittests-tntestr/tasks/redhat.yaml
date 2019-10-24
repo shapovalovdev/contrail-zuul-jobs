@@ -7,7 +7,6 @@
   with_items:
     - yum-utils
     - automake
-    - linux-headers-generic
     - python-lxml
     - scons
     - unzip
