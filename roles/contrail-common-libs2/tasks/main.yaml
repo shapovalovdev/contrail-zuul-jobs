@@ -15,15 +15,6 @@
   debug:
     var: packaging
 
-- name: Reload ansible facts
-  setup:
-
-- name: install required packages
-  package:
-    name: git
-    state: present
-  become: true
-
 - name: Return contrail_packaging variable back to zuul
   zuul_return:
     data:
