@@ -1,12 +1,19 @@
 ---
+
 - name: install yum-utils
   yum:
     name: '{{ item }}'
     state: 'present'
   with_items:
     - yum-utils
+    - automake
+    - build-essential
+    - linux-headers-generic
+    - python-lxml
+    - scons
+    - unzip
+    - wget
   become: true
-
 
 - name: enable EPEL repository (RedHat)
   command: 'yum-config-manager --enable epel'
