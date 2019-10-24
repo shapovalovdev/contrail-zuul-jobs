@@ -15,6 +15,9 @@
   debug:
     var: packaging
 
+- name: Reload ansible facts
+  setup:
+
 - name: install required packages
   package:
     name: git
@@ -26,4 +29,3 @@
     data:
       contrail_packaging: "{{ packaging }}"
   delegate_to: localhost
-
