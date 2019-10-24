@@ -6,7 +6,7 @@
     state: 'present'
   with_items:
     - yum-utils
-    - automake
+    - make
     - python-lxml
     - scons
     - unzip
