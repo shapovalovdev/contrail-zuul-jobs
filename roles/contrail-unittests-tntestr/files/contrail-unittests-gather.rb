@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'json'
 
-exit(0) if ENV["ZUUL_CHANGES"] !~ /refs\/changes\/([^^]*)$/
+exit(0) if ENV["RELEASE_TYPE"] != "nightly" && ENV["ZUUL_CHANGES"] !~ /refs\/changes\/([^^]*)$/
 change_set = $1
 
 STDERR.puts "contrail-unittest-gather.rb: Choosing tests to execute\n"

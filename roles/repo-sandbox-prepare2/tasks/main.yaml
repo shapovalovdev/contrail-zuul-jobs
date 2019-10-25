@@ -5,6 +5,12 @@
     - "{{ ansible_distribution_release }}.yaml"
     - "{{ ansible_os_family|lower }}.yaml"
 
+- name: install required packages
+  package:
+    name: git
+    state: present
+  become: true
+
 - name: Create directory for the sandbox
   file:
     path: "{{ packaging.target_dir }}"
@@ -19,6 +25,7 @@
   package:
     name: python-lxml
     state: present
+  become: true
 
 - name: Create CI & snapshot manifests
   generate_manifest:

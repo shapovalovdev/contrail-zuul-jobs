@@ -2,7 +2,6 @@ import os
 import re
 
 from ansible.module_utils.basic import AnsibleModule
-from datetime import datetime
 
 ANSIBLE_METADATA = {
     'metadata_version': '1.1',
@@ -17,7 +16,7 @@ result = dict(
 )
 
 MASTER_RELEASE = '5.2.0'
-version_branch_regex = re.compile(r'^(master)|(R\d+\.\d+(\.\d+)?(\.x)?)$')
+version_branch_regex = re.compile(r'^(master)|^(R\d?)|(R\d+\.\d+(\.\d+)?(\.x)?)$')
 
 
 class ReleaseType(object):
@@ -43,7 +42,6 @@ def main():
     branch = zuul['branch']
     if not version_branch_regex.match(branch):
         branch = 'master'
-    date = datetime.now().strftime("%Y%m%d%H%M%S")
 
     version = dict()
     if branch == 'master':
@@ -58,19 +56,19 @@ def main():
         docker_version = version['upstream']
 
     if release_type == ReleaseType.CONTINUOUS_INTEGRATION:
-        # Versioning in CI consists of change id, pachset and date
+        # Versioning in CI consists of change id and pachset
         change = zuul['change']
         patchset = zuul['patchset']
         version['distrib'] = "ci{change}.{patchset}".format(
-            change=change, patchset=patchset, date=date
+            change=change, patchset=patchset
         )
         if zuul['pipeline'] not in ['gate', 'experimental-sanity']:
             docker_version = "{change}-{patchset}".format(change=change, patchset=patchset)
         else:
             docker_version = "{}-latest".format(version['public'])
     elif release_type == ReleaseType.NIGHTLY:
-        version['distrib'] = "{}".format(build_number)
-        docker_version = '{}-{}'.format(docker_version, build_number)
+        version['distrib'] = "{}".format(ReleaseType.NIGHTLY)
+        docker_version = '{}-{}'.format(docker_version, ReleaseType.NIGHTLY)
     else:
         module.fail_json(
             msg="Unknown release_type: %s" % (release_type,), **result

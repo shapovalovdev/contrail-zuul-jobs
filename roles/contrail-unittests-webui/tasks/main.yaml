@@ -42,7 +42,7 @@
   become: true
   become_user: root
   with_items:
-    - nodejs-0.10.35
+    - nodejs-0.10.48
     - python-lxml
     - wget
     - google-chrome-stable

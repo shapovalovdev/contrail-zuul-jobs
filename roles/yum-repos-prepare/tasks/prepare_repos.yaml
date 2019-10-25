@@ -17,6 +17,14 @@
     - name: add OpenStack repos to repos_add
       set_fact:
         repos_add: "{{ repos_add }} + {{ openstack_repos_add }}"
+      when:
+        - disable_subscription_manager
+
+    - name: add OpenStack repos to rhsm_repos_add
+      set_fact:
+        rhsm_repos_add: "{{ rhsm_repos_add }} + {{ openstack_repos_add | map(attribute='repo') | list }}"
+      when:
+        - not disable_subscription_manager
 
 - when:
     - cloud_orchestrator == 'kubernetes'
@@ -28,15 +36,35 @@
     - name: add OpenShift repos to repos_add
       set_fact:
         repos_add: '{{ repos_add }} + {{ openshift_repos_add }}'
+      when:
+        - disable_subscription_manager
 
-- name: prepare centos
+    - name: add OpenStack repos to rhsm_repos_add
+      set_fact:
+        repos_add: "{{ rhsm_repos_add }} + {{ openshift_repos_add || map(attribute='repo') | list }}"
+      when:
+        - not disable_subscription_manager
+
+- name: prepare rhel/centos
   become: yes
   become_user: root
   when: 'ansible_os_family == "RedHat"'
   block:
     - name: disable subscription-manager on RHEL
       command: subscription-manager config --rhsm.manage_repos=0
-      when: 'ansible_distribution == "RedHat"'
+      when:
+        - disable_subscription_manager
+        - 'ansible_distribution == "RedHat"'
+    - name: enable requested subscription-manager repos
+      command: >-
+        subscription-manager repos
+        {% for repo in rhsm_repos_add %}
+        --enable={{ repo }}
+        {% endfor %}
+      when:
+        - 'ansible_distribution == "RedHat"'
+        - not disable_subscription_manager
+        - rhsm_repos_add | length > 0
     - name: remove the upstream yum repos
       yum_repository:
         name: "{{ item.name }}"
@@ -66,22 +94,14 @@
         description: Docker CE Stable mirror
         file: docker-ce
         baseurl: "{{ repos_baseurl }}/docker-ce-stable"
-        enabled: yes
+        enabled: "{{ use_docker_repo }}"
         gpgcheck: yes
         gpgkey: https://download.docker.com/linux/centos/gpg
-    - name: prepare third party source cache yum Nexus repo
+    - name: prepare third party grouped cache yum Nexus repo
       yum_repository:
-        name: tpc-source
-        description: Contrail third-party source dependencies
-        file: tpc-source
-        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc_source }}/"
-        enabled: yes
-        gpgcheck: no
-    - name: prepare third party binary cache yum Nexus repo
-      yum_repository:
-        name: tpc-binary
-        description: Contrail third-party binary dependencies
-        file: tpc-binary
-        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc_binary }}/"
+        name: tpc
+        description: Contrail third-party grouped dependencies
+        file: tpc
+        baseurl: "{{ repos_baseurl }}/{{ nexus.repos.yum_tpc }}/"
         enabled: yes
         gpgcheck: no

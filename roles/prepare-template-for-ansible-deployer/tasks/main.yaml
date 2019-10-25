@@ -13,6 +13,24 @@
   become: true
   with_items: '{{ package_dependecies }}'
 
+- name: prepare requests and PyYAML - remove them by yum
+  package:
+    name: '{{ item }}'
+    state: absent
+  become: true
+  with_items:
+    - python-requests
+    - PyYAML
+
+- name: prepare requests and PyYAML - install them by pip
+  pip:
+    name: '{{ item }}'
+    state: latest
+  become: true
+  with_items:
+    - requests
+    - PyYAML
+
 - name: Copy template for testrunner
   template:
     src: "instances.yaml.j2"

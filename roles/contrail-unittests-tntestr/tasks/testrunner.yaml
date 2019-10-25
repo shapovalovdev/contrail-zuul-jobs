@@ -4,7 +4,7 @@
   shell: |
     # workaround for failed sandesh tests
     jobs=8
-    if [[ '{{ item }}' == 'sandesh:test' ]]; then jobs=1 ; fi
+    if [[ '{{ item }}' == 'sandesh:test' || '{{ item }}' == 'cat:test' ]]; then jobs=1 ; fi
     set -eo pipefail
     timeout 3600s {{ venv_dir}}/bin/tntestr --debug --less-strict -j $jobs {{ item }} | tee -a {{ tntestr_output }}
   args:

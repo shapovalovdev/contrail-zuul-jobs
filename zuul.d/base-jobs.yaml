@@ -107,7 +107,7 @@
     name: contrail-sanity-base
     parent: contrail-base2
     description: |
-      Configures hosts and log uplaod for sanity tests.
+      Configures hosts and log upload for sanity tests.
       Requires run playbook and nodeset.
     pre-run: playbooks/contrail-sanity-base/pre.yaml
     post-run: playbooks/contrail-sanity-base/post.yaml
@@ -164,6 +164,18 @@
     nodeset: ubuntu-systest-c-multinode
     roles:
       - zuul: Juniper/contrail-helm-deployer
+
+- job:
+    name: contrail-security-scan-base
+    parent: contrail-base2
+    description: |
+      Base job for using AquaScan to check for security vulnerabilities
+      in built containers.
+    pre-run: playbooks/contrail-security-scan-base/pre.yaml
+    vars:
+      aquasec_version: "4.2"
+      max_security_threshold: "7.0"
+    nodeset: worker-centos-7
 
 - job:
     name: build-third-party-rpms-base

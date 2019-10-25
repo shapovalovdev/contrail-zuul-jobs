@@ -2,3 +2,7 @@
 openstack_version: ocata
 cloud_orchestrator: 'openstack'
 openshift_version: '3.9'
+
+disable_subscription_manager: true
+use_docker_repo: true
+rhsm_repos_add: []

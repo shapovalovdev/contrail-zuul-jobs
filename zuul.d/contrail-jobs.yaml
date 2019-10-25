@@ -25,6 +25,14 @@
       - specs/.*
 
 - job:
+    name: contrail-vnc-security-scan-centos74
+    parent: contrail-security-scan-base
+    run: playbooks/contrail-security-scan-base/run.yaml
+    vars:
+      openstack_version: queens
+    timeout: 7200
+
+- job:
     name: contrail-sanity-centos7-kolla-ocata
     parent: contrail-sanity-kolla-base
     required-projects:
@@ -68,6 +76,17 @@
     vars:
       openstack_version: rocky
       kolla_version: rocky
+    nodeset: c7-systest-c-aio
+
+- job:
+    name: contrail-sanity-centos7-k8s-manifest-aio
+    branches: master
+    parent: contrail-sanity-base
+    run: playbooks/tf-devstack-k8s-manifests-aio/run.yaml
+    description:
+      A job that first deploys tf-devstack using k8s-manifests and runs sanity test suite on setup CI.
+    required-projects: 
+      - tungstenfabric/tf-devstack    
     nodeset: c7-systest-c-aio
 
 - job:
@@ -191,6 +210,14 @@
       openstack_version: ocata
       test_target: ci_sanity
     timeout: 10800
+
+- job:
+    name: contrail-security-scan-rhel-queens
+    parent: contrail-security-scan-base
+    run: playbooks/contrail-security-scan-base/run.yaml
+    vars:
+      openstack_version: queens
+    timeout: 7200
 
 - job:
     name: build-third-party-rpms-centos7

@@ -17,16 +17,14 @@
       file:
         path: '{{ results_dir }}'
         state: 'directory'
-        owner: 'zuul'
-        mode: 0755
+        mode: 0777
 
     - name: move Scons output to UT results dir
       copy:
         src: '{{ unittest_target_file }}'
         dest: '{{ results_dir }}/scons_describe_tests.txt'
         remote_src: true
-        owner: 'zuul'
-        mode: 0644
+        mode: 0666
 
     - name: create unittest submodules list
       convert_target_list:

@@ -1,6 +1,8 @@
 # {{ ansible_managed }}
 [global]
-timeout = 60
-index-url = {{ pypi_mirror }}
-trusted-host = {{ mirror_fqdn }}
-extra-index-url = {{ wheel_mirror }}
+timeout = {{ pip_timeout }}
+retries = {{ pip_retries }}
+# Disabled until Nexus mirror bug is fixed
+# index-url = {{ pypi_mirror }}
+# trusted-host = {{ mirror_fqdn }}
+# extra-index-url = {{ wheel_mirror }}
