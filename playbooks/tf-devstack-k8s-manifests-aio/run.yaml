@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  roles:
+    - acquire-ip-address
+
+- hosts: deployment
+  roles:
+    - tf-devstack-deployment-k8s-manifests-aio
+

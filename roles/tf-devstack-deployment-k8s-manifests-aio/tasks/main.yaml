@@ -1,0 +1,8 @@
+---
+
+- name: Run startup.sh
+  command: '{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/tungstenfabric/tf-devstack/k8s_manifests/startup.sh'
+  environment:    
+    CONTROLLER_NODES:  "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"
+    AGENT_NODES:  "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"  
+  
