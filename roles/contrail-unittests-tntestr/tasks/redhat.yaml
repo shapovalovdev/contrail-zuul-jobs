@@ -12,6 +12,7 @@
     - unzip
     - wget
     - bzip2
+    - patch
   become: true
 
 - name: enable EPEL repository (RedHat)
