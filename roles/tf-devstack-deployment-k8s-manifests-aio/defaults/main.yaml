@@ -1,0 +1,5 @@
+---
+
+devstack_prj_name: "tf-devstack"
+devstack_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", devstack_prj_name) | map(attribute="src_dir") | list | first }}'
+
