@@ -11,6 +11,7 @@
     - scons
     - unzip
     - wget
+    - bzip2
   become: true
 
 - name: enable EPEL repository (RedHat)
