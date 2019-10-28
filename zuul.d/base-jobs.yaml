@@ -171,7 +171,7 @@
     description: |
       Base job for using AquaScan to check for security vulnerabilities
       in built containers.
-    pre-run: playbooks/contrail-security-scan-base/pre.yaml
+    run: playbooks/contrail-security-scan-base/run.yaml
     vars:
       aquasec_version: "4.2"
       max_security_threshold: "7.0"

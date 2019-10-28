@@ -1,5 +1,0 @@
----
-
-- name: Placeholder
-  debug:
-    msg: Possibly there will be a pre-task here
