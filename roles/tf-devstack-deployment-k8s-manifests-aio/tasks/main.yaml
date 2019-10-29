@@ -2,7 +2,4 @@
 
 - name: Run startup.sh
   command: '{{ devstack_dir }}/k8s_manifests/startup.sh'
-  environment:    
-    CONTROLLER_NODES:  "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"
-    AGENT_NODES:  "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"
 
