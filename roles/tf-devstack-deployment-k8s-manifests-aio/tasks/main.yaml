@@ -2,4 +2,11 @@
 
 - name: Run startup.sh
   command: '{{ devstack_dir }}/k8s_manifests/startup.sh'
+  environment:
+    CONTAINER_BUILDER_DIR: {{ container_builder_dir }}
+    CONTRAIL_REGISTRY: "{{ contrail_docker_registry }}"    
+    CONTAINER_TAG: "{{ container_tag }}"
+    CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
+    CONTROL_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_ens4.ipv4.address }}"
+    AGENT_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
 
