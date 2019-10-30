@@ -86,7 +86,8 @@
     description:
       A job that first deploys tf-devstack using k8s-manifests and runs sanity test suite on setup CI.
     required-projects: 
-      - tungstenfabric/tf-devstack    
+      - tungstenfabric/tf-devstack
+      - Juniper/contrail-container-builder
     nodeset: c7-systest-c-aio
 
 - job:
