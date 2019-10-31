@@ -1,10 +1,12 @@
 ---
 
 devstack_prj_name: "tf-devstack"
-container_builder_prj_name: "contrail-container-builder"
 devstack_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", devstack_prj_name) | map(attribute="src_dir") | list | first }}'
-container_builder_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", container_builder_prj_name) | map(attribute="src_dir") | list | first }}'
 contrail_docker_registry: "{{ nexus.fqdn }}:{{ nexus.registry.tungsten_ci }}"
-conrail_version: "{{ contrail_packaging.repo_name }}"
-container_tag: "{{ conrail_version }}""
+contrail_version: "{{ contrail_packaging.repo_name }}"
+{% if ansible_distribution == 'RedHat' %}
+{% set containers_tag = 'rhel-' + contrail_version %}
+{% elif ansible_distribution == 'CentOS' %}
+{% set containers_tag = contrail_version %}
+{% endif %}
 
