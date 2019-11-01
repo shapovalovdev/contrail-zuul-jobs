@@ -1,5 +1,21 @@
 ---
 
+- name: Install net-tools Ubuntu
+  apt:
+    name: {{ item }}
+    state: latest
+  with_items:
+    - net-tools
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install net-tools RHEL
+  yum: 
+    name: {{ item }}
+    state: latest
+  with_items:
+    - net-tools
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
 - name: Run startup.sh
   command: './k8s_manifests/startup.sh'
   args:
