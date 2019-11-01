@@ -1,4 +1,4 @@
-- hosts: deployment
+- hosts: all
   roles:
     - contrail-scan-container
 
