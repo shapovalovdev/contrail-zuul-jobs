@@ -2,7 +2,7 @@
 
 - name: Install net-tools Ubuntu
   apt:
-    name: {{ item }}
+    name: "{{ item }}"
     state: latest
   with_items:
     - net-tools
@@ -10,7 +10,7 @@
 
 - name: Install net-tools RHEL
   yum: 
-    name: {{ item }}
+    name: "{{ item }}"
     state: latest
   with_items:
     - net-tools
