@@ -3,10 +3,10 @@
 devstack_prj_name: "tf-devstack"
 devstack_dir: '{{ ansible_env.HOME }}/{{ zuul.projects | selectattr("short_name", "equalto", devstack_prj_name) | map(attribute="src_dir") | list | first }}'
 contrail_docker_registry: "{{ nexus.fqdn }}:{{ nexus.registry.tungsten_ci }}"
-contrail_version: "{{ contrail_packaging.repo_name }}"
-{% if ansible_distribution == 'RedHat' %}
-{% set containers_tag = 'rhel-' + contrail_version %}
-{% elif ansible_distribution == 'CentOS' %}
-{% set containers_tag = contrail_version %}
-{% endif %}
+contrail_version: >-
+{%- if zuul.change is defined -%}
+{{ zuul.change }}-{{ zuul.patchset }}
+{%- else -%}
+{{ packaging.docker_version }}
+{%- endif -%}
 
