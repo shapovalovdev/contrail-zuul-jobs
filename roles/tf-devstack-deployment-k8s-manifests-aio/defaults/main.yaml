@@ -6,4 +6,3 @@ contrail_docker_registry: "{{ nexus.fqdn }}:{{ nexus.registry.tungsten_ci }}"
 contrail_version: "{% if zuul.change is defined %}{{ zuul.change }}-{{ zuul.patchset }}{% else %}{{ packaging.docker_version }}{% endif %}"
 container_tag_suffix: "{% if ansible_distribution == 'RedHat' %}-rhel{% elif ansible_distribution == 'CentOS' %}-centos{% endif %}"
 container_tag: "{{ contrail_version}}{{ container_tag_suffix }}"
-

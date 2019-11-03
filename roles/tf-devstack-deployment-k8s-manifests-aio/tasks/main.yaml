@@ -1,33 +1,15 @@
 ---
 
-- name: Install net-tools Ubuntu
-  apt:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - net-tools
-    - iproute2
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
-- name: Install net-tools RHEL
-  yum: 
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - net-tools
-    - iproute
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+- name: debug
+  debug:
+    msg: "{{ groups }}"
 
 - name: debug
   debug:
-    msg: "{{ groups['control-plane'] }}"
-
-- name: debug
-  debug:
-    msg: "{{ hostvars[groups['control-plane'][0]] }}"
+    msg: "{{ hostvars }}"
 
 - name: Run startup.sh
-  command: './k8s_manifests/startup.sh'
+  shell: "./k8s_manifests/startup.sh"
   args:
     chdir: "{{ devstack_dir }}"
   environment:
@@ -35,4 +17,3 @@
     CONTRAIL_CONTAINER_TAG: "{{ container_tag }}"
     CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
     AGENT_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
-
