@@ -1,15 +1,7 @@
 ---
 
-- name: debug
-  debug:
-    msg: "{{ groups }}"
-
-- name: debug
-  debug:
-    msg: "{{ hostvars }}"
-
 - name: Run startup.sh
-  shell: "./k8s_manifests/startup.sh"
+  shell: "PATH=/usr/sbin:$PATH ./k8s_manifests/startup.sh"
   args:
     chdir: "{{ devstack_dir }}"
   environment:
