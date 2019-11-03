@@ -18,6 +18,14 @@
     - iproute
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
+- name: debug
+  debug:
+    msg: "{{ groups['control-plane'] }}"
+
+- name: debug
+  debug:
+    msg: "{{ hostvars[groups['control-plane'][0]] }}"
+
 - name: Run startup.sh
   command: './k8s_manifests/startup.sh'
   args:
@@ -25,6 +33,6 @@
   environment:
     CONTRAIL_REGISTRY: "{{ contrail_docker_registry }}"
     CONTRAIL_CONTAINER_TAG: "{{ container_tag }}"
-    # CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
-    # AGENT_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
+    CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
+    AGENT_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
 
