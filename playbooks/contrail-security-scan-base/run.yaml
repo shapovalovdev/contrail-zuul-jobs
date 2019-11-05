@@ -1,4 +1,5 @@
 - hosts: deployment
   roles:
+    - yum-repos-prepare
     - contrail-scan-container
 
