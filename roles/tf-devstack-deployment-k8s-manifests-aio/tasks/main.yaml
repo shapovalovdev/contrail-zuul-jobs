@@ -1,8 +1,11 @@
 ---
 
 - name: Run startup.sh
-  command: '{{ ansible_env.HOME }}/src/{{ zuul.project.canonical_hostname }}/tungstenfabric/tf-devstack/k8s_manifests/startup.sh'
-  environment:    
-    CONTROLLER_NODES:  "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"
-    AGENT_NODES:  "{{ hostvars[groups['control-plane'][0]].ansible_eth1.ipv4.address }}"  
-  
+  shell: "PATH=/usr/sbin:$PATH ./k8s_manifests/startup.sh"
+  args:
+    chdir: "{{ devstack_dir }}"
+  environment:
+    CONTAINER_REGISTRY: "{{ contrail_docker_registry }}"
+    CONTRAIL_CONTAINER_TAG: "{{ container_tag }}"
+    CONTROLLER_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"
+    AGENT_NODES: "{{ hostvars[groups['control-plane'][0]].ansible_default_ipv4.address }}"

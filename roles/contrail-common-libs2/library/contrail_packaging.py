@@ -48,12 +48,10 @@ def main():
         version['upstream'] = MASTER_RELEASE
         version['public'] = 'master'
         version['branch'] = 'master'
-        docker_version = 'master'
     else:
         version['upstream'] = branch[1:]
         version['public'] = branch[1:]
         version['branch'] = branch
-        docker_version = version['upstream']
 
     if release_type == ReleaseType.CONTINUOUS_INTEGRATION:
         # Versioning in CI consists of change id and pachset
@@ -62,13 +60,13 @@ def main():
         version['distrib'] = "ci{change}.{patchset}".format(
             change=change, patchset=patchset
         )
-        if zuul['pipeline'] not in ['gate', 'experimental-sanity']:
+        if zuul['pipeline'] != 'gate':
             docker_version = "{change}-{patchset}".format(change=change, patchset=patchset)
         else:
             docker_version = "{}-latest".format(version['public'])
     elif release_type == ReleaseType.NIGHTLY:
         version['distrib'] = "{}".format(ReleaseType.NIGHTLY)
-        docker_version = '{}-{}'.format(docker_version, ReleaseType.NIGHTLY)
+        docker_version = '{}-{}'.format(version['public'], ReleaseType.NIGHTLY)
     else:
         module.fail_json(
             msg="Unknown release_type: %s" % (release_type,), **result

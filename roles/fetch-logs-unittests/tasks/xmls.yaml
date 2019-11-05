@@ -4,8 +4,7 @@
   file:
     path: '{{ results_dir }}/{{ item.xml_path | dirname }}'
     state: 'directory'
-    owner: 'zuul'
-    mode: 0755
+    mode: 0777
   with_items: '{{ matched_targets }}'
   no_log: true
 
@@ -35,8 +34,7 @@
     src: '{{ item.1.path }}.gz'
     dest: '{{ results_dir }}/{{ item.0.item.xml_path | dirname }}/'
     remote_src: true
-    owner: 'zuul'
-    mode: 0644
+    mode: 0666
   with_subelements:
     - '{{ xml_report_file.results }}'
     - 'files'

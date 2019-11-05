@@ -3,7 +3,7 @@ provider_config:
   bms:
     ssh_user: root
     ssh_private_key: /root/.ssh/id_rsa
-    domainsuffix: vexxhost.local
+    domainsuffix: {{ hostvars[groups['control-plane'][0]].ansible_domain }}
 
 docker_mirror_url: http://{{ nexus.fqdn }}/repository/docker-ce-stable/
 
